@@ -1,0 +1,108 @@
+package iceman11a.fuelcraft;
+
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
+
+import iceman11a.fuelcraft.fcBlocks.fcBlocks;
+import iceman11a.fuelcraft.fcItems.fcItems;
+import iceman11a.fuelcraft.block.Blockfc;
+import iceman11a.fuelcraft.proxys.ServerProxy;
+import iceman11a.fuelcraft.config.ModConfig;
+import iceman11a.fuelcraft.events.EventHelper;
+
+
+import iceman11a.fuelcraft.Util.Details;
+import iceman11a.fuelcraft.Util.GameLogger;
+import iceman11a.fuelcraft.Util.Recpies;
+import iceman11a.fuelcraft.world.Dimension;
+import iceman11a.fuelcraft.world.WorldTypesTutorial;
+import iceman11a.fuelcraft.world.biomes.ModBiomes;
+import iceman11a.fuelcraft.fluid.descelfluid;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import iceman11a.fuelcraft.fluid.fcfluids;
+import iceman11a.fuelcraft.machines.FCMachines;
+import iceman11a.fuelcraft.machines.FCMachines;
+
+@Mod(modid = "fc", name = "Fuelcraft", version = "1.0 Alpha")
+public class fuelcraft {
+	
+	
+	@Instance(Details.MODID)
+	public static fuelcraft instance;
+	
+	@SidedProxy(clientSide="iceman11a.fuelcraft.proxys.ClientProxy", serverSide="iceman11a.fuelcraft.proxys.ServerProxy")
+	private static ServerProxy proxy;	
+	
+	
+	@EventHandler
+	public void preInit(FMLPreInitializationEvent event)
+	{
+		
+		GameLogger.createFolders();
+		ModConfig.createTutConfig();
+		fcItems.RegisterItems();
+		fcBlocks.registerBlocks();
+		
+		fcfluids.RegisterDiesel();
+		FCMachines.RegisterBlocks();
+		
+				
+	}
+	
+	@EventHandler
+	public void init(FMLInitializationEvent event)
+	{
+		
+		Blockfc.loadBlocks();
+		ModBiomes.registerWithBiomeDictionary();
+		Dimension.registerWorldProvider();
+		Dimension.registerDimensions();
+		WorldTypesTutorial.addCustomWorldTypes();
+		EventHelper.registerEvents();
+		
+		proxy.registerRenderers();
+				
+		//GameRegistry.addRecipe(new ItemStack(Corbamite, 6), new Object[]{"RCR","","", 'C', Items.coal, 'R', Items.redstone});
+	}
+	
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent event)
+	{
+		
+	}
+	
+	
+	public static CreativeTabs tabFuelcraft = new CreativeTabs("tabFuelcraft"){
+		@Override
+		public Item getTabIconItem(){
+			return new ItemStack(fcItems.Corbamite).getItem();
+		}
+	};
+	
+	
+	@EventHandler
+	public static void postLoad(FMLPostInitializationEvent evt){
+		Recpies.registerRecpies();
+		  
+		
+		
+	}
+	
+}
