@@ -9,7 +9,8 @@ public class Blockfc {
 	
 	public static Block lightStone, lightForestGrass, lightForestDirt, lightLog, lightLeaves, lightSapling, effectLeaves;
 	public static BlockModPortal lightPortal;
-	public static BlockModFire lightFire;	
+	public static BlockModFire lightFire;
+	
 	/**
 	 * Load Blocks.
 	 */
@@ -24,6 +25,9 @@ public class Blockfc {
 		lightSapling = new BlockModLightSapling("lightSapling", "light");
 		lightPortal = new BlockModPortal("lightPortal");
 		lightFire  = new BlockModFire("lightFire");
+		
+		
+		
 		registerBlocks();
 	}
 

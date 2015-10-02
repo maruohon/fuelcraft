@@ -20,8 +20,7 @@ import iceman11a.fuelcraft.block.Blockfc;
 import iceman11a.fuelcraft.proxys.ServerProxy;
 import iceman11a.fuelcraft.config.ModConfig;
 import iceman11a.fuelcraft.events.EventHelper;
-
-
+import iceman11a.fualcraft.Generation.OreGeneration;
 import iceman11a.fuelcraft.Util.Details;
 import iceman11a.fuelcraft.Util.GameLogger;
 import iceman11a.fuelcraft.Util.Recpies;
@@ -37,10 +36,12 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import iceman11a.fuelcraft.fluid.fcfluids;
+import iceman11a.fuelcraft.handler.FuelHandler;
 import iceman11a.fuelcraft.machines.FCMachines;
 import iceman11a.fuelcraft.machines.FCMachines;
+import iceman11a.fuelcraft.fcBlocks.fcBlocks;
 
-@Mod(modid = "fc", name = "Fuelcraft", version = "1.0 Alpha")
+@Mod(modid = Details.MID, name =  Details.MODID, version = Details.VERSION)
 public class fuelcraft {
 	
 	
@@ -63,6 +64,8 @@ public class fuelcraft {
 		fcfluids.RegisterDiesel();
 		FCMachines.RegisterBlocks();
 		
+		GameRegistry.registerWorldGenerator(new OreGeneration(), 0);
+		
 				
 	}
 	
@@ -70,7 +73,7 @@ public class fuelcraft {
 	public void init(FMLInitializationEvent event)
 	{
 		
-		Blockfc.loadBlocks();
+		Blockfc.loadBlocks();		
 		ModBiomes.registerWithBiomeDictionary();
 		Dimension.registerWorldProvider();
 		Dimension.registerDimensions();
@@ -85,7 +88,7 @@ public class fuelcraft {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{
-		
+		GameRegistry.registerFuelHandler(new FuelHandler());
 	}
 	
 	

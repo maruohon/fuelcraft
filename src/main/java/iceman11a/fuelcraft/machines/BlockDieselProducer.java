@@ -3,12 +3,17 @@ package iceman11a.fuelcraft.machines;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import iceman11a.fuelcraft.fuelcraft;
+import iceman11a.fuelcraft.tileentity.TileEntityDieselProducer;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 
 public class BlockDieselProducer extends Block {
 	
@@ -96,4 +101,109 @@ public class BlockDieselProducer extends Block {
 	        this.icons[5] = iconRegister.registerIcon(ReferenceTextures.getTileName(this.blockName) + ".side");
 	    }
 	    
+	    @Override
+	    public boolean hasTileEntity() {
+	    	return true;
+	    }
+	    
+	    //@Override
+	    //public TileEntity createNewTileEntity(World world, int metadata) {
+	    //	 return new TileEntityDieselProducer();
+	    //}
+	    
+	    /*
+	    
+	    @Override
+	    public void readFromNBT(NBTTagCompound nbt)
+	    {
+	        super.readFromNBT(nbt);
+	        this.readFromNBTCustom(nbt); // This call needs to be at the super-most custom TE class
+	    }
+
+	    @Override
+	    public void writeToNBT(NBTTagCompound nbt)
+	    {
+	        super.writeToNBT(nbt);
+
+	        nbt.setByte("Rotation", (byte)this.rotation);
+
+	        if (this.ownerUUID != null && this.ownerName != null)
+	        {
+	            NBTHelperPlayer.writePlayerTagToNBT(nbt, this.ownerUUID.getMostSignificantBits(), this.ownerUUID.getLeastSignificantBits(), this.ownerName, this.isPublic);
+	        }
+	    }
+	    
+	    */
+	    
+	    /*
+	    @Override
+	    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase livingBase, ItemStack stack)
+	    {
+	        TileEntity te = world.getTileEntity(x, y, z);
+	        if (te == null || (te instanceof TileEntityDieselProducer) == false)
+	        {
+	            return;
+	        }
+
+	        int yaw = MathHelper.floor_double((double)(livingBase.rotationYaw * 4.0f / 360.0f) + 0.5d) & 3;
+
+	        TileEntityDieselProducer teeu = (TileEntityDieselProducer)te;
+
+	        NBTTagCompound nbt = stack.getTagCompound();
+
+	        // If the ItemStack has a tag containing saved TE data, restore it to the just placed block/TE
+	        if (nbt != null && nbt.hasKey("TileEntityData", Constants.NBT.TAG_COMPOUND) == true)
+	        {
+	            teeu.readFromNBTCustom(nbt.getCompoundTag("TileEntityData"));
+	        }
+	        else
+	        {
+	            /*
+	            if (livingBase.rotationPitch > 45.0f)
+	            {
+	                rot = (rot << 4) | 1;
+	            }
+	            else if (livingBase.rotationPitch < -45.0f)
+	            {
+	                rot = rot << 4;
+	            }
+	            else
+	            {
+	            */
+	                // {DOWN, UP, NORTH, SOUTH, WEST, EAST}
+	                /*switch (yaw)
+	                {
+	                    case 0: yaw = 2; break;
+	                    case 1: yaw = 5; break;
+	                    case 2: yaw = 3; break;
+	                    case 3: yaw = 4; break;
+	                    default:
+	                }
+	            //}
+	    		
+	            if (livingBase instanceof EntityPlayer)
+	            {
+	                teeu.setOwner((EntityPlayer)livingBase);
+	            }
+
+	            if (teeu instanceof TileEntityDieselProducerInventory && stack.hasDisplayName())
+	            {
+	                ((TileEntityDieselProducerInventory)teeu).setInventoryName(stack.getDisplayName());
+	            }
+	        }
+
+	        // Update the rotation
+	        if (yaw < YAW_TO_DIRECTION.length)
+	        {
+	            teeu.setRotation(YAW_TO_DIRECTION[yaw]);
+	        }
+
+	        Machine machine = Machine.getMachine(this.blockIndex, world.getBlockMetadata(x, y, z));
+	        if (machine != null)
+	        {
+	            machine.onBlockPlacedBy(world, x, y, z, livingBase, stack);
+	        }
+	        
+	    }
+	    */
 }
