@@ -1,4 +1,4 @@
-package iceman11a.fualcraft.Generation;
+package iceman11a.fuelcraft.Generation;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -9,7 +9,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 import java.util.Random;
 import cpw.mods.fml.common.IWorldGenerator;
-import iceman11a.fuelcraft.fcBlocks.fcBlocks;
+import iceman11a.fuelcraft.block.fcblock.fcBlocks;
 
 
 public class OreGeneration implements  IWorldGenerator {
@@ -35,19 +35,19 @@ public class OreGeneration implements  IWorldGenerator {
 	}
 
 	public void generateEnd(World world, Random rand, int x, int z) {
-		generateOre(fcBlocks.BlockCorbamiteOre, world, rand, x, z, 16, 16, 4+rand.nextInt(6), 25, 38, 100);
+		generateOre(fcBlocks.blockCorbamiteOre, world, rand, x, z, 16, 16, 4+rand.nextInt(6), 25, 38, 100);
 	}
 	
 	public void generateOverworld(World world, Random rand, int x, int z) {
-		generateOre(fcBlocks.BlockCorbamiteOre, world, rand, x, z, 16, 16, 4+rand.nextInt(6), 25, 38, 100);
+		generateOre(fcBlocks.blockCorbamiteOre, world, rand, x, z, 16, 16, 4+rand.nextInt(6), 25, 38, 100);
 	}
 	
 	public void generateNether(World world, Random rand, int x, int z) {
-		generateOre(fcBlocks.BlockCorbamiteOre, world, rand, x, z, 16, 16, 4+rand.nextInt(6), 25, 38, 100);
+		generateOre(fcBlocks.blockCorbamiteOre, world, rand, x, z, 16, 16, 4+rand.nextInt(6), 25, 38, 100);
 	}
 	
 	public void generateLight(World world, Random rand, int x, int z) {
-		generateOre(fcBlocks.BlockCorbamiteOre, world, rand, x, z, 16, 16, 4+rand.nextInt(6), 25, 38, 100);
+		generateOre(fcBlocks.blockCorbamiteOre, world, rand, x, z, 16, 16, 4+rand.nextInt(6), 25, 38, 100);
 	}
 	
 	public void generateOre(Block block, World world, Random random, int blockXPos, int blockZPos, int maxX, int maxZ, int maxVienSize, int chanceToSpawn, int minY, int maxY) {

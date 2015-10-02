@@ -12,15 +12,13 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
-
-import iceman11a.fuelcraft.fcBlocks.fcBlocks;
 import iceman11a.fuelcraft.fcItems.fcItems;
 import iceman11a.fuelcraft.block.Blockfc;
+import iceman11a.fuelcraft.block.fcblock.fcBlocks;
 import iceman11a.fuelcraft.proxys.ServerProxy;
 import iceman11a.fuelcraft.config.ModConfig;
 import iceman11a.fuelcraft.events.EventHelper;
-import iceman11a.fualcraft.Generation.OreGeneration;
+import iceman11a.fuelcraft.Generation.OreGeneration;
 import iceman11a.fuelcraft.Util.Details;
 import iceman11a.fuelcraft.Util.GameLogger;
 import iceman11a.fuelcraft.Util.Recpies;
@@ -38,8 +36,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import iceman11a.fuelcraft.fluid.fcfluids;
 import iceman11a.fuelcraft.handler.FuelHandler;
 import iceman11a.fuelcraft.machines.FCMachines;
-import iceman11a.fuelcraft.machines.FCMachines;
-import iceman11a.fuelcraft.fcBlocks.fcBlocks;
+
 
 @Mod(modid = Details.MID, name =  Details.MODID, version = Details.VERSION)
 public class fuelcraft {
@@ -59,7 +56,7 @@ public class fuelcraft {
 		GameLogger.createFolders();
 		ModConfig.createTutConfig();
 		fcItems.RegisterItems();
-		fcBlocks.registerBlocks();
+		fcBlocks.RegisterBlocks();
 		
 		fcfluids.RegisterDiesel();
 		FCMachines.RegisterBlocks();

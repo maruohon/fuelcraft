@@ -1,6 +1,7 @@
 item.Corbamite.name=Corbamite
 item.CorCoal.name=CorCaol
 tile.BlockCorbamiteOre.name=CorbamiteOre
+tile.BlockCorCoalOre.name=CorCoalOre
 tile.lightForestGrass.name=Light Forest Grass
 tile.lightForestDirt.name=Light Forest Dirt
 tile.lightStone.name=Light Stone

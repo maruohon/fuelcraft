@@ -1,4 +1,4 @@
-package iceman11a.fuelcraft.fcBlocks;
+package iceman11a.fuelcraft.block.fcblock;
 
 import java.util.Random;
 import iceman11a.fuelcraft.fuelcraft;
@@ -6,12 +6,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import iceman11a.fuelcraft.fcItems.fcItems;
-import iceman11a.fuelcraft.fcBlocks.fcBlocks;
 import net.minecraft.init.Blocks;
 
 public class BlockCorbamiteOre extends Block {
 
-	public BlockCorbamiteOre(String name, float hardness, Material material) {
+	public BlockCorbamiteOre(Material material) {
 		super(material);
 		
 		
