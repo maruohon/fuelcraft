@@ -18,13 +18,13 @@ import iceman11a.fuelcraft.block.fcblock.fcBlocks;
 import iceman11a.fuelcraft.proxys.ServerProxy;
 import iceman11a.fuelcraft.config.ModConfig;
 import iceman11a.fuelcraft.events.EventHelper;
-import iceman11a.fuelcraft.Generation.OreGeneration;
 import iceman11a.fuelcraft.Util.Details;
 import iceman11a.fuelcraft.Util.GameLogger;
 import iceman11a.fuelcraft.Util.Recpies;
 import iceman11a.fuelcraft.world.Dimension;
 import iceman11a.fuelcraft.world.WorldTypesTutorial;
 import iceman11a.fuelcraft.world.biomes.ModBiomes;
+import iceman11a.fuelcraft.worldgen.OreGeneration;
 import iceman11a.fuelcraft.fluid.descelfluid;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -41,6 +41,8 @@ import iceman11a.fuelcraft.machines.FCMachines;
 @Mod(modid = Details.MID, name =  Details.MODID, version = Details.VERSION)
 public class fuelcraft {
 	
+	
+	public static OreGeneration eventWorldGen = new OreGeneration();
 	
 	@Instance(Details.MODID)
 	public static fuelcraft instance;
@@ -61,8 +63,6 @@ public class fuelcraft {
 		fcfluids.RegisterDiesel();
 		FCMachines.RegisterBlocks();
 		
-		GameRegistry.registerWorldGenerator(new OreGeneration(), 0);
-		
 				
 	}
 	
@@ -78,6 +78,8 @@ public class fuelcraft {
 		EventHelper.registerEvents();
 		
 		proxy.registerRenderers();
+		
+		GameRegistry.registerWorldGenerator(eventWorldGen,  0);
 				
 		//GameRegistry.addRecipe(new ItemStack(Corbamite, 6), new Object[]{"RCR","","", 'C', Items.coal, 'R', Items.redstone});
 	}
@@ -85,7 +87,7 @@ public class fuelcraft {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{
-		GameRegistry.registerFuelHandler(new FuelHandler());
+		GameRegistry.registerFuelHandler(new FuelHandler());				
 	}
 	
 	
