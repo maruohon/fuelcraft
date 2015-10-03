@@ -77,7 +77,8 @@ public class fuelcraft {
 		WorldTypesTutorial.addCustomWorldTypes();
 		EventHelper.registerEvents();
 		
-		proxy.registerRenderers();
+		proxy.registerRenderers(); // This is blank, Nothing in it
+		proxy.registerTileEntities();
 		
 		GameRegistry.registerWorldGenerator(eventWorldGen,  0);
 				

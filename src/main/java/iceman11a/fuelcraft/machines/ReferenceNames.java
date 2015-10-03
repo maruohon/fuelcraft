@@ -4,9 +4,9 @@ import iceman11a.fuelcraft.Util.Details;
 
 public class ReferenceNames {
 
-    public static final String NAME_TILE_DIESEL_PRODUCER    = "dieselproducer";
-    public static final String NAME_TILE_CORBAMITORE        = "corbamiteore";
-    public static final String NAME_TILE_CORCOALORE         = "corcoalore";
+    public static final String NAME_TILE_ENTITY_DIESEL_PRODUCER    = "dieselproducer";
+    public static final String NAME_TILE_CORBAMITORE       		   = "corbamiteore";
+    public static final String NAME_TILE_CORCOALORE        		   = "corcoalore";
     
     //Any thing beline this comment is not used
     
