@@ -6,12 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
 import iceman11a.fuelcraft.gui.*;
-//import fi.dy.masa.enderutilities.gui.client.GuiHandyBag;
-//import fi.dy.masa.enderutilities.inventory.ContainerHandyBag;
-//import fi.dy.masa.enderutilities.inventory.InventoryItemModular;
-//import fi.dy.masa.enderutilities.item.ItemHandyBag;
-//import fi.dy.masa.enderutilities.reference.ReferenceGuiIds;
-//import fi.dy.masa.enderutilities.tileentity.TileEntityEnderUtilitiesInventory;
+import iceman11a.fuelcraft.tileentity.TileEntityFuelCraftInventory;
 
 
 

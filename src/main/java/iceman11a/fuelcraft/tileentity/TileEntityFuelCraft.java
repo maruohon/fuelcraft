@@ -10,7 +10,6 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.Constants;
-import iceman11a.fuelcraft.Util.nbt.NBTHelperPlayer;
 
 
 public class TileEntityFuelCraft  extends TileEntity {
@@ -71,15 +70,7 @@ public class TileEntityFuelCraft  extends TileEntity {
 
     public void readFromNBTCustom(NBTTagCompound nbt)
     {
-        this.rotation = nbt.getByte("Rotation");
-
-        NBTHelperPlayer playerData = NBTHelperPlayer.getPlayerDataFromNBT(nbt);
-        if (playerData != null)
-        {
-            this.ownerUUID = new UUID(playerData.playerUUIDMost, playerData.playerUUIDLeast);
-            this.ownerName = playerData.playerName;
-            this.isPublic = playerData.isPublic;
-        }
+        this.rotation = nbt.getByte("Rotation");        
     }
 
     @Override
@@ -95,11 +86,7 @@ public class TileEntityFuelCraft  extends TileEntity {
         super.writeToNBT(nbt);
 
         nbt.setByte("Rotation", (byte)this.rotation);
-
-        if (this.ownerUUID != null && this.ownerName != null)
-        {
-            NBTHelperPlayer.writePlayerTagToNBT(nbt, this.ownerUUID.getMostSignificantBits(), this.ownerUUID.getLeastSignificantBits(), this.ownerName, this.isPublic);
-        }
+       
     }
 
     public NBTTagCompound getDescriptionPacketTag(NBTTagCompound nbt)

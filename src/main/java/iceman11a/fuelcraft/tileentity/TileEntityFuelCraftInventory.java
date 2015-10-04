@@ -9,222 +9,214 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import iceman11a.fuelcraft.*;
+import iceman11a.fuelcraft.fuelcraft;
 import iceman11a.fuelcraft.Util.Details;
-
-//import fi.dy.masa.enderutilities.gui.client.GuiEnderUtilitiesInventory;
-//import fi.dy.masa.enderutilities.inventory.ContainerTileEntityInventory;
+import iceman11a.fuelcraft.gui.GuiFuelCraftInventory;
+import iceman11a.fuelcraft.inventory.ContainerTileEntityInventory;
 import iceman11a.fuelcraft.machines.Reference;
 
-public class TileEntityFuelCraftInventory extends TileEntityFuelCraft implements IInventory{
+public class TileEntityFuelCraftInventory extends TileEntityFuelCraft implements IInventory
+{
+    protected String customInventoryName;
+    protected ItemStack[] itemStacks;
 
-	
-	 protected String customInventoryName;
-	 protected ItemStack[] itemStacks;
-	 
-	 public void setInventoryName(String name)
-	    {
-	        this.customInventoryName = name;
-	    }
 
-	    @Override
-	    public boolean hasCustomInventoryName()
-	    {
-	        return this.customInventoryName != null && this.customInventoryName.length() > 0;
-	    }
+    public TileEntityFuelCraftInventory(String name)
+    {
+        super(name);
+    }
 
-	    @Override
-	    public String getInventoryName()
-	    {
-	        return this.hasCustomInventoryName() ? this.customInventoryName : Details.MID + ".container." + this.tileEntityName;
-	    }
+    public void setInventoryName(String name)
+    {
+        this.customInventoryName = name;
+    }
 
-	    @Override
-	    public int getSizeInventory()
-	    {
-	        if (this.itemStacks != null)
-	        {
-	            return this.itemStacks.length;
-	        }
+    @Override
+    public boolean hasCustomInventoryName()
+    {
+        return this.customInventoryName != null && this.customInventoryName.length() > 0;
+    }
 
-	        return 0;
-	    }
-	    
-	    /*
+    @Override
+    public String getInventoryName()
+    {
+        return this.hasCustomInventoryName() ? this.customInventoryName : Details.MID + ".container." + this.tileEntityName;
+    }
 
-	    @Override
-	    public void readFromNBTCustom(NBTTagCompound nbt)
-	    {
-	        super.readFromNBTCustom(nbt);
+    @Override
+    public int getSizeInventory()
+    {
+        if (this.itemStacks != null)
+        {
+            return this.itemStacks.length;
+        }
 
-	        if (nbt.hasKey("CustomName", Constants.NBT.TAG_STRING) == true)
-	        {
-	            this.customInventoryName = nbt.getString("CustomName");
-	        }
+        return 0;
+    }
 
-	        NBTTagList nbtTagList = nbt.getTagList("Items", Constants.NBT.TAG_COMPOUND);
-	        int numSlots = nbtTagList.tagCount();
-	        this.itemStacks = new ItemStack[this.getSizeInventory()];
+    @Override
+    public void readFromNBTCustom(NBTTagCompound nbt)
+    {
+        super.readFromNBTCustom(nbt);
 
-	        for (int i = 0; i < numSlots; ++i)
-	        {
-	            NBTTagCompound tag = nbtTagList.getCompoundTagAt(i);
-	            byte slotNum = tag.getByte("Slot");
+        if (nbt.hasKey("CustomName", Constants.NBT.TAG_STRING) == true)
+        {
+            this.customInventoryName = nbt.getString("CustomName");
+        }
 
-	            if (slotNum >= 0 && slotNum < this.itemStacks.length)
-	            {
-	                this.itemStacks[slotNum] = ItemStack.loadItemStackFromNBT(tag);
-	            }
-	            else
-	            {
-	                EnderUtilities.logger.warn("Invalid slot number when reading inventory from NBT: " + slotNum + " (max: " + (this.itemStacks.length - 1) + ")");
-	            }
-	        }
-	    }
+        NBTTagList nbtTagList = nbt.getTagList("Items", Constants.NBT.TAG_COMPOUND);
+        int numSlots = nbtTagList.tagCount();
+        this.itemStacks = new ItemStack[this.getSizeInventory()];
 
-	    @Override
-	    public void writeToNBT(NBTTagCompound nbt)
-	    {
-	        super.writeToNBT(nbt);
+        for (int i = 0; i < numSlots; ++i)
+        {
+            NBTTagCompound tag = nbtTagList.getCompoundTagAt(i);
+            byte slotNum = tag.getByte("Slot");
 
-	        if (this.hasCustomInventoryName())
-	        {
-	            nbt.setString("CustomName", this.customInventoryName);
-	        }
+            if (slotNum >= 0 && slotNum < this.itemStacks.length)
+            {
+                this.itemStacks[slotNum] = ItemStack.loadItemStackFromNBT(tag);
+            }
+            else
+            {
+                fuelcraft.logger.warn("Invalid slot number when reading inventory from NBT: " + slotNum + " (max: " + (this.itemStacks.length - 1) + ")");
+            }
+        }
+    }
 
-	        NBTTagList nbtTagList = new NBTTagList();
-	        int numSlots = (this.itemStacks != null ? this.itemStacks.length : 0);
+    @Override
+    public void writeToNBT(NBTTagCompound nbt)
+    {
+        super.writeToNBT(nbt);
 
-	        for (int i = 0; i < numSlots; ++i)
-	        {
-	            if (this.itemStacks[i] != null)
-	            {
-	                NBTTagCompound tag = new NBTTagCompound();
-	                tag.setByte("Slot", (byte)i);
-	                this.itemStacks[i].writeToNBT(tag);
-	                nbtTagList.appendTag(tag);
-	            }
-	        }
+        if (this.hasCustomInventoryName())
+        {
+            nbt.setString("CustomName", this.customInventoryName);
+        }
 
-	        nbt.setTag("Items", nbtTagList);
-	    }
-	    
-	    */
+        NBTTagList nbtTagList = new NBTTagList();
+        int numSlots = (this.itemStacks != null ? this.itemStacks.length : 0);
 
-	    @Override
-	    public ItemStack getStackInSlot(int slotNum)
-	    {
-	        return itemStacks[slotNum];
-	    }
+        for (int i = 0; i < numSlots; ++i)
+        {
+            if (this.itemStacks[i] != null)
+            {
+                NBTTagCompound tag = new NBTTagCompound();
+                tag.setByte("Slot", (byte)i);
+                this.itemStacks[i].writeToNBT(tag);
+                nbtTagList.appendTag(tag);
+            }
+        }
 
-	    /**
-	     * Removes from an inventory slot (slotNum) up to a specified number (maxAmount) of items and returns them in a new stack.
-	     */
-	    @Override
-	    public ItemStack decrStackSize(int slotNum, int maxAmount)
-	    {
-	        if (this.itemStacks[slotNum] != null)
-	        {
-	            ItemStack stack;
+        nbt.setTag("Items", nbtTagList);
+    }
 
-	            if (this.itemStacks[slotNum].stackSize >= maxAmount)
-	            {
-	                stack = this.itemStacks[slotNum].splitStack(maxAmount);
+    @Override
+    public ItemStack getStackInSlot(int slotNum)
+    {
+        return itemStacks[slotNum];
+    }
 
-	                if (this.itemStacks[slotNum].stackSize <= 0)
-	                {
-	                    this.itemStacks[slotNum] = null;
-	                }
-	            }
-	            else
-	            {
-	                stack = this.itemStacks[slotNum];
-	                this.itemStacks[slotNum] = null;
-	            }
+    /**
+     * Removes from an inventory slot (slotNum) up to a specified number (maxAmount) of items and returns them in a new stack.
+     */
+    @Override
+    public ItemStack decrStackSize(int slotNum, int maxAmount)
+    {
+        if (this.itemStacks[slotNum] != null)
+        {
+            ItemStack stack;
 
-	            return stack;
-	        }
+            if (this.itemStacks[slotNum].stackSize >= maxAmount)
+            {
+                stack = this.itemStacks[slotNum].splitStack(maxAmount);
 
-	        return null;
-	    }
+                if (this.itemStacks[slotNum].stackSize <= 0)
+                {
+                    this.itemStacks[slotNum] = null;
+                }
+            }
+            else
+            {
+                stack = this.itemStacks[slotNum];
+                this.itemStacks[slotNum] = null;
+            }
 
-	    @Override
-	    public ItemStack getStackInSlotOnClosing(int slotNum)
-	    {
-	        ItemStack stack = this.itemStacks[slotNum];
-	        this.setInventorySlotContents(slotNum, null);
-	        return stack;
-	    }
+            return stack;
+        }
 
-	    @Override
-	    public void setInventorySlotContents(int slotNum, ItemStack stack)
-	    {
-	        if (stack != null && stack.stackSize > this.getInventoryStackLimit())
-	        {
-	            stack.stackSize = this.getInventoryStackLimit();
-	        }
+        return null;
+    }
 
-	        this.itemStacks[slotNum] = stack;
-	    }
+    @Override
+    public ItemStack getStackInSlotOnClosing(int slotNum)
+    {
+        ItemStack stack = this.itemStacks[slotNum];
+        this.setInventorySlotContents(slotNum, null);
+        return stack;
+    }
 
-	    @Override
-	    public int getInventoryStackLimit()
-	    {
-	        return 64;
-	    }
+    @Override
+    public void setInventorySlotContents(int slotNum, ItemStack stack)
+    {
+        if (stack != null && stack.stackSize > this.getInventoryStackLimit())
+        {
+            stack.stackSize = this.getInventoryStackLimit();
+        }
 
-	    @Override
-	    public boolean isUseableByPlayer(EntityPlayer player)
-	    {
-	        if (this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) != this)
-	        {
-	            return false;
-	        }
+        this.itemStacks[slotNum] = stack;
+    }
 
-	        if (player.getDistanceSq((double)this.xCoord + 0.5d, (double)this.yCoord + 0.5d, (double)this.zCoord + 0.5d) >= 64.0d)
-	        {
-	            return false;
-	        }
+    @Override
+    public int getInventoryStackLimit()
+    {
+        return 64;
+    }
 
-	        return true;
-	    }
+    @Override
+    public boolean isUseableByPlayer(EntityPlayer player)
+    {
+        if (this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) != this)
+        {
+            return false;
+        }
 
-	    @Override
-	    public void openInventory()
-	    {
-	    }
+        if (player.getDistanceSq((double)this.xCoord + 0.5d, (double)this.yCoord + 0.5d, (double)this.zCoord + 0.5d) >= 64.0d)
+        {
+            return false;
+        }
 
-	    @Override
-	    public void closeInventory()
-	    {
-	    }
+        return true;
+    }
 
-	    @Override
-	    public boolean isItemValidForSlot(int slotNum, ItemStack itemStack)
-	    {
-	        return true;
-	    }
+    @Override
+    public void openInventory()
+    {
+    }
 
-	    public ContainerTileEntityInventory getContainer(InventoryPlayer inventory)
-	    {
-	        return null;
-	    }
+    @Override
+    public void closeInventory()
+    {
+    }
 
-	    @SideOnly(Side.CLIENT)
-	    public GuiEnderUtilitiesInventory getGui(InventoryPlayer inventoryPlayer)
-	    {
-	        return null;
-	    }
+    @Override
+    public boolean isItemValidForSlot(int slotNum, ItemStack itemStack)
+    {
+        return true;
+    }
 
-	    public void performGuiAction(int action, int element)
-	    {
-	    }
+    public ContainerTileEntityInventory getContainer(InventoryPlayer inventory)
+    {
+        return null;
+    }
 
-		@Override
-		public void markDirty() {
-			// TODO Auto-generated method stub
-			
-		}
-	}
-	
+    @SideOnly(Side.CLIENT)
+    public GuiFuelCraftInventory getGui(InventoryPlayer inventoryPlayer)
+    {
+        return null;
+    }
+
+    public void performGuiAction(int action, int element)
+    {
+    }
 }

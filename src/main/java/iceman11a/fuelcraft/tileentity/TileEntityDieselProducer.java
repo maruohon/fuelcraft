@@ -9,7 +9,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.Constants;
 
-public class TileEntityDieselProducer extends TileEntity
+public class TileEntityDieselProducer extends TileEntityFuelCraftInventory
 {
     protected String tileEntityName;
     protected int rotation;
@@ -21,24 +21,9 @@ public class TileEntityDieselProducer extends TileEntity
 
     public TileEntityDieselProducer(String name)
     {
-        super();
+        super(name);
         this.rotation = 0;
         this.tileEntityName = name;
-    }
-
-    public String getTEName()
-    {
-        return this.tileEntityName;
-    }
-
-    public void setRotation(int rot)
-    {
-        this.rotation = rot;
-    }
-
-    public int getRotation()
-    {
-        return this.rotation;
     }
 
     @Override
@@ -46,7 +31,7 @@ public class TileEntityDieselProducer extends TileEntity
     {
         super.readFromNBT(nbt);
 
-        this.rotation = nbt.getByte("Rotation");
+        //this.rotation = nbt.getByte("Rotation");
     }
 
     @Override
@@ -54,18 +39,9 @@ public class TileEntityDieselProducer extends TileEntity
     {
         super.writeToNBT(nbt);
 
-        nbt.setByte("Rotation", (byte)this.rotation);
+        //nbt.setByte("Rotation", (byte)this.rotation);
     }
-
-    @Override
-    public Packet getDescriptionPacket()
-    {
-        NBTTagCompound nbt = new NBTTagCompound();
-        nbt.setByte("r", (byte)(this.getRotation() & 0x07));
-
-        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 0, nbt);
-    }
-
+        
     @Override
     public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet)
     {
@@ -77,11 +53,6 @@ public class TileEntityDieselProducer extends TileEntity
         }
 
         this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-    }
-
-    @Override
-    public String toString()
-    {
-        return this.getClass().getSimpleName() + "(x=" + xCoord + ",y=" + yCoord + ",z=" + zCoord + ")@" + System.identityHashCode(this);
-    }
+    }   
+    
 }

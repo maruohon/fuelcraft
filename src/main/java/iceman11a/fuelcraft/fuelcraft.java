@@ -1,11 +1,16 @@
 package iceman11a.fuelcraft;
 
+import org.apache.logging.log4j.Logger;
+
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -48,6 +53,7 @@ public class fuelcraft {
 	
 	@Instance(Details.MODID)
 	public static fuelcraft instance;
+	public static Logger logger;
 	
 	@SidedProxy(clientSide="iceman11a.fuelcraft.proxys.ClientProxy", serverSide="iceman11a.fuelcraft.proxys.ServerProxy")
 	private static ServerProxy proxy;	
@@ -56,6 +62,8 @@ public class fuelcraft {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
+		
+		logger = event.getModLog();
 		
 		GameLogger.createFolders();
 		ModConfig.createTutConfig();

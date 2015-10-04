@@ -1,29 +1,22 @@
 package iceman11a.fuelcraft.gui;
 
-	
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
-
-import iceman11a.fuelcraft.inventory.ContainerFuelCraftInventory;
 import iceman11a.fuelcraft.inventory.ContainerTileEntityInventory;
-import iceman11a.fuelcraft.tileentity.TileEntityFuelCraftInventory;
 import iceman11a.fuelcraft.machines.ReferenceTextures;
+import iceman11a.fuelcraft.tileentity.TileEntityFuelCraftInventory;
 
-public class GuiDieselProducer extends GuiContainer
+public class GuiFuelCraftInventory extends GuiContainer
 {
-    
-	protected TileEntityFuelCraftInventory te;
+    protected TileEntityFuelCraftInventory te;
     protected ResourceLocation guiTexture;
 
-    public GuiDieselProducer(ContainerTileEntityInventory container, TileEntityFuelCraftInventory te)
+    public GuiFuelCraftInventory(ContainerTileEntityInventory container, TileEntityFuelCraftInventory te)
     {
         super(container);
         this.te = te;
-        this.guiTexture = ReferenceTextures.getGuiTexture("gui." + te.getTEName());
+        this.guiTexture = ReferenceTextures.getGuiTexture("gui.container." + te.getTEName());
     }
 
     @Override
@@ -51,18 +44,4 @@ public class GuiDieselProducer extends GuiContainer
     {
         this.mc.renderEngine.bindTexture(rl);
     }
-    
-    @Override
-    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
-    {
-        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-
-        String s = this.te.hasCustomInventoryName() ? this.te.getInventoryName() : I18n.format(this.te.getInventoryName(), new Object[0]);
-        this.fontRendererObj.drawString(s, this.xSize / 2 - this.fontRendererObj.getStringWidth(s) / 2, 5, 0x404025);
-        this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, 84, 0x404025);
-    }
-
-
 }
-
-
