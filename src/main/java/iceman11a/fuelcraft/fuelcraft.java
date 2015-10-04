@@ -5,6 +5,7 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -34,6 +35,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import iceman11a.fuelcraft.fluid.fcfluids;
+import iceman11a.fuelcraft.gui.GuiHandler;
 import iceman11a.fuelcraft.handler.FuelHandler;
 import iceman11a.fuelcraft.machines.FCMachines;
 
@@ -62,6 +64,8 @@ public class fuelcraft {
 		
 		fcfluids.RegisterDiesel();
 		FCMachines.RegisterBlocks();
+		
+		//NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 		
 				
 	}

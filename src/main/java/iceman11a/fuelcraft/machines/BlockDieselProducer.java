@@ -1,5 +1,7 @@
 package iceman11a.fuelcraft.machines;
 
+import cpw.mods.fml.common.event.FMLMissingMappingsEvent.Action;
+import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import iceman11a.fuelcraft.fuelcraft;
@@ -16,6 +18,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class BlockDieselProducer extends Block {	
 
@@ -131,5 +135,6 @@ public class BlockDieselProducer extends Block {
 	        this.icons[3] = iconRegister.registerIcon(ReferenceTextures.getTileName(this.blockName) + ".side");
 	        this.icons[4] = iconRegister.registerIcon(ReferenceTextures.getTileName(this.blockName) + ".side");
 	        this.icons[5] = iconRegister.registerIcon(ReferenceTextures.getTileName(this.blockName) + ".side");
-	    }
+	    }   
+	    	    
 }
