@@ -6,6 +6,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import iceman11a.fuelcraft.fuelcraft;
 import iceman11a.fuelcraft.tileentity.TileEntityDieselProducer;
+import iceman11a.fuelcraft.tileentity.TileEntityFuelCraft;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -86,6 +87,29 @@ public class BlockDieselProducer extends Block {
 	        }
 	    }
 
+	    @Override
+	    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float offsetX, float offsetY, float offsetZ)
+	    {
+	        PlayerInteractEvent e = new PlayerInteractEvent(player, PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK, x, y, z, side, world);
+	        if (MinecraftForge.EVENT_BUS.post(e) || e.getResult() == Result.DENY || e.useBlock == Result.DENY)
+	        {
+	            return false;
+	        }
+
+	        if (world.isRemote == false)
+	        {
+	            TileEntity te = world.getTileEntity(x, y, z);
+	            if (te == null || te instanceof TileEntityFuelCraft == false)
+	            {
+	                return false;
+	            }
+
+	            player.openGui(fuelcraft.instance, ReferenceGuiIds.GUI_ID_TILE_ENTITY_GENERIC, world, x, y, z);
+	        }
+
+	        return true;
+	    }
+	    
 	    @SideOnly(Side.CLIENT)
 	    @Override
 	    public IIcon getIcon(int side, int meta)

@@ -8,31 +8,23 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import iceman11a.fuelcraft.inventory.ContainerFuelCraftInventory;
 import iceman11a.fuelcraft.inventory.ContainerTileEntityInventory;
+import iceman11a.fuelcraft.tileentity.TileEntityDieselProducer;
 import iceman11a.fuelcraft.tileentity.TileEntityFuelCraftInventory;
 import iceman11a.fuelcraft.machines.ReferenceTextures;
 
-public class GuiDieselProducer extends GuiContainer
+public class GuiDieselProducer extends GuiFuelCraftInventory
 {
     
 	protected TileEntityFuelCraftInventory te;
     protected ResourceLocation guiTexture;
 
-    public GuiDieselProducer(ContainerTileEntityInventory container, TileEntityFuelCraftInventory te)
+    public GuiDieselProducer(ContainerTileEntityInventory container, TileEntityDieselProducer te)
     {
-        super(container);
-        this.te = te;
-        this.guiTexture = ReferenceTextures.getGuiTexture("gui." + te.getTEName());
+        super(container, te);
+        this.te = te;        
     }
-
-    @Override
-    public void drawScreen(int mouseX, int mouseY, float gameTicks)
-    {
-        super.drawScreen(mouseX, mouseY, gameTicks);
-        this.drawTooltips(mouseX, mouseY);
-    }
-
+    
     @Override
     protected void drawGuiContainerBackgroundLayer(float gameTicks, int mouseX, int mouseY)
     {
@@ -41,27 +33,7 @@ public class GuiDieselProducer extends GuiContainer
         int x = (width - xSize) / 2;
         int y = (height - ySize) / 2;
         this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
-    }
-
-    protected void drawTooltips(int mouseX, int mouseY)
-    {
-    }
-
-    protected void bindTexture(ResourceLocation rl)
-    {
-        this.mc.renderEngine.bindTexture(rl);
-    }
-    
-    @Override
-    protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY)
-    {
-        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-
-        String s = this.te.hasCustomInventoryName() ? this.te.getInventoryName() : I18n.format(this.te.getInventoryName(), new Object[0]);
-        this.fontRendererObj.drawString(s, this.xSize / 2 - this.fontRendererObj.getStringWidth(s) / 2, 5, 0x404025);
-        this.fontRendererObj.drawString(I18n.format("container.inventory", new Object[0]), 8, 84, 0x404025);
-    }
-
+    } 
 
 }
 

@@ -11,11 +11,7 @@ public class SlotGeneric extends Slot {
     {
         super(inventory, slot, posX, posY);
     }
-
-    /**
-     * This is for the fuel slot, This lets players add, Corbemite, coal and Charcoal and
-     * Other fuels to the Producer
-     */
+    
     @Override
     public boolean isItemValid(ItemStack stack)
     {

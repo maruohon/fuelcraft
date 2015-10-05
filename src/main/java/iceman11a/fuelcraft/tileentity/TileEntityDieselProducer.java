@@ -1,7 +1,13 @@
 package iceman11a.fuelcraft.tileentity;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import iceman11a.fuelcraft.gui.GuiDieselProducer;
+import iceman11a.fuelcraft.gui.GuiFuelCraftInventory;
+import iceman11a.fuelcraft.inventory.ContainerDieselProducer;
 import iceman11a.fuelcraft.machines.ReferenceNames;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -20,16 +26,32 @@ public class TileEntityDieselProducer extends TileEntityFuelCraftInventory
 
     public TileEntityDieselProducer()
     {
-        this(ReferenceNames.NAME_TILE_ENTITY_DIESEL_PRODUCER);
+    	super(ReferenceNames.NAME_TILE_ENTITY_ENDER_INFUSER);
+        this.itemStacks = new ItemStack[3];
+        
     }
-
-    public TileEntityDieselProducer(String name)
+    
+    /*
+    @Override
+    public ContainerEnderInfuser getContainer(InventoryPlayer inventoryPlayer)
     {
-        super(name);
-        this.rotation = 0;
-        this.tileEntityName = name;
+        return new ContainerEnderInfuser(inventoryPlayer, this);
+    }
+    */
+    
+    @Override
+    public ContainerDieselProducer getContainer(InventoryPlayer inventoryPlayer)
+    {
+        return new ContainerDieselProducer(inventoryPlayer, this);
     }
 
+    @Override
+    @SideOnly(Side.CLIENT)
+    public GuiFuelCraftInventory getGui(InventoryPlayer inventoryPlayer)
+    {
+        return new GuiDieselProducer(this.getContainer(inventoryPlayer), this);
+    }
+    
     @Override
     public void readFromNBT(NBTTagCompound nbt)
     {
@@ -45,20 +67,7 @@ public class TileEntityDieselProducer extends TileEntityFuelCraftInventory
 
         //nbt.setByte("Rotation", (byte)this.rotation);
     }
-        
-    @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet)
-    {
-        NBTTagCompound nbt = packet.func_148857_g();
-
-        if (nbt.hasKey("r") == true)
-        {
-            this.setRotation((byte)(nbt.getByte("r") & 0x07));
-        }
-
-        this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-    } 
-    
+      
     /**
      * Check if the given item works as a fuel source in this furnace
      * @param stack
@@ -66,7 +75,7 @@ public class TileEntityDieselProducer extends TileEntityFuelCraftInventory
      */
     public static boolean isItemFuel(ItemStack stack)
     {
-        return null; // itemContainsFluidFuel(stack) || getItemBurnTime(stack) > 0;
+        return false; // itemContainsFluidFuel(stack) || getItemBurnTime(stack) > 0;
     }
     
 }

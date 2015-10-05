@@ -27,11 +27,11 @@ public class GuiHandler implements IGuiHandler{
 	                TileEntity te = world.getTileEntity(x, y, z);
 	                if (te != null && te instanceof TileEntityFuelCraftInventory)
 	                {
-	                    return ((TileEntityFuelCraftInventory)te).getContainer(player.inventory);
+	                    return ((TileEntityFuelCraftInventory)te).getGui(player.inventory);
 	                }
 	                break;
 
-	            case ReferenceGuiIds.GUI_ID_FUELCAFT_DIESELPRODUCERE:
+	            
 	                
 	            default:
 	        }
@@ -53,11 +53,9 @@ public class GuiHandler implements IGuiHandler{
 	                TileEntity te = world.getTileEntity(x, y, z);
 	                if (te != null && te instanceof TileEntityFuelCraftInventory)
 	                {
-	                    return ((TileEntityFuelCraftInventory)te).getContainer(player.inventory);
+	                    return ((TileEntityFuelCraftInventory)te).getGui(player.inventory);
 	                }
 	                break;
-
-	            case ReferenceGuiIds.GUI_ID_FUELCAFT_DIESELPRODUCERE:
 	                
 	            default:
 	        }	       
