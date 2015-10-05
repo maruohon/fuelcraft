@@ -7,24 +7,61 @@ import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
 import iceman11a.fuelcraft.gui.*;
 import iceman11a.fuelcraft.tileentity.TileEntityFuelCraftInventory;
+import iceman11a.fuelcraft.machines.ReferenceGuiIds;
 
 
 
 public class GuiHandler implements IGuiHandler{
 
 	@Override
-	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+	public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 		// TODO Auto-generated method stub
-		return null;
+		 if (player == null || world == null)
+	        {
+	            return null;
+	        }
+
+	        switch (id)
+	        {
+	            case ReferenceGuiIds.GUI_ID_TILE_ENTITY_GENERIC:
+	                TileEntity te = world.getTileEntity(x, y, z);
+	                if (te != null && te instanceof TileEntityFuelCraftInventory)
+	                {
+	                    return ((TileEntityFuelCraftInventory)te).getContainer(player.inventory);
+	                }
+	                break;
+
+	            case ReferenceGuiIds.GUI_ID_FUELCAFT_DIESELPRODUCERE:
+	                
+	            default:
+	        }
+
+	        return null;
 	}
 
 	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+	public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
 		// TODO Auto-generated method stub
-		return null;
+		 if (player == null || world == null)
+	        {
+	            return null;
+	        }
+
+		 switch (id)
+	        {
+	            case ReferenceGuiIds.GUI_ID_TILE_ENTITY_GENERIC:
+	                TileEntity te = world.getTileEntity(x, y, z);
+	                if (te != null && te instanceof TileEntityFuelCraftInventory)
+	                {
+	                    return ((TileEntityFuelCraftInventory)te).getContainer(player.inventory);
+	                }
+	                break;
+
+	            case ReferenceGuiIds.GUI_ID_FUELCAFT_DIESELPRODUCERE:
+	                
+	            default:
+	        }	       
+
+	        return null;
 	}	
-	
-
-	    	
-
 }
