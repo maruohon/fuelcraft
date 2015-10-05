@@ -15,7 +15,8 @@ public class GuiHandler implements IGuiHandler{
 
 	@Override
 	public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-		// TODO Auto-generated method stub
+		System.out.println("Hello world");
+
 		 if (player == null || world == null)
 	        {
 	            return null;
@@ -24,7 +25,7 @@ public class GuiHandler implements IGuiHandler{
 	        switch (id)
 	        {
 	            case ReferenceGuiIds.GUI_ID_TILE_ENTITY_GENERIC:
-	            	
+	            	System.out.println("Hello world");
 	                TileEntity te = world.getTileEntity(x, y, z);
 	                if (te != null && te instanceof TileEntityFuelCraftInventory)
 	                {
@@ -32,8 +33,7 @@ public class GuiHandler implements IGuiHandler{
 	                }	                
 	                break;
 	                
-	            default:
-	            	System.out.println("Get Server Stuff");
+	            default:	            	
 	        }
 
 	        return null;
@@ -41,7 +41,8 @@ public class GuiHandler implements IGuiHandler{
 
 	@Override
 	public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
-		// TODO Auto-generated method stub
+		System.out.println("Hello world");
+		System.out.println(ReferenceGuiIds.GUI_ID_TILE_ENTITY_GENERIC);
 		 if (player == null || world == null)
 	        {
 	            return null;
@@ -50,7 +51,7 @@ public class GuiHandler implements IGuiHandler{
 		 switch (id)
 	        {
 	            case ReferenceGuiIds.GUI_ID_TILE_ENTITY_GENERIC:
-	            	
+	            	System.out.println("Hello world");
 	                TileEntity te = world.getTileEntity(x, y, z);
 	                if (te != null && te instanceof TileEntityFuelCraftInventory)
 	                {
@@ -59,7 +60,7 @@ public class GuiHandler implements IGuiHandler{
 	                break;
 	                
 	            default:
-	            	System.out.println("Get Server Stuff");
+	            	
 	        }	       
 
 	        return null;

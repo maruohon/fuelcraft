@@ -16,7 +16,7 @@ public class GuiFuelCraftInventory extends GuiContainer
     {
         super(container);
         this.te = te;
-        this.guiTexture = ReferenceTextures.getGuiTexture("gui.container." + te.getTEName());
+        this.guiTexture = ReferenceTextures.getGuiTexture("gui." + te.getTEName());
     }
 
     @Override

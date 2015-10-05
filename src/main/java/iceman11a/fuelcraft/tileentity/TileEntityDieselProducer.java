@@ -22,8 +22,7 @@ import net.minecraftforge.common.util.Constants;
 public class TileEntityDieselProducer extends TileEntityFuelCraftInventory
 {
     protected String tileEntityName;
-    protected int rotation;
-
+    
     public TileEntityDieselProducer()
     {
     	super(ReferenceNames.NAME_TILE_ENTITY_DIESEL_PRODUCER);

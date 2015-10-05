@@ -103,7 +103,7 @@ public class BlockDieselProducer extends Block {
 	            {
 	                return false;
 	            }
-
+	            //System.out.println("Hello world");
 	            player.openGui(fuelcraft.instance, ReferenceGuiIds.GUI_ID_TILE_ENTITY_GENERIC, world, x, y, z);
 	        }
 
