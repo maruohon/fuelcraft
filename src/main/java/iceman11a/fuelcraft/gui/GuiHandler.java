@@ -24,16 +24,16 @@ public class GuiHandler implements IGuiHandler{
 	        switch (id)
 	        {
 	            case ReferenceGuiIds.GUI_ID_TILE_ENTITY_GENERIC:
+	            	
 	                TileEntity te = world.getTileEntity(x, y, z);
 	                if (te != null && te instanceof TileEntityFuelCraftInventory)
 	                {
-	                    return ((TileEntityFuelCraftInventory)te).getGui(player.inventory);
-	                }
+	                    return ((TileEntityFuelCraftInventory)te). getContainer(player.inventory);	                    
+	                }	                
 	                break;
-
-	            
 	                
 	            default:
+	            	System.out.println("Get Server Stuff");
 	        }
 
 	        return null;
@@ -50,14 +50,16 @@ public class GuiHandler implements IGuiHandler{
 		 switch (id)
 	        {
 	            case ReferenceGuiIds.GUI_ID_TILE_ENTITY_GENERIC:
+	            	
 	                TileEntity te = world.getTileEntity(x, y, z);
 	                if (te != null && te instanceof TileEntityFuelCraftInventory)
 	                {
 	                    return ((TileEntityFuelCraftInventory)te).getGui(player.inventory);
-	                }
+	                }	                
 	                break;
 	                
 	            default:
+	            	System.out.println("Get Server Stuff");
 	        }	       
 
 	        return null;

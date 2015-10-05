@@ -27,12 +27,8 @@ public class GuiDieselProducer extends GuiFuelCraftInventory
     
     @Override
     protected void drawGuiContainerBackgroundLayer(float gameTicks, int mouseX, int mouseY)
-    {
-        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        this.bindTexture(this.guiTexture);
-        int x = (width - xSize) / 2;
-        int y = (height - ySize) / 2;
-        this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+    {    	
+    	super.drawGuiContainerBackgroundLayer(gameTicks, mouseX, mouseY);    	
     } 
 
 }

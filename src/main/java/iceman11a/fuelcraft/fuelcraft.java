@@ -73,7 +73,7 @@ public class fuelcraft {
 		fcfluids.RegisterDiesel();
 		FCMachines.RegisterBlocks();
 		
-		//NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 		
 				
 	}

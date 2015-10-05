@@ -26,8 +26,8 @@ public class TileEntityDieselProducer extends TileEntityFuelCraftInventory
 
     public TileEntityDieselProducer()
     {
-    	super(ReferenceNames.NAME_TILE_ENTITY_ENDER_INFUSER);
-        this.itemStacks = new ItemStack[3];
+    	super(ReferenceNames.NAME_TILE_ENTITY_DIESEL_PRODUCER);
+        this.itemStacks = new ItemStack[5];
         
     }
     
@@ -38,7 +38,7 @@ public class TileEntityDieselProducer extends TileEntityFuelCraftInventory
         return new ContainerEnderInfuser(inventoryPlayer, this);
     }
     */
-    
+        
     @Override
     public ContainerDieselProducer getContainer(InventoryPlayer inventoryPlayer)
     {

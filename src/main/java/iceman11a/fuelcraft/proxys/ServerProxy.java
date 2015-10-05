@@ -11,8 +11,6 @@ public class ServerProxy{
 	public void registerRenderers() { }
 	
 	public void registerTileEntities() {
-		GameRegistry.registerTileEntity(TileEntityDieselProducer.class, ReferenceNames.getPrefixedName(ReferenceNames.NAME_TILE_ENTITY_ENDER_INFUSER));
-	}
-	
-	
+		GameRegistry.registerTileEntity(TileEntityDieselProducer.class, ReferenceNames.getPrefixedName(ReferenceNames.NAME_TILE_ENTITY_DIESEL_PRODUCER));
+	}	
 }

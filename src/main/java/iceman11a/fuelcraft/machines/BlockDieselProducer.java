@@ -78,7 +78,7 @@ public class BlockDieselProducer extends Block {
 	        {
 	            return;
 	        }
-
+	        	//System.out.println("onblockplaced by");
 	        int yaw = MathHelper.floor_double((double)(livingBase.rotationYaw * 4.0f / 360.0f) + 0.5d) & 3;
 	        // Store the rotation to the TileEntity
 	        if (yaw < YAW_TO_DIRECTION.length)
