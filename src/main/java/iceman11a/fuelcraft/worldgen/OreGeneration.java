@@ -19,12 +19,17 @@ public class OreGeneration implements IWorldGenerator {
 		{
 			case 0:
 				generateOverworld(world, random, chunkX * 16, chunkZ * 16);
+				break;
 			case -1:
 				generateNether(world, random, chunkX * 16, chunkZ * 16);
+				break;
 			case 1:
 				generateEnd(world, random, chunkX * 16, chunkZ * 16);
+				break;
 			case -99:
 				generateLight(world, random, chunkX, chunkZ);
+				break;
+			default:
 		}
 	}
 
@@ -54,5 +59,5 @@ public class OreGeneration implements IWorldGenerator {
 
 			(new WorldGenMinable(block, maxVienSize)).generate(world, random, posX, posY, posZ);
 		}
-	}	
+	}
 }
