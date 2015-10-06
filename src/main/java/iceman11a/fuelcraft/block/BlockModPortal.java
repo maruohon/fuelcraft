@@ -1,17 +1,16 @@
 package iceman11a.fuelcraft.block;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import iceman11a.fuelcraft.Fuelcraft;
+import iceman11a.fuelcraft.Util.LightDimensionTeleporter;
+import iceman11a.fuelcraft.reference.ReferenceTextures;
+import iceman11a.fuelcraft.world.DimensionIDs;
 
 import java.util.Random;
 
-import iceman11a.fuelcraft.fuelcraft;
-import iceman11a.fuelcraft.Util.LightDimensionTeleporter;
-import iceman11a.fuelcraft.world.DimensionIDs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBreakable;
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -22,20 +21,20 @@ import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.util.Direction;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockModPortal extends BlockBreakable
 {
 	public static final int[][] field_150001_a = new int[][] {new int[0], {3, 1}, {2, 0}};
-	@SuppressWarnings("unused")
-	private static final String __OBFID = "CL_00000284";
 
 	public BlockModPortal(String name)
 	{
-		super("fc:" + name, Material.portal, false);
+		super(name, Material.portal, false);
 		this.setTickRandomly(true);
 		this.setBlockName(name);
-		this.setBlockTextureName("fc:" + name);
-		this.setCreativeTab(fuelcraft.tabFuelcraft); // CreativeTabs.tabBlock);
+		this.setBlockTextureName(name);
+		this.setCreativeTab(Fuelcraft.tabFuelcraft);
 	}
 
 	/**
@@ -135,7 +134,14 @@ public class BlockModPortal extends BlockBreakable
         }
     }
 
-	/**
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void registerBlockIcons(IIconRegister iconRegister)
+    {
+        this.blockIcon = iconRegister.registerIcon(ReferenceTextures.getTileName(this.getTextureName()));
+    }
+
+    /**
 	 * Returns true if the given side of this block type should be rendered, if the adjacent block is at the given
 	 * coordinates.  Args: blockAccess, x, y, z, side
 	 */
@@ -346,7 +352,7 @@ public class BlockModPortal extends BlockBreakable
 							break label56;
 						}
 
-						if (block == Blockfc.lightPortal)
+						if (block == FuelcraftBlocks.lightPortal)
 						{
 							++this.field_150864_e;
 						}
@@ -399,7 +405,7 @@ public class BlockModPortal extends BlockBreakable
 		}
 		
 		protected boolean getBlockMaterial(Block block){
-			return block.getMaterial() == Material.air || block == Blockfc.lightFire || block == Blockfc.lightPortal;
+			return block.getMaterial() == Material.air || block == FuelcraftBlocks.lightFire || block == FuelcraftBlocks.lightPortal;
 		}
 
 		public boolean func_150860_b()
@@ -417,7 +423,7 @@ public class BlockModPortal extends BlockBreakable
 				for (int l = 0; l < this.field_150862_g; ++l)
 				{
 					int i1 = this.field_150861_f.posY + l;
-					this.worldObj.setBlock(j, i1, k, Blockfc.lightPortal, this.field_150865_b, 2);
+					this.worldObj.setBlock(j, i1, k, FuelcraftBlocks.lightPortal, this.field_150865_b, 2);
 				}
 			}
 		}

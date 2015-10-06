@@ -1,12 +1,14 @@
 package iceman11a.fuelcraft.block;
 
-import java.util.List;
-import java.util.Random;
-
-import iceman11a.fuelcraft.fuelcraft;
+import iceman11a.fuelcraft.Fuelcraft;
+import iceman11a.fuelcraft.reference.ReferenceTextures;
 import iceman11a.fuelcraft.world.gen.WorldGenEffectTree;
 import iceman11a.fuelcraft.world.gen.WorldGenForestBigTree;
 import iceman11a.fuelcraft.world.gen.WorldGenForestTrees;
+
+import java.util.List;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.IGrowable;
@@ -41,9 +43,9 @@ public class BlockModLightSapling extends BlockSapling implements IGrowable
 		effectTree = new WorldGenEffectTree(true);
 		this.setHardness(0.0F);
 		this.setStepSound(Block.soundTypeGrass);
-		this.setCreativeTab(fuelcraft.tabFuelcraft); // CreativeTabs.tabBlock);
+		this.setCreativeTab(Fuelcraft.tabFuelcraft); // CreativeTabs.tabBlock);
 		this.setBlockName(blockname);
-		this.setBlockTextureName("fc:" + textureName);
+		this.setBlockTextureName(textureName);
 		saplings = new String[] { textureName + "_Sapling" };
 	}
 
@@ -54,7 +56,7 @@ public class BlockModLightSapling extends BlockSapling implements IGrowable
 		textures = new IIcon[saplings.length];
 		for (int i = 0; i < saplings.length; ++i)
 		{
-			textures[i] = iconRegister.registerIcon("fc:" + saplings[i]);
+			textures[i] = iconRegister.registerIcon(ReferenceTextures.getTileName(saplings[i]));
 		}
 	}
 
@@ -85,7 +87,7 @@ public class BlockModLightSapling extends BlockSapling implements IGrowable
 		switch (metadata)
 		{
 		default:
-			return block == Blockfc.lightForestGrass || block == Blockfc.lightForestDirt || block.canSustainPlant(world, x, y - 1, z, ForgeDirection.UP, this);
+			return block == FuelcraftBlocks.lightForestGrass || block == FuelcraftBlocks.lightForestDirt || block.canSustainPlant(world, x, y - 1, z, ForgeDirection.UP, this);
 		}
 	}
 
@@ -151,10 +153,10 @@ public class BlockModLightSapling extends BlockSapling implements IGrowable
 
 	@Override
 	public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plantable) {
-		if (world.getBlock(x, y, z) == Blockfc.lightForestDirt) {
+		if (world.getBlock(x, y, z) == FuelcraftBlocks.lightForestDirt) {
 			return true;
 		}
-		if (world.getBlock(x, y, z) == Blockfc.lightForestGrass) {
+		if (world.getBlock(x, y, z) == FuelcraftBlocks.lightForestGrass) {
 			return true;
 		}
 		else {
@@ -164,9 +166,9 @@ public class BlockModLightSapling extends BlockSapling implements IGrowable
 
 	@Override
 	public void onPlantGrow(World world, int x, int y, int z, int sourceX, int sourceY, int sourceZ) {
-		if (this == Blockfc.lightForestDirt || this == Blockfc.lightForestGrass)
+		if (this == FuelcraftBlocks.lightForestDirt || this == FuelcraftBlocks.lightForestGrass)
 		{
-			world.setBlock(x, y, z, Blockfc.lightForestDirt, 0, 2);
+			world.setBlock(x, y, z, FuelcraftBlocks.lightForestDirt, 0, 2);
 		}
 	}
 }

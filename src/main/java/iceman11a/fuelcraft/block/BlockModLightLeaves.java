@@ -1,5 +1,7 @@
 package iceman11a.fuelcraft.block;
 
+import iceman11a.fuelcraft.reference.ReferenceTextures;
+
 import java.util.List;
 import java.util.Random;
 
@@ -22,14 +24,10 @@ public class BlockModLightLeaves extends BlockModLeaves
 	
     public static final String[][] field_150130_N = new String[][] {{"light_leaves"}, {"light_leaves_opaque"}};
     public static final String[] field_150131_O = new String[] {"light"};
-  
-    
-    @SuppressWarnings("unused")
-	private static final String __OBFID = "CL_00000280";
-    
+
     public BlockModLightLeaves(String blockName, String textureName){
     	this.setBlockName(blockName);
-    	this.setBlockTextureName("fc:" + textureName);
+    	this.setBlockTextureName(textureName);
     }
 
     /**
@@ -100,7 +98,7 @@ public class BlockModLightLeaves extends BlockModLeaves
 
             for (int j = 0; j < field_150130_N[i].length; ++j)
             {
-                this.field_150129_M[i][j] = p_149651_1_.registerIcon("fc:" + field_150130_N[i][j]);
+                this.field_150129_M[i][j] = p_149651_1_.registerIcon(ReferenceTextures.getTileName(field_150130_N[i][j]));
             }
         }
     }
