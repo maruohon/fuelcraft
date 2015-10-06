@@ -5,21 +5,19 @@ import iceman11a.fuelcraft.reference.ReferenceNames;
 import iceman11a.fuelcraft.reference.ReferenceTextures;
 import net.minecraft.item.Item;
 
-public class ItemFuelcraftBase extends Item
-{
-    public String name;
+public class ItemFuelcraftBase extends Item {
 
-    public ItemFuelcraftBase()
-    {
-        super();
-        this.setCreativeTab(Fuelcraft.tabFuelcraft);
-    }
+	public String name;
 
-    @Override
-    public Item setUnlocalizedName(String name)
-    {
-        this.name = name;
-        this.setTextureName(ReferenceTextures.getItemTextureName(name));
-        return super.setUnlocalizedName(ReferenceNames.getPrefixedName(name));
-    }
+	public ItemFuelcraftBase() {
+		super();
+		this.setCreativeTab(Fuelcraft.tabFuelcraft);
+	}
+
+	@Override
+	public Item setUnlocalizedName(String name) {
+		this.name = name;
+		this.setTextureName(ReferenceTextures.getItemTextureName(name));
+		return super.setUnlocalizedName(ReferenceNames.getPrefixedName(name));
+	}
 }

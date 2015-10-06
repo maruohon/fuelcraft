@@ -10,8 +10,10 @@ public class EventHelper {
 
 	/** Used to make the sapling grow the tree **/
 	@SubscribeEvent
-	public void bonemealUsed(BonemealEvent event) {
-		if(event.world.getBlock(event.x, event.y, event.z) == FuelcraftBlocks.lightSapling) {
+	public void bonemealUsed(BonemealEvent event)
+	{
+		if(event.world.getBlock(event.x, event.y, event.z) == FuelcraftBlocks.lightSapling)
+		{
 			((BlockModLightSapling)FuelcraftBlocks.lightSapling).func_149878_d(event.world, event.x, event.y, event.z, event.world.rand);
 		}
 	}
@@ -19,7 +21,8 @@ public class EventHelper {
 	/**
 	 * Register this event helper
 	 */
-	public static void registerEvents() {
+	public static void registerEvents()
+	{
 		 MinecraftForge.EVENT_BUS.register(new EventHelper());
 	}
 }

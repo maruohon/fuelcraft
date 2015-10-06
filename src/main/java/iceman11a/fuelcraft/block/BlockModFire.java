@@ -9,34 +9,23 @@ import static net.minecraftforge.common.util.ForgeDirection.WEST;
 import iceman11a.fuelcraft.Fuelcraft;
 import iceman11a.fuelcraft.reference.ReferenceTextures;
 
-import java.util.IdentityHashMap;
-import java.util.Map.Entry;
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFire;
-import net.minecraft.block.material.MapColor;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import com.google.common.collect.Maps;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockModFire extends BlockFire
 {
-    @Deprecated
-    private int[] field_149849_a = new int[4096];
-    @Deprecated
-    private int[] field_149848_b = new int[4096];
     @SideOnly(Side.CLIENT)
-    private IIcon[] field_149850_M;
+    private IIcon[] icons;
 
     protected BlockModFire(String name)
     {
@@ -46,89 +35,6 @@ public class BlockModFire extends BlockFire
         this.setBlockTextureName(name);
         this.setLightLevel(1.0F);
         this.setCreativeTab(Fuelcraft.tabFuelcraft);
-    }
-
-    public static void func_149843_e()
-    {
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.planks), 5, 20);
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.double_wooden_slab), 5, 20);
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.wooden_slab), 5, 20);
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.fence), 5, 20);
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.oak_stairs), 5, 20);
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.birch_stairs), 5, 20);
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.spruce_stairs), 5, 20);
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.jungle_stairs), 5, 20);
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.log), 5, 5);
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.log2), 5, 5);
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.leaves), 30, 60);
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.leaves2), 30, 60);
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.bookshelf), 30, 20);
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.tnt), 15, 100);
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.tallgrass), 60, 100);
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.double_plant), 60, 100);
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.yellow_flower), 60, 100);
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.red_flower), 60, 100);
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.wool), 30, 60);
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.vine), 15, 100);
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.coal_block), 5, 5);
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.hay_block), 60, 20);
-        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.carpet), 60, 20);
-    }
-
-    @Deprecated // Use setFireInfo
-    public void func_149842_a(int p_149842_1_, int p_149842_2_, int p_149842_3_)
-    {
-        this.setFireInfo((Block)Block.blockRegistry.getObjectById(p_149842_1_), p_149842_2_, p_149842_3_);
-    }
-
-    /**
-     * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
-     * cleared to be reused)
-     */
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World p_149668_1_, int p_149668_2_, int p_149668_3_, int p_149668_4_)
-    {
-        return null;
-    }
-
-    /**
-     * Is this block (a) opaque and (b) a full 1m cube?  This determines whether or not to render the shared face of two
-     * adjacent blocks and also whether the player can attach torches, redstone wire, etc to this block.
-     */
-    public boolean isOpaqueCube()
-    {
-        return false;
-    }
-
-    /**
-     * If this block doesn't render as an ordinary block it will return False (examples: signs, buttons, stairs, etc)
-     */
-    public boolean renderAsNormalBlock()
-    {
-        return false;
-    }
-
-    /**
-     * The type of render function that is called for this block
-     */
-    public int getRenderType()
-    {
-        return 3;
-    }
-
-    /**
-     * Returns the quantity of items to drop on block destruction.
-     */
-    public int quantityDropped(Random p_149745_1_)
-    {
-        return 0;
-    }
-
-    /**
-     * How many world ticks before ticking
-     */
-    public int tickRate(World p_149738_1_)
-    {
-        return 30;
     }
 
     /**
@@ -235,11 +141,6 @@ public class BlockModFire extends BlockFire
         }
     }
 
-    public boolean func_149698_L()
-    {
-        return false;
-    }
-
     /**
      * Tries to set block on fire. Deprecated in favour of side-sensitive version.
      */
@@ -319,14 +220,6 @@ public class BlockModFire extends BlockFire
     }
 
     /**
-     * Returns if this block is collidable (only used by Fire). Args: x, y, z
-     */
-    public boolean isCollidable()
-    {
-        return false;
-    }
-
-    /**
      * Checks the specified block coordinate to see if it can catch fire.  Args: blockAccess, x, y, z
      */
     @Deprecated
@@ -367,9 +260,9 @@ public class BlockModFire extends BlockFire
             if (!World.doesBlockHaveSolidTopSurface(world, x, y - 1, z) && !this.canNeighborBurn(world, x, y, z)){
                 world.setBlockToAir(x, y, z);
             } else {
-                if(world.provider.dimensionId != 0){
+                /*if(world.provider.dimensionId != 0){
                     world.scheduleBlockUpdate(x, y, z, this, this.tickRate(world) + world.rand.nextInt(10));
-                }
+                }*/
                 world.scheduleBlockUpdate(x, y, z, this, this.tickRate(world) + world.rand.nextInt(10));
             }
         }
@@ -463,7 +356,7 @@ public class BlockModFire extends BlockFire
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister p_149651_1_)
     {
-        this.field_149850_M = new IIcon[] {
+        this.icons = new IIcon[] {
             p_149651_1_.registerIcon(ReferenceTextures.getTileName(this.getTextureName()) + "_layer_0"),
             p_149651_1_.registerIcon(ReferenceTextures.getTileName(this.getTextureName()) + "_layer_1")
         };
@@ -472,7 +365,7 @@ public class BlockModFire extends BlockFire
     @SideOnly(Side.CLIENT)
     public IIcon getFireIcon(int p_149840_1_)
     {
-        return this.field_149850_M[p_149840_1_];
+        return this.icons[p_149840_1_];
     }
 
     /**
@@ -481,107 +374,6 @@ public class BlockModFire extends BlockFire
     @SideOnly(Side.CLIENT)
     public IIcon getIcon(int p_149691_1_, int p_149691_2_)
     {
-        return this.field_149850_M[0];
-    }
-
-    public MapColor getMapColor(int p_149728_1_)
-    {
-        return MapColor.tntColor;
-    }
-
-    /*================================= Forge Start ======================================*/
-    private static class FireInfo
-    {
-        private int encouragement = 0;
-        private int flammibility = 0;
-    }
-    private IdentityHashMap<Block, FireInfo> blockInfo = Maps.newIdentityHashMap();
-
-    public void setFireInfo(Block block, int encouragement, int flammibility)
-    {
-        if (block == Blocks.air) throw new IllegalArgumentException("Tried to set air on fire... This is bad.");
-        int id = Block.getIdFromBlock(block);
-        this.field_149849_a[id] = encouragement;
-        this.field_149848_b[id] = flammibility;
-
-        FireInfo info = getInfo(block, true);
-        info.encouragement = encouragement;
-        info.flammibility = flammibility;
-    }
-
-    private FireInfo getInfo(Block block, boolean garentee)
-    {
-        FireInfo ret = blockInfo.get(block);
-        if (ret == null && garentee)
-        {
-            ret = new FireInfo();
-            blockInfo.put(block, ret);
-        }
-        return ret;
-    }
-
-    public void rebuildFireInfo()
-    {
-        for (int x = 0; x < 4096; x++)
-        {
-            //If we care.. we could detect changes in here and make sure we keep them, however 
-            //it's my thinking that anyone who hacks into the private variables should DIAF and we don't care about them.
-            field_149849_a[x] = 0;
-            field_149848_b[x] = 0;
-        }
-
-        for (Entry<Block, FireInfo> e : blockInfo.entrySet())
-        {
-            int id = Block.getIdFromBlock(e.getKey());
-            if (id >= 0 && id < 4096)
-            {
-                field_149849_a[id] = e.getValue().encouragement;
-                field_149848_b[id] = e.getValue().flammibility;
-            }
-        }
-    }
-
-    public int getFlammability(Block block)
-    {
-        int id = Block.getIdFromBlock(block);
-        return id >= 0 && id < 4096 ? field_149848_b[id] : 0;
-    }
-
-    public int getEncouragement(Block block)
-    {
-        int id = Block.getIdFromBlock(block);
-        return id >= 0 && id < 4096 ? field_149849_a[id] : 0;
-    }
-
-    /**
-     * Side sensitive version that calls the block function.
-     * 
-     * @param world The current world
-     * @param x X Position
-     * @param y Y Position
-     * @param z Z Position
-     * @param face The side the fire is coming from
-     * @return True if the face can catch fire.
-     */
-    public boolean canCatchFire(IBlockAccess world, int x, int y, int z, ForgeDirection face)
-    {
-        return world.getBlock(x, y, z).isFlammable(world, x, y, z, face);
-    }
-
-    /**
-     * Side sensitive version that calls the block function.
-     * 
-     * @param world The current world
-     * @param x X Position
-     * @param y Y Position
-     * @param z Z Position
-     * @param oldChance The previous maximum chance.
-     * @param face The side the fire is coming from
-     * @return The chance of the block catching fire, or oldChance if it is higher
-     */
-    public int getChanceToEncourageFire(IBlockAccess world, int x, int y, int z, int oldChance, ForgeDirection face)
-    {
-        int newChance = world.getBlock(x, y, z).getFireSpreadSpeed(world, x, y, z, face);
-        return (newChance > oldChance ? newChance : oldChance);
+        return this.icons[0];
     }
 }

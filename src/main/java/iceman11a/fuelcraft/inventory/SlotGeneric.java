@@ -7,14 +7,12 @@ import net.minecraft.item.ItemStack;
 
 public class SlotGeneric extends Slot {
 
-    public SlotGeneric(IInventory inventory, int slot, int posX, int posY)
-    {
-        super(inventory, slot, posX, posY);
-    }
-    
-    @Override
-    public boolean isItemValid(ItemStack stack)
-    {
-        return this.inventory.isItemValidForSlot(this.slotNumber, stack);
-    }
+	public SlotGeneric(IInventory inventory, int slot, int posX, int posY) {
+		super(inventory, slot, posX, posY);
+	}
+
+	@Override
+	public boolean isItemValid(ItemStack stack) {
+		return this.inventory.isItemValidForSlot(this.slotNumber, stack);
+	}
 }

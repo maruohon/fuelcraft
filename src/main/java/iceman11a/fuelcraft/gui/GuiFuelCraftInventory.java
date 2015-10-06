@@ -9,41 +9,40 @@ import iceman11a.fuelcraft.inventory.ContainerTileEntityInventory;
 import iceman11a.fuelcraft.reference.ReferenceTextures;
 import iceman11a.fuelcraft.tileentity.TileEntityFuelCraftInventory;
 
-public class GuiFuelCraftInventory extends GuiContainer
-{
-    protected TileEntityFuelCraftInventory te;
-    protected ResourceLocation guiTexture;
+public class GuiFuelCraftInventory extends GuiContainer {
 
-    public GuiFuelCraftInventory(ContainerTileEntityInventory container, TileEntityFuelCraftInventory te)
-    {
-        super(container);
-        this.te = te;
-        this.guiTexture = ReferenceTextures.getGuiTexture("gui.container." + te.getTEName());
-    }
+	protected TileEntityFuelCraftInventory te;
+	protected ResourceLocation guiTexture;
 
-    @Override
-    public void drawScreen(int mouseX, int mouseY, float gameTicks)
-    {
-        super.drawScreen(mouseX, mouseY, gameTicks);
-        this.drawTooltips(mouseX, mouseY);
-    }
+	public GuiFuelCraftInventory(ContainerTileEntityInventory container, TileEntityFuelCraftInventory te) {
+		super(container);
+		this.te = te;
+		this.guiTexture = ReferenceTextures.getGuiTexture("gui.container." + te.getTEName());
+		this.ySize = 174;
+	}
 
-    @Override
-    protected void drawGuiContainerBackgroundLayer(float gameTicks, int mouseX, int mouseY)
-    {
-        GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-        this.bindTexture(this.guiTexture);
-        int x = (width - xSize) / 2;
-        int y = (height - ySize) / 2;
-        this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
-    }
+	@Override
+	public void drawScreen(int mouseX, int mouseY, float gameTicks) {
+		super.drawScreen(mouseX, mouseY, gameTicks);
+		this.drawTooltips(mouseX, mouseY);
+	}
 
-    protected void drawTooltips(int mouseX, int mouseY)
-    {
-    }
+	@Override
+	protected void drawGuiContainerBackgroundLayer(float gameTicks, int mouseX, int mouseY) {
+		GL11.glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+		this.bindTexture(this.guiTexture);
+		int x = (width - xSize) / 2;
+		int y = (height - ySize) / 2;
+		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+	}
 
-    protected void bindTexture(ResourceLocation rl)
-    {
-        this.mc.renderEngine.bindTexture(rl);
-    }
+	/**
+	* Used to draw tooltips when hovering the mouse over some slots.
+	*/
+	protected void drawTooltips(int mouseX, int mouseY) {
+	}
+
+	protected void bindTexture(ResourceLocation rl) {
+		this.mc.renderEngine.bindTexture(rl);
+	}
 }

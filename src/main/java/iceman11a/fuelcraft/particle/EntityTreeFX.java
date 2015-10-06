@@ -4,21 +4,16 @@ import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.World;
 
-public class EntityTreeFX extends EntityFX{
-	
-	//TODO: add abailty to change particle color in constructor.
+public class EntityTreeFX extends EntityFX {
+
+	// TODO: add ability to change particle color in constructor.
 
 	private float portalParticleScale;
 	private double portalPosX;
 	private double portalPosY;
 	private double portalPosZ;
 
-	@SuppressWarnings("unused")
-	private static final String __OBFID = "CL_000003921";
-
-	public EntityTreeFX(World world, double posX, double posY, double posZ, double motionPosX, double motionPosY, double motionPosZ)
-	{
-
+	public EntityTreeFX(World world, double posX, double posY, double posZ, double motionPosX, double motionPosY, double motionPosZ) {
 		super(world, posX, posY, posZ, motionPosX, motionPosY, motionPosZ);
 		this.motionX = motionPosX;
 		this.motionY = motionPosY;
@@ -35,8 +30,7 @@ public class EntityTreeFX extends EntityFX{
 		this.setParticleTextureIndex((int)(Math.random() * 8.0D));
 	}
 
-	public void renderParticle(Tessellator tessellator, float posX, float posY, float posZ, float movePosX, float movePosY, float movePosZ)
-	{
+	public void renderParticle(Tessellator tessellator, float posX, float posY, float posZ, float movePosX, float movePosY, float movePosZ) {
 		float f6 = ((float)this.particleAge + posX) / (float)this.particleMaxAge;
 		f6 = 1.0F - f6;
 		f6 *= f6;
@@ -45,8 +39,7 @@ public class EntityTreeFX extends EntityFX{
 		super.renderParticle(tessellator, posX, posY, posZ, movePosX, movePosY, movePosZ);
 	}
 
-	public int getBrightnessForRender(float amount)
-	{
+	public int getBrightnessForRender(float amount) {
 		int i = super.getBrightnessForRender(amount);
 		float f1 = (float)this.particleAge / (float)this.particleMaxAge;
 		f1 *= f1;
@@ -55,8 +48,7 @@ public class EntityTreeFX extends EntityFX{
 		int k = i >> 16 & 255;
 		k += (int)(f1 * 15.0F * 16.0F);
 
-		if (k > 240)
-		{
+		if (k > 240) {
 			k = 240;
 		}
 
@@ -66,8 +58,7 @@ public class EntityTreeFX extends EntityFX{
 	/**
 	 * Gets how bright this entity is.
 	 */
-	public float getBrightness(float amount)
-	{
+	public float getBrightness(float amount) {
 		float f1 = super.getBrightness(amount);
 		float f2 = (float)this.particleAge / (float)this.particleMaxAge;
 		f2 = f2 * f2 * f2 * f2;
@@ -77,8 +68,7 @@ public class EntityTreeFX extends EntityFX{
 	/**
 	 * Called to update the entity's position/logic.
 	 */
-	public void onUpdate()
-	{
+	public void onUpdate() {
 		this.prevPosX = this.posX;
 		this.prevPosY = this.posY;
 		this.prevPosZ = this.posZ;
@@ -90,10 +80,8 @@ public class EntityTreeFX extends EntityFX{
 		this.posY = this.portalPosY + this.motionY * (double)f + (double)(1.0F - f1);
 		this.posZ = this.portalPosZ + this.motionZ * (double)f;
 
-		if (this.particleAge++ >= this.particleMaxAge)
-		{
+		if (this.particleAge++ >= this.particleMaxAge) {
 			this.setDead();
 		}
 	}
-
 }
