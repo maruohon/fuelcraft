@@ -4,8 +4,8 @@ import iceman11a.fuelcraft.reference.ReferenceNames;
 import iceman11a.fuelcraft.tileentity.TileEntityDieselProducer;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class ServerProxy{
-	
+public class ServerProxy {
+
 	public void registerKeyBindings() { }
 	public void registerRenderers() { }
 

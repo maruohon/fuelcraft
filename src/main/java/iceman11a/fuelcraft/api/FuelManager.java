@@ -15,37 +15,31 @@ import org.apache.logging.log4j.Level;
  */
 public class FuelManager {
 
-    public static final Map<Fluid, Integer> boilerFuel = new HashMap<Fluid, Integer>();
+	public static final Map<Fluid, Integer> boilerFuel = new HashMap<Fluid, Integer>();
 
-    /**
-     * Register the amount of heat in a bucket of liquid fuel.
-     *
-     * @param fluid
-     * @param heatValuePerBucket
-     */
-    public static void addBoilerFuel(Fluid fluid, int heatValuePerBucket) {
-        ModContainer mod = Loader.instance().activeModContainer();
-        String modName = mod != null ? mod.getName() : "An Unknown Mod";
-        if (fluid == null) {
-            FMLLog.log("Railcraft", Level.WARN, String.format("An error occured while %s was registering a Boiler fuel source", modName));
-            return;
-        }
-        boilerFuel.put(fluid, heatValuePerBucket);
-        FMLLog.log("Railcraft", Level.DEBUG, String.format("%s registered \"%s\" as a valid Boiler fuel source with %d heat.", modName, fluid.getName(), heatValuePerBucket));
-    }
+	/**
+	 * Register the amount of heat in a bucket of liquid fuel.
+	 *
+	 * @param fluid
+	 * @param heatValuePerBucket
+	 */
+	public static void addBoilerFuel(Fluid fluid, int heatValuePerBucket) {
+		ModContainer mod = Loader.instance().activeModContainer();
+		String modName = mod != null ? mod.getName() : "An Unknown Mod";
+		if (fluid == null) {
+			FMLLog.log("Railcraft", Level.WARN, String.format("An error occured while %s was registering a Boiler fuel source", modName));
+			return;
+		}
+		boilerFuel.put(fluid, heatValuePerBucket);
+		FMLLog.log("Railcraft", Level.DEBUG, String.format("%s registered \"%s\" as a valid Boiler fuel source with %d heat.", modName, fluid.getName(), heatValuePerBucket));
+	}
 
-    public static int getBoilerFuelValue(Fluid fluid) {
-        for (Entry<Fluid, Integer> entry : boilerFuel.entrySet()) {
-            if (entry.getKey() == fluid)
-                return entry.getValue();
-        }
-        return 0;
-    }
-    
+	public static int getBoilerFuelValue(Fluid fluid) {
+		for (Entry<Fluid, Integer> entry : boilerFuel.entrySet()) {
+			if (entry.getKey() == fluid)
+				return entry.getValue();
+		}
+		return 0;
+	}
+	
 }
-
-/*
-public class FuelManager {
-
-}
-*/

@@ -33,8 +33,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION)
-public class Fuelcraft
-{
+public class Fuelcraft {
 	public static OreGeneration eventWorldGen = new OreGeneration();
 
 	@Instance(Reference.MOD_ID)
@@ -45,8 +44,7 @@ public class Fuelcraft
 	private static ServerProxy proxy;	
 
 	@EventHandler
-	public void preInit(FMLPreInitializationEvent event)
-	{
+	public void preInit(FMLPreInitializationEvent event) {
 		logger = event.getModLog();
 
 		GameLogger.createFolders();
@@ -64,8 +62,7 @@ public class Fuelcraft
 	}
 
 	@EventHandler
-	public void init(FMLInitializationEvent event)
-	{
+	public void init(FMLInitializationEvent event) {
 		ModBiomes.registerWithBiomeDictionary();
 		Dimension.registerWorldProvider();
 		Dimension.registerDimensions();
@@ -78,20 +75,19 @@ public class Fuelcraft
 	}
 	
 	@EventHandler
-	public void postInit(FMLPostInitializationEvent event)
-	{
+	public void postInit(FMLPostInitializationEvent event) {
 		GameRegistry.registerFuelHandler(new FuelHandler());
 	}
 
-	public static CreativeTabs tabFuelcraft = new CreativeTabs("tabFuelcraft"){
-		@Override
-		public Item getTabIconItem(){
-			return new ItemStack(FuelcraftItems.corbamite).getItem();
-		}
-	};
-
 	@EventHandler
-	public static void postLoad(FMLPostInitializationEvent evt){
+	public static void postLoad(FMLPostInitializationEvent evt) {
 		Recpies.registerRecpies();
 	}
+
+	public static CreativeTabs tabFuelcraft = new CreativeTabs("tabFuelcraft") {
+		@Override
+		public Item getTabIconItem(){
+			return FuelcraftItems.corbamite;
+		}
+	};
 }

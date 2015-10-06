@@ -7,9 +7,9 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class ReadFile {
-	
+
 	private static int[] fileData;
-	
+
 	private static int numberOfLinesInFile;
 
 	public static void findFileAndRead(String filePath){
@@ -65,7 +65,7 @@ public class ReadFile {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Reads a File as ints.
 	 */
@@ -73,7 +73,7 @@ public class ReadFile {
 		try {
 			FileReader reader = new FileReader(file);
 			BufferedReader buffedreader = new BufferedReader(reader);
-			
+
 			fileData = new int[numberOfLinesInFile];
 			for(int i = 0; i < numberOfLinesInFile; i++){
 				int inits = Integer.parseInt(buffedreader.readLine());
@@ -87,7 +87,7 @@ public class ReadFile {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/** Get ints from the file **/
 	public static int[] getIntList(){
 		return fileData;

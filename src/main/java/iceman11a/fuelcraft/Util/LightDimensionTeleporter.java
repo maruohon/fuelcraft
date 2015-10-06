@@ -30,12 +30,10 @@ public class LightDimensionTeleporter extends Teleporter
      */
     @SuppressWarnings("rawtypes")
 	private final List destinationCoordinateKeys = new ArrayList();
-    @SuppressWarnings("unused")
-	private static final String __OBFID = "CL_00000153";
 
     public LightDimensionTeleporter(WorldServer p_i1963_1_)
     {
-    	super(p_i1963_1_);
+        super(p_i1963_1_);
         this.worldServerInstance = p_i1963_1_;
         this.random = new Random(p_i1963_1_.getSeed());
     }
@@ -85,7 +83,7 @@ public class LightDimensionTeleporter extends Teleporter
      * Place an entity in a nearby portal which already exists.
      */
     @SuppressWarnings("unchecked")
-	public boolean placeInExistingPortal(Entity p_77184_1_, double p_77184_2_, double p_77184_4_, double p_77184_6_, float p_77184_8_)
+    public boolean placeInExistingPortal(Entity p_77184_1_, double p_77184_2_, double p_77184_4_, double p_77184_6_, float p_77184_8_)
     {
         short short1 = 128;
         double d3 = -1.0D;
@@ -523,8 +521,6 @@ public class LightDimensionTeleporter extends Teleporter
     {
         /** The worldtime at which this PortalPosition was last verified */
         public long lastUpdateTime;
-        @SuppressWarnings("unused")
-		private static final String __OBFID = "CL_00000154";
 
         public PortalPosition(int p_i1962_2_, int p_i1962_3_, int p_i1962_4_, long p_i1962_5_)
         {

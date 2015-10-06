@@ -11,46 +11,38 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 
-public class TileEntityDieselProducer extends TileEntityFuelCraftInventory
-{
-    public TileEntityDieselProducer()
-    {
-        super(ReferenceNames.NAME_TILE_ENTITY_DIESEL_PRODUCER);
-        this.itemStacks = new ItemStack[5];
-    }
+public class TileEntityDieselProducer extends TileEntityFuelCraftInventory {
 
-    @Override
-    public ContainerDieselProducer getContainer(InventoryPlayer inventoryPlayer)
-    {
-        return new ContainerDieselProducer(inventoryPlayer, this);
-    }
+	public TileEntityDieselProducer() {
+		super(ReferenceNames.NAME_TILE_ENTITY_DIESEL_PRODUCER);
+		this.itemStacks = new ItemStack[5];
+	}
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public GuiFuelCraftInventory getGui(InventoryPlayer inventoryPlayer)
-    {
-        return new GuiDieselProducer(this.getContainer(inventoryPlayer), this);
-    }
-    
-    @Override
-    public void readFromNBT(NBTTagCompound nbt)
-    {
-        super.readFromNBT(nbt);
-    }
+	@Override
+	public void readFromNBT(NBTTagCompound nbt) {
+		super.readFromNBT(nbt);
+	}
 
-    @Override
-    public void writeToNBT(NBTTagCompound nbt)
-    {
-        super.writeToNBT(nbt);
-    }
+	@Override
+	public void writeToNBT(NBTTagCompound nbt) {
+		super.writeToNBT(nbt);
+	}
 
-    /**
-     * Check if the given item works as a fuel source in this furnace
-     * @param stack
-     * @return
-     */
-    public static boolean isItemFuel(ItemStack stack)
-    {
-        return false; // itemContainsFluidFuel(stack) || getItemBurnTime(stack) > 0;
-    }
+	/**
+	 * Check if the given item works as a fuel source in this machine
+	 */
+	public static boolean isItemFuel(ItemStack stack) {
+		return false; // itemContainsFluidFuel(stack) || getItemBurnTime(stack) > 0;
+	}
+
+	@Override
+	public ContainerDieselProducer getContainer(InventoryPlayer inventoryPlayer) {
+		return new ContainerDieselProducer(inventoryPlayer, this);
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public GuiFuelCraftInventory getGui(InventoryPlayer inventoryPlayer) {
+		return new GuiDieselProducer(this.getContainer(inventoryPlayer), this);
+	}
 }
