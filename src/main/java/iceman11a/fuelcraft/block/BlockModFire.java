@@ -6,6 +6,8 @@ import static net.minecraftforge.common.util.ForgeDirection.NORTH;
 import static net.minecraftforge.common.util.ForgeDirection.SOUTH;
 import static net.minecraftforge.common.util.ForgeDirection.UP;
 import static net.minecraftforge.common.util.ForgeDirection.WEST;
+import iceman11a.fuelcraft.Fuelcraft;
+import iceman11a.fuelcraft.reference.ReferenceTextures;
 
 import java.util.IdentityHashMap;
 import java.util.Map.Entry;
@@ -15,7 +17,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockFire;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
@@ -27,7 +28,6 @@ import com.google.common.collect.Maps;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import iceman11a.fuelcraft.fuelcraft;
 
 public class BlockModFire extends BlockFire
 {
@@ -37,44 +37,42 @@ public class BlockModFire extends BlockFire
     private int[] field_149848_b = new int[4096];
     @SideOnly(Side.CLIENT)
     private IIcon[] field_149850_M;
-    @SuppressWarnings("unused")
-    private static final String __OBFID = "CL_00000245";
 
     protected BlockModFire(String name)
     {
         super();
         this.setTickRandomly(true);
         this.setBlockName(name);
-        this.setBlockTextureName("fc:" + name);
+        this.setBlockTextureName(name);
         this.setLightLevel(1.0F);
-        this.setCreativeTab(fuelcraft.tabFuelcraft);
+        this.setCreativeTab(Fuelcraft.tabFuelcraft);
     }
 
     public static void func_149843_e()
     {
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.planks), 5, 20);
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.double_wooden_slab), 5, 20);
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.wooden_slab), 5, 20);
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.fence), 5, 20);
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.oak_stairs), 5, 20);
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.birch_stairs), 5, 20);
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.spruce_stairs), 5, 20);
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.jungle_stairs), 5, 20);
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.log), 5, 5);
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.log2), 5, 5);
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.leaves), 30, 60);
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.leaves2), 30, 60);
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.bookshelf), 30, 20);
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.tnt), 15, 100);
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.tallgrass), 60, 100);
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.double_plant), 60, 100);
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.yellow_flower), 60, 100);
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.red_flower), 60, 100);
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.wool), 30, 60);
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.vine), 15, 100);
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.coal_block), 5, 5);
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.hay_block), 60, 20);
-        Blockfc.lightFire.func_149842_a(getIdFromBlock(Blocks.carpet), 60, 20);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.planks), 5, 20);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.double_wooden_slab), 5, 20);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.wooden_slab), 5, 20);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.fence), 5, 20);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.oak_stairs), 5, 20);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.birch_stairs), 5, 20);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.spruce_stairs), 5, 20);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.jungle_stairs), 5, 20);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.log), 5, 5);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.log2), 5, 5);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.leaves), 30, 60);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.leaves2), 30, 60);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.bookshelf), 30, 20);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.tnt), 15, 100);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.tallgrass), 60, 100);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.double_plant), 60, 100);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.yellow_flower), 60, 100);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.red_flower), 60, 100);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.wool), 30, 60);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.vine), 15, 100);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.coal_block), 5, 5);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.hay_block), 60, 20);
+        FuelcraftBlocks.lightFire.func_149842_a(getIdFromBlock(Blocks.carpet), 60, 20);
     }
 
     @Deprecated // Use setFireInfo
@@ -365,7 +363,7 @@ public class BlockModFire extends BlockFire
      * Called whenever the block is added into the world. Args: world, x, y, z
      */
     public void onBlockAdded(World world, int x, int y, int z){
-        if (world.provider.dimensionId > 0 || !Blockfc.lightPortal.getPortalSize(world, x, y, z)){
+        if (world.provider.dimensionId > 0 || !FuelcraftBlocks.lightPortal.getPortalSize(world, x, y, z)){
             if (!World.doesBlockHaveSolidTopSurface(world, x, y - 1, z) && !this.canNeighborBurn(world, x, y, z)){
                 world.setBlockToAir(x, y, z);
             } else {
@@ -393,9 +391,9 @@ public class BlockModFire extends BlockFire
         float f1;
         float f2;
 
-        if (!World.doesBlockHaveSolidTopSurface(p_149734_1_, p_149734_2_, p_149734_3_ - 1, p_149734_4_) && !Blockfc.lightFire.canCatchFire(p_149734_1_, p_149734_2_, p_149734_3_ - 1, p_149734_4_, UP))
+        if (!World.doesBlockHaveSolidTopSurface(p_149734_1_, p_149734_2_, p_149734_3_ - 1, p_149734_4_) && !FuelcraftBlocks.lightFire.canCatchFire(p_149734_1_, p_149734_2_, p_149734_3_ - 1, p_149734_4_, UP))
         {
-            if (Blockfc.lightFire.canCatchFire(p_149734_1_, p_149734_2_ - 1, p_149734_3_, p_149734_4_, EAST))
+            if (FuelcraftBlocks.lightFire.canCatchFire(p_149734_1_, p_149734_2_ - 1, p_149734_3_, p_149734_4_, EAST))
             {
                 for (l = 0; l < 2; ++l)
                 {
@@ -406,7 +404,7 @@ public class BlockModFire extends BlockFire
                 }
             }
 
-            if (Blockfc.lightFire.canCatchFire(p_149734_1_, p_149734_2_ + 1, p_149734_3_, p_149734_4_, WEST))
+            if (FuelcraftBlocks.lightFire.canCatchFire(p_149734_1_, p_149734_2_ + 1, p_149734_3_, p_149734_4_, WEST))
             {
                 for (l = 0; l < 2; ++l)
                 {
@@ -417,7 +415,7 @@ public class BlockModFire extends BlockFire
                 }
             }
 
-            if (Blockfc.lightFire.canCatchFire(p_149734_1_, p_149734_2_, p_149734_3_, p_149734_4_ - 1, SOUTH))
+            if (FuelcraftBlocks.lightFire.canCatchFire(p_149734_1_, p_149734_2_, p_149734_3_, p_149734_4_ - 1, SOUTH))
             {
                 for (l = 0; l < 2; ++l)
                 {
@@ -428,7 +426,7 @@ public class BlockModFire extends BlockFire
                 }
             }
 
-            if (Blockfc.lightFire.canCatchFire(p_149734_1_, p_149734_2_, p_149734_3_, p_149734_4_ + 1, NORTH))
+            if (FuelcraftBlocks.lightFire.canCatchFire(p_149734_1_, p_149734_2_, p_149734_3_, p_149734_4_ + 1, NORTH))
             {
                 for (l = 0; l < 2; ++l)
                 {
@@ -439,7 +437,7 @@ public class BlockModFire extends BlockFire
                 }
             }
 
-            if (Blockfc.lightFire.canCatchFire(p_149734_1_, p_149734_2_, p_149734_3_ + 1, p_149734_4_, DOWN))
+            if (FuelcraftBlocks.lightFire.canCatchFire(p_149734_1_, p_149734_2_, p_149734_3_ + 1, p_149734_4_, DOWN))
             {
                 for (l = 0; l < 2; ++l)
                 {
@@ -465,7 +463,10 @@ public class BlockModFire extends BlockFire
     @SideOnly(Side.CLIENT)
     public void registerBlockIcons(IIconRegister p_149651_1_)
     {
-        this.field_149850_M = new IIcon[] {p_149651_1_.registerIcon(this.getTextureName() + "_layer_0"), p_149651_1_.registerIcon(this.getTextureName() + "_layer_1")};
+        this.field_149850_M = new IIcon[] {
+            p_149651_1_.registerIcon(ReferenceTextures.getTileName(this.getTextureName()) + "_layer_0"),
+            p_149651_1_.registerIcon(ReferenceTextures.getTileName(this.getTextureName()) + "_layer_1")
+        };
     }
 
     @SideOnly(Side.CLIENT)
