@@ -1,7 +1,7 @@
 package iceman11a.fuelcraft;
 
 import iceman11a.fuelcraft.Util.GameLogger;
-import iceman11a.fuelcraft.Util.Recpies;
+import iceman11a.fuelcraft.Util.Recipies;
 import iceman11a.fuelcraft.block.FuelcraftBlocks;
 import iceman11a.fuelcraft.block.fluid.FuelcraftFluids;
 import iceman11a.fuelcraft.config.ModConfig;
@@ -17,7 +17,6 @@ import iceman11a.fuelcraft.world.biomes.ModBiomes;
 import iceman11a.fuelcraft.worldgen.OreGeneration;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 import org.apache.logging.log4j.Logger;
 
@@ -49,7 +48,7 @@ public class Fuelcraft {
 
 		GameLogger.createFolders();
 		ModConfig.createTutConfig();
-		FuelcraftBlocks.loadBlocks();
+		FuelcraftBlocks.registerBlocks();
 		FuelcraftFluids.registerFluids();
 		FuelcraftItems.registerItems();
 		// The fluid container needs the bucket item to be registered, and that one needs the fluid block to be registered
@@ -81,7 +80,7 @@ public class Fuelcraft {
 
 	@EventHandler
 	public static void postLoad(FMLPostInitializationEvent evt) {
-		Recpies.registerRecpies();
+		Recipies.registerRecipies();
 	}
 
 	public static CreativeTabs tabFuelcraft = new CreativeTabs("tabFuelcraft") {

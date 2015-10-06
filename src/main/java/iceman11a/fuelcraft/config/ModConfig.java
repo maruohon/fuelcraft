@@ -1,11 +1,11 @@
 package iceman11a.fuelcraft.config;
 
-import java.io.File;
-
-import iceman11a.fuelcraft.block.BlockIDs;
 import iceman11a.fuelcraft.Util.GameLogger;
 import iceman11a.fuelcraft.world.DimensionIDs;
 import iceman11a.fuelcraft.world.biomes.BiomeIDs;
+
+import java.io.File;
+
 import net.minecraftforge.common.config.Configuration;
 
 public class ModConfig extends Configuration {
@@ -41,7 +41,6 @@ public class ModConfig extends Configuration {
 	private static void addBiomeIDs() {
 		BiomeIDs.LIGHT = config.get(ConfigTypes.BIOMES, "lightForestBiome", 50).getInt();
 		BiomeIDs.BLUE = config.get(ConfigTypes.BIOMES, "blueForestBiome", 52).getInt();
-
 		BiomeIDs.DARK = config.get(ConfigTypes.BIOMES, "darkForestBiome", 51).getInt();
 	}
 
