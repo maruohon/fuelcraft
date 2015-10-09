@@ -8,6 +8,7 @@ public class ReferenceNames {
 	public static final String NAME_TILE_ENTITY_DIESEL_PRODUCER		= "dieselproducer";
 	public static final String NAME_TILE_CORBAMITORE				= "corbamiteore";
 	public static final String NAME_TILE_CORCOALORE					= "corcoalore";
+	public static final String NAME_TILE_CART_PAINTER				= "cartpainter";
 
 	public static final String FORESTBIOMENAME						= "Blue light Forest";
 
