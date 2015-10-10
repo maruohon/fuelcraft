@@ -18,9 +18,20 @@ public class GuiDieselProducer extends GuiFuelCraftInventory {
 
 	protected TileEntityDieselProducer tileEntityDieselProducer;
 
+	protected FluidStack fluidInput;
+	protected FluidStack fluidOutput;
+
 	public GuiDieselProducer(ContainerTileEntityInventory container, TileEntityDieselProducer te) {
 		super(container, te);
 		this.tileEntityDieselProducer = te;
+		Fluid fluid = FluidRegistry.getFluid(ReferenceNames.NAME_FLUID_OIL);
+		if (fluid != null) {
+			this.fluidInput = new FluidStack(fluid, 0);
+		}
+		fluid = FluidRegistry.getFluid(ReferenceNames.NAME_FLUID_DIESEL);
+		if (fluid != null) {
+			this.fluidOutput = new FluidStack(fluid, 0);
+		}
 	}
 
 	@Override
@@ -56,20 +67,32 @@ public class GuiDieselProducer extends GuiFuelCraftInventory {
 		}
 
 		// Some oil stored in the tank
-		if (this.tileEntityDieselProducer.fluidAmountOil > 0)
+		if (this.tileEntityDieselProducer.fluidAmountOil > 0 && this.fluidInput != null)
 		{
-			int h = 47;
+			this.fluidInput.amount = this.tileEntityDieselProducer.fluidAmountOil;
+			this.drawFluid(this.fluidInput, x + 97, y + 24, 14, 47, TileEntityDieselProducer.capacityOil);
+			/*int h = 47;
 			int t = this.tileEntityDieselProducer.fluidAmountOil * h / TileEntityDieselProducer.capacityOil;
-			this.drawTexturedModalRect(x + 97, y + 24 + h - t, 177, 17 + h - t, 14, t);
+			this.drawTexturedModalRect(x + 97, y + 24 + h - t, 177, 17 + h - t, 14, t);*/
 		}
 
+		// Draw the input tank gauge
+		this.bindTexture(this.guiTexture);
+		this.drawTexturedModalRect(x + 97, y + 24, 209, 17, 14, 47);
+
 		// Some diesel stored in the tank
-		if (this.tileEntityDieselProducer.fluidAmountOil > 0)
+		if (this.tileEntityDieselProducer.fluidAmountOil > 0 && this.fluidOutput != null)
 		{
-			int h = 47;
+			this.fluidOutput.amount = this.tileEntityDieselProducer.fluidAmountDiesel;
+			this.drawFluid(this.fluidOutput, x + 133, y + 24, 14, 47, TileEntityDieselProducer.capacityDiesel);
+			/*int h = 47;
 			int t = this.tileEntityDieselProducer.fluidAmountDiesel * h / TileEntityDieselProducer.capacityDiesel;
-			this.drawTexturedModalRect(x + 133, y + 24 + h - t, 193, 17 + h - t, 14, t);
+			this.drawTexturedModalRect(x + 133, y + 24 + h - t, 193, 17 + h - t, 14, t);*/
 		}
+
+		// Draw the output tank gauge
+		this.bindTexture(this.guiTexture);
+		this.drawTexturedModalRect(x + 133, y + 24, 225, 17, 14, 47);
 	}
 
 	@Override
