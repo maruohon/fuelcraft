@@ -1,4 +1,4 @@
-fluid.fuelcraft.diesel.name=Diesel Fuel
+fluid.diesel.name=Diesel Fuel
 
 item.fuelcraft.BucketDieselFuel.name=Bucket Diesel Fuel
 item.fuelcraft.Corbamite.name=Corbamite
@@ -6,6 +6,7 @@ item.fuelcraft.CorCoal.name=CorCoal
 
 tile.fuelcraft.CorbamiteOre.name=CorbamiteOre
 tile.fuelcraft.CorCoalOre.name=CorCoalOre
+tile.fuelcraft.cartpainter.name=Cart Painter
 tile.fuelcraft.dieselproducer.name=Diesel Producer
 
 tile.effectLeaves.name=Effect Leaves
@@ -19,3 +20,18 @@ tile.lightSapling.name=Light Sapling
 tile.lightStone.name=Light Stone
 
 itemGroup.tabFuelcraft=Fuelcraft
+
+#################################
+#  Containers and inventories   #
+#################################
+fuelcraft.container.cartpainter=Cart Painter
+fuelcraft.container.dieselproducer=Diesel Producer
+
+#################################
+#          GUI labels           #
+#################################
+fuelcraft.gui.label.corcoal.in=CorCoal fuel in
+fuelcraft.gui.label.oilbucket.in=Oil Buckets in
+fuelcraft.gui.label.oilbucket.out=Empty Oil Buckets out
+fuelcraft.gui.label.dieselbucket.in=Diesel Buckets in
+fuelcraft.gui.label.dieselbucket.out=Empty Diesel Buckets out

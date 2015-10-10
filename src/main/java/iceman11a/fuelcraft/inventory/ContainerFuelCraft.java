@@ -48,7 +48,8 @@ public class ContainerFuelCraft extends Container {
 	 * Returns the number of inventory slots that are used when merging stacks when shift-clicking
 	 */
 	protected int getNumMergableSlots() {
-		return this.inventory.getSizeInventory() + this.inventoryPlayer.getSizeInventory();
+		// This inventory and player inventory slots
+		return this.inventory.getSizeInventory() + 36;
 	}
 
 	@Override
