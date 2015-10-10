@@ -6,7 +6,6 @@ import iceman11a.fuelcraft.block.ore.BlockCorbamiteOre;
 import iceman11a.fuelcraft.reference.ReferenceNames;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class FuelcraftBlocks {
@@ -24,8 +23,7 @@ public class FuelcraftBlocks {
 	public static final Block blockCorbamiteOre = new BlockCorbamiteOre("CorbamiteOre", 0.5F, Material.rock);
 	public static final Block blockCorCoalOre = new BlockCorCoalOre("CorCoalOre", 0.5F, Material.rock);
 
-	public static final Block blockDieselProducer = new BlockDieselProducer(ReferenceNames.NAME_TILE_ENTITY_DIESEL_PRODUCER, 1.0f, Material.iron);
-	public static final Block blockCartPainter = new BlockCartPainter(ReferenceNames.NAME_TILE_CART_PAINTER, 1.0f, Blocks.stone);
+	public static final Block blockMachines = new BlockDieselProducer(ReferenceNames.NAME_TILE_MACHINES, 1.0f, Material.iron);
 	
 	
 	/**
@@ -49,9 +47,6 @@ public class FuelcraftBlocks {
 		
 
 		// Machines
-		GameRegistry.registerBlock(blockDieselProducer, ReferenceNames.NAME_TILE_ENTITY_DIESEL_PRODUCER);
-		
-		//Blocks
-		GameRegistry.registerBlock(blockCartPainter, ReferenceNames.NAME_TILE_CART_PAINTER);
+		GameRegistry.registerBlock(blockMachines, ItemBlockFuelcraft.class, ReferenceNames.NAME_TILE_MACHINES);
 	}
 }

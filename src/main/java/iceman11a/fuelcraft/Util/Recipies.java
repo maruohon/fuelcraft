@@ -30,7 +30,7 @@ public class Recipies {
 		
 		//Machines
 		//2 pcs of redstone, One pc of stone, and 3 pcs of glass
-		GameRegistry.addRecipe(new ItemStack(FuelcraftBlocks.blockDieselProducer, 1), "R R", " S ", "GGG", 'R', new ItemStack(Items.redstone), 'S', new ItemStack(Blocks.stone), 'G', new ItemStack(Blocks.glass));
+		GameRegistry.addRecipe(new ItemStack(FuelcraftBlocks.blockMachines, 1), "R R", " S ", "GGG", 'R', new ItemStack(Items.redstone), 'S', new ItemStack(Blocks.stone), 'G', new ItemStack(Blocks.glass));
 		
 		//Items
 		GameRegistry.addRecipe(new ItemStack(FuelcraftItems.corbamite, 4), "C C", "   ", " S ", 'C', new ItemStack(Items.coal), 'S', new ItemStack(Blocks.stone));

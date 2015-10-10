@@ -26,19 +26,19 @@ public class FuelcraftFluids
 		}
 		else
 		{
-    		if (density != 0)
-    		{
-    			fluid.setDensity(density);
-    		}
+			if (density != 0)
+			{
+				fluid.setDensity(density);
+			}
 
-    		if (lightLevel >= 0)
-    		{
-    			fluid.setLuminosity(lightLevel);
-    		}
+			if (lightLevel >= 0)
+			{
+				fluid.setLuminosity(lightLevel);
+			}
 
-    		fluid.setRarity(rarity);
-    		//fluid.setUnlocalizedName(fluidName + ".still");
-    		fluid.setUnlocalizedName(fluidName + ".name");
+			fluid.setRarity(rarity);
+			//fluid.setUnlocalizedName(fluidName + ".still");
+			fluid.setUnlocalizedName(fluidName + ".name");
 		}
 
 		return fluid;
@@ -58,6 +58,6 @@ public class FuelcraftFluids
 
 	public static void registerFluidContainers()
 	{
-	    FluidContainerRegistry.registerFluidContainer(new FluidContainerData(FluidRegistry.getFluidStack(ReferenceNames.NAME_FLUID_DIESEL, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(FuelcraftItems.bucketDieselFuel), new ItemStack(Items.bucket)));
+		FluidContainerRegistry.registerFluidContainer(new FluidContainerData(FluidRegistry.getFluidStack(ReferenceNames.NAME_FLUID_DIESEL, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(FuelcraftItems.bucketDieselFuel), new ItemStack(Items.bucket)));
 	}
 }

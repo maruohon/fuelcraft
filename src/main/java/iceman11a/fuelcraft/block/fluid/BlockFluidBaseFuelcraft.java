@@ -31,14 +31,14 @@ public class BlockFluidBaseFuelcraft extends BlockFluidClassic {
 		this.setCreativeTab(Fuelcraft.tabFuelcraft);
 	}
 
-    @Override
-    public Block setBlockName(String name)
-    {
-        this.blockName = name;
-        return super.setBlockName(ReferenceNames.getPrefixedName(name));
-    }
+	@Override
+	public Block setBlockName(String name)
+	{
+		this.blockName = name;
+		return super.setBlockName(ReferenceNames.getPrefixedName(name));
+	}
 
-    /*
+	/*
 	private static Fluid verifyIsFluid(String fluidName)
 	{
 		Fluid fluid = FluidRegistry.getFluid(fluidName);
@@ -68,7 +68,7 @@ public class BlockFluidBaseFuelcraft extends BlockFluidClassic {
 	@Override
 	public String getUnlocalizedName()
 	{
-		return "fluid." + ReferenceNames.getPrefixedName(this.blockName);
+		return "fluid." + this.blockName;
 	}
 
 	protected void checkCanStay(World world, int x, int y, int z, Random rand)
