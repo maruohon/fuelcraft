@@ -60,7 +60,7 @@ public class GuiDieselProducer extends GuiFuelCraftInventory {
 		{
 			int h = 47;
 			int t = this.tileEntityDieselProducer.fluidAmountOil * h / TileEntityDieselProducer.capacityOil;
-			this.drawTexturedModalRect(x + 97, y + 24 + h - t, 177, 77 + h - t, 14, t);
+			this.drawTexturedModalRect(x + 97, y + 24 + h - t, 177, 17 + h - t, 14, t);
 		}
 
 		// Some diesel stored in the tank
@@ -68,7 +68,7 @@ public class GuiDieselProducer extends GuiFuelCraftInventory {
 		{
 			int h = 47;
 			int t = this.tileEntityDieselProducer.fluidAmountDiesel * h / TileEntityDieselProducer.capacityDiesel;
-			this.drawTexturedModalRect(x + 133, y + 24 + h - t, 193, 77 + h - t, 14, t);
+			this.drawTexturedModalRect(x + 133, y + 24 + h - t, 193, 17 + h - t, 14, t);
 		}
 	}
 
