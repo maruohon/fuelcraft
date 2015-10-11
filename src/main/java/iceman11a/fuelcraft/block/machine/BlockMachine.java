@@ -7,7 +7,9 @@ import iceman11a.fuelcraft.reference.ReferenceNames;
 import iceman11a.fuelcraft.reference.ReferenceTextures;
 import iceman11a.fuelcraft.tileentity.TileEntityCartPainter;
 import iceman11a.fuelcraft.tileentity.TileEntityDieselProducer;
+import iceman11a.fuelcraft.tileentity.TileEntityDieselTrainEngine;
 import iceman11a.fuelcraft.tileentity.TileEntityFuelCraft;
+import iceman11a.fuelcraft.tileentity.TileEntityTokenController;
 
 import java.util.List;
 
@@ -54,6 +56,10 @@ public class BlockMachine extends BlockFuelcraftBase {
 				return new TileEntityDieselProducer();
 			case 1:
 				return new TileEntityCartPainter();
+			case 2:
+				return new TileEntityDieselTrainEngine();
+			case 3:
+				return new TileEntityTokenController();
 		}
 
 		return null;
@@ -105,6 +111,8 @@ public class BlockMachine extends BlockFuelcraftBase {
 	{
 		list.add(new ItemStack(this, 1, 0)); // Diesel Producer
 		list.add(new ItemStack(this, 1, 1)); // Cart Painter
+		list.add(new ItemStack(this, 1, 2)); // Diesel Engine
+		list.add(new ItemStack(this, 1, 3)); // Token Controller
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -182,5 +190,21 @@ public class BlockMachine extends BlockFuelcraftBase {
 		this.icons[9] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_CART_PAINTER) + ".back");
 		this.icons[10] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_CART_PAINTER) + ".right");
 		this.icons[11] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_CART_PAINTER) + ".left");
+		
+		// Diesel Train Engine
+		this.icons[12] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_DIESEL_ENINE) + ".bottom");
+		this.icons[13] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_DIESEL_ENINE) + ".top");
+		this.icons[14] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_DIESEL_ENINE) + ".front");
+		this.icons[15] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_DIESEL_ENINE) + ".back");
+		this.icons[16] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_DIESEL_ENINE) + ".right");
+		this.icons[17] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_DIESEL_ENINE) + ".left");
+		
+		// Token Controller
+		this.icons[18] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER) + ".bottom");
+		this.icons[19] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER) + ".top");
+		this.icons[20] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER) + ".front");
+		this.icons[21] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER) + ".back");
+		this.icons[22] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER) + ".right");
+		this.icons[23] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER) + ".left");
 	}
 }
