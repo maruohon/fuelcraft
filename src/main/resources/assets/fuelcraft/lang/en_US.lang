@@ -30,8 +30,8 @@ fuelcraft.container.dieselproducer=Diesel Producer
 #################################
 #          GUI labels           #
 #################################
-fuelcraft.gui.label.corcoal.in=CorCoal fuel in
-fuelcraft.gui.label.oilbucket.in=Oil Buckets in
-fuelcraft.gui.label.oilbucket.out=Empty Oil Buckets out
-fuelcraft.gui.label.dieselbucket.in=Diesel Buckets in
-fuelcraft.gui.label.dieselbucket.out=Empty Diesel Buckets out
+fuelcraft.gui.label.corcoal.in=Fuel
+fuelcraft.gui.label.oilbucket.in=Oil Bucket in
+fuelcraft.gui.label.oilbucket.out=Empty Oil Bucket out
+fuelcraft.gui.label.dieselbucket.in=Empty (Diesel) Bucket in
+fuelcraft.gui.label.dieselbucket.out=Diesel Bucket out

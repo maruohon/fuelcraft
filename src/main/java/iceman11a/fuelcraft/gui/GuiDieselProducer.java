@@ -3,12 +3,14 @@ package iceman11a.fuelcraft.gui;
 import iceman11a.fuelcraft.Util.FuelcraftStringUtils;
 import iceman11a.fuelcraft.inventory.ContainerTileEntityInventory;
 import iceman11a.fuelcraft.reference.ReferenceNames;
+import iceman11a.fuelcraft.reference.ReferenceReflection;
 import iceman11a.fuelcraft.tileentity.TileEntityDieselProducer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.client.resources.I18n;
+import net.minecraft.inventory.Slot;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -148,35 +150,47 @@ public class GuiDieselProducer extends GuiFuelCraftInventory {
 			this.drawHoveringText(list, mouseX, mouseY, this.fontRendererObj);
 		}
 		// Hovering over an empty slot
-		else if (this.theSlot != null && this.theSlot.getHasStack() == false)
+		else
 		{
-			// Hovering over an empty CorCoal slot
-			if (this.theSlot == this.inventorySlots.getSlot(TileEntityDieselProducer.SLOT_FUEL))
-			{
-				list.add(I18n.format("fuelcraft.gui.label.corcoal.in", new Object[0]));
+			Slot slot = null;
+
+			try {
+				slot = (Slot)ReferenceReflection.fieldGuiContainer_theSlot.get(this);
 			}
-			// Hovering over an empty Oil Bucket input slot
-			else if (this.theSlot == this.inventorySlots.getSlot(TileEntityDieselProducer.SLOT_OIL_BUCKET_IN))
-			{
-				list.add(I18n.format("fuelcraft.gui.label.oilbucket.in", new Object[0]));
-			}
-			// Hovering over an empty Oil Bucket output slot
-			else if (this.theSlot == this.inventorySlots.getSlot(TileEntityDieselProducer.SLOT_OIL_BUCKET_OUT))
-			{
-				list.add(I18n.format("fuelcraft.gui.label.oilbucket.out", new Object[0]));
-			}
-			// Hovering over an empty Diesel Bucket input slot
-			else if (this.theSlot == this.inventorySlots.getSlot(TileEntityDieselProducer.SLOT_DIESEL_BUCKET_IN))
-			{
-				list.add(I18n.format("fuelcraft.gui.label.dieselbucket.in", new Object[0]));
-			}
-			// Hovering over an empty Diesel Bucket output slot
-			else if (this.theSlot == this.inventorySlots.getSlot(TileEntityDieselProducer.SLOT_DIESEL_BUCKET_OUT))
-			{
-				list.add(I18n.format("fuelcraft.gui.label.dieselbucket.out", new Object[0]));
+			catch (IllegalAccessException e) {
+				return;
 			}
 
-			this.drawHoveringText(list, mouseX, mouseY, this.fontRendererObj);
+			if (slot != null && slot.getHasStack() == false)
+			{
+				// Hovering over an empty CorCoal slot
+				if (slot == this.inventorySlots.getSlot(TileEntityDieselProducer.SLOT_FUEL))
+				{
+					list.add(I18n.format("fuelcraft.gui.label.corcoal.in", new Object[0]));
+				}
+				// Hovering over an empty Oil Bucket input slot
+				else if (slot == this.inventorySlots.getSlot(TileEntityDieselProducer.SLOT_OIL_BUCKET_IN))
+				{
+					list.add(I18n.format("fuelcraft.gui.label.oilbucket.in", new Object[0]));
+				}
+				// Hovering over an empty Oil Bucket output slot
+				else if (slot == this.inventorySlots.getSlot(TileEntityDieselProducer.SLOT_OIL_BUCKET_OUT))
+				{
+					list.add(I18n.format("fuelcraft.gui.label.oilbucket.out", new Object[0]));
+				}
+				// Hovering over an empty Diesel Bucket input slot
+				else if (slot == this.inventorySlots.getSlot(TileEntityDieselProducer.SLOT_DIESEL_BUCKET_IN))
+				{
+					list.add(I18n.format("fuelcraft.gui.label.dieselbucket.in", new Object[0]));
+				}
+				// Hovering over an empty Diesel Bucket output slot
+				else if (slot == this.inventorySlots.getSlot(TileEntityDieselProducer.SLOT_DIESEL_BUCKET_OUT))
+				{
+					list.add(I18n.format("fuelcraft.gui.label.dieselbucket.out", new Object[0]));
+				}
+
+				this.drawHoveringText(list, mouseX, mouseY, this.fontRendererObj);
+			}
 		}
 	}
 }

@@ -14,4 +14,7 @@ public class ServerProxy {
 		GameRegistry.registerTileEntity(TileEntityDieselProducer.class, ReferenceNames.getPrefixedName(ReferenceNames.NAME_TILE_DIESEL_PRODUCER));
 		GameRegistry.registerTileEntity(TileEntityCartPainter.class, ReferenceNames.getPrefixedName(ReferenceNames.NAME_TILE_CART_PAINTER));
 	}
+
+	public void setupReflection() {
+	}
 }

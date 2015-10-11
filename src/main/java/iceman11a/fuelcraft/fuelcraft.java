@@ -56,6 +56,7 @@ public class Fuelcraft {
 		FuelcraftFluids.registerFluidContainers();
 
 		proxy.registerTileEntities();
+		proxy.setupReflection();
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 	}
