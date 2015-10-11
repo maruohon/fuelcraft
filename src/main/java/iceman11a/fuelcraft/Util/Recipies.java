@@ -2,7 +2,7 @@ package iceman11a.fuelcraft.Util;
 
 import iceman11a.fuelcraft.block.FuelcraftBlocks;
 import iceman11a.fuelcraft.reference.ReferenceNames;
-import iceman11a.fuelcraft.block.machine.BlockDieselProducer;
+import iceman11a.fuelcraft.block.machine.BlockMachine;
 import iceman11a.fuelcraft.item.FuelcraftItems;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;

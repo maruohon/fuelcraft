@@ -1,6 +1,6 @@
 package iceman11a.fuelcraft.block;
 
-import iceman11a.fuelcraft.block.machine.BlockDieselProducer;
+import iceman11a.fuelcraft.block.machine.BlockMachine;
 import iceman11a.fuelcraft.block.ore.BlockCorCoalOre;
 import iceman11a.fuelcraft.block.ore.BlockCorbamiteOre;
 import iceman11a.fuelcraft.reference.ReferenceNames;
@@ -23,7 +23,7 @@ public class FuelcraftBlocks {
 	public static final Block blockCorbamiteOre = new BlockCorbamiteOre("CorbamiteOre", 0.5F, Material.rock);
 	public static final Block blockCorCoalOre = new BlockCorCoalOre("CorCoalOre", 0.5F, Material.rock);
 
-	public static final Block blockMachines = new BlockDieselProducer(ReferenceNames.NAME_TILE_MACHINES, 1.0f, Material.iron);
+	public static final Block blockMachines = new BlockMachine(ReferenceNames.NAME_TILE_MACHINES, 1.0f, Material.iron);
 	
 	
 	/**

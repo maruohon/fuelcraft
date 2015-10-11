@@ -30,11 +30,11 @@ import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BlockDieselProducer extends BlockFuelcraftBase {
+public class BlockMachine extends BlockFuelcraftBase {
 
 	public static final byte YAW_TO_DIRECTION[] = {2, 5, 3, 4};
 
-	public BlockDieselProducer(String name, float hardness, Material material)
+	public BlockMachine(String name, float hardness, Material material)
 	{
 		super(name, hardness, material);
 	}
