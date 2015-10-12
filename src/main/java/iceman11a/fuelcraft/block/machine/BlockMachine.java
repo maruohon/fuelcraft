@@ -7,7 +7,6 @@ import iceman11a.fuelcraft.reference.ReferenceNames;
 import iceman11a.fuelcraft.reference.ReferenceTextures;
 import iceman11a.fuelcraft.tileentity.TileEntityCartPainter;
 import iceman11a.fuelcraft.tileentity.TileEntityDieselProducer;
-import iceman11a.fuelcraft.tileentity.TileEntityDieselTrainEngine;
 import iceman11a.fuelcraft.tileentity.TileEntityFuelCraft;
 import iceman11a.fuelcraft.tileentity.TileEntityTokenController;
 
@@ -57,8 +56,6 @@ public class BlockMachine extends BlockFuelcraftBase {
 			case 1:
 				return new TileEntityCartPainter();
 			case 2:
-				return new TileEntityDieselTrainEngine();
-			case 3:
 				return new TileEntityTokenController();
 		}
 
@@ -111,8 +108,7 @@ public class BlockMachine extends BlockFuelcraftBase {
 	{
 		list.add(new ItemStack(this, 1, 0)); // Diesel Producer
 		list.add(new ItemStack(this, 1, 1)); // Cart Painter
-		list.add(new ItemStack(this, 1, 2)); // Diesel Engine
-		list.add(new ItemStack(this, 1, 3)); // Token Controller
+		list.add(new ItemStack(this, 1, 2)); // Token Controller
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -121,60 +117,69 @@ public class BlockMachine extends BlockFuelcraftBase {
 	{
 		// These are for the rendering in ItemBlock form in inventories etc.
 
+		int index = 0;
 		int offset = meta * 6;
+
 		if (side == 0 || side == 1)
 		{
-			return this.icons[offset + 1]; // top
+			index = offset + 1; // top
 		}
-		if (side == 3)
+		else if (side == 3)
 		{
-			return this.icons[offset + 2]; // front
+			index = offset + 2; // front
+		}
+		else
+		{
+			index = offset + 4; // side (left)
 		}
 
-		return this.icons[offset + 4]; // side (left)
+		return index < this.icons.length ? this.icons[index] : this.blockIcon;
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
 	public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side)
 	{
+		int index = 0;
 		int meta = blockAccess.getBlockMetadata(x, y, z);
 		int offset = meta * 6;
 
 		// Bottom or top
 		if (side == 0 || side == 1)
 		{
-			return this.icons[offset + side];
+			index = offset + side;
 		}
-
-		// 0: down, 1: up, 2: north, 3: south, 4: west, 5: east
-		// 0: bottom, 1: top, 2: front, 3: back, 4: right, 5: left
-
-		int rotIndex[] = {0, 0, 0, 2, 3, 1};
-		int rotations[][] = {
-				{0, 1, 2, 3, 5, 4}, // north
-				{0, 1, 5, 4, 3, 2}, // east
-				{0, 1, 3, 2, 4, 5}, // south
-				{0, 1, 4, 5, 2, 3} // west
-				};
-
-		TileEntity te = blockAccess.getTileEntity(x, y, z);
-		// Get the rotation of the block to decide when to return the front texture, and when the sides
-		if (te instanceof TileEntityFuelCraft)
+		else
 		{
-			int rot = ((TileEntityFuelCraft)te).getRotation();
-			side = rotations[rotIndex[ForgeDirection.getOrientation(rot).ordinal()]][side];
-			return this.icons[offset + side];
+			// 0: down, 1: up, 2: north, 3: south, 4: west, 5: east
+			// 0: bottom, 1: top, 2: front, 3: back, 4: right, 5: left
+
+			int rotIndex[] = {0, 0, 0, 2, 3, 1};
+			int rotations[][] = {
+					{0, 1, 2, 3, 5, 4}, // north
+					{0, 1, 5, 4, 3, 2}, // east
+					{0, 1, 3, 2, 4, 5}, // south
+					{0, 1, 4, 5, 2, 3} // west
+					};
+
+			TileEntity te = blockAccess.getTileEntity(x, y, z);
+			// Get the rotation of the block to decide when to return the front texture, and when the sides
+			if (te instanceof TileEntityFuelCraft)
+			{
+				index = offset + rotations[rotIndex[ForgeDirection.getOrientation(((TileEntityFuelCraft)te).getRotation()).ordinal()]][side];
+			}
 		}
 
-		return this.icons[offset + side];
+		return index < this.icons.length ? this.icons[index] : this.blockIcon;
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerBlockIcons(IIconRegister iconRegister)
 	{
-		this.icons = new IIcon[12];
+		this.icons = new IIcon[18];
+		this.blockIcon = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_DIESEL_PRODUCER) + ".top"); // Fallback
+
 		// Diesel Producer
 		this.icons[0] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_DIESEL_PRODUCER) + ".bottom");
 		this.icons[1] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_DIESEL_PRODUCER) + ".top");
@@ -190,21 +195,13 @@ public class BlockMachine extends BlockFuelcraftBase {
 		this.icons[9] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_CART_PAINTER) + ".back");
 		this.icons[10] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_CART_PAINTER) + ".right");
 		this.icons[11] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_CART_PAINTER) + ".left");
-		
-		// Diesel Train Engine
-		this.icons[12] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_DIESEL_ENINE) + ".bottom");
-		this.icons[13] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_DIESEL_ENINE) + ".top");
-		this.icons[14] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_DIESEL_ENINE) + ".front");
-		this.icons[15] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_DIESEL_ENINE) + ".back");
-		this.icons[16] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_DIESEL_ENINE) + ".right");
-		this.icons[17] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_DIESEL_ENINE) + ".left");
-		
+
 		// Token Controller
-		this.icons[18] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER) + ".bottom");
-		this.icons[19] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER) + ".top");
-		this.icons[20] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER) + ".front");
-		this.icons[21] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER) + ".back");
-		this.icons[22] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER) + ".right");
-		this.icons[23] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER) + ".left");
+		this.icons[12] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER) + ".bottom");
+		this.icons[13] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER) + ".top");
+		this.icons[14] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER) + ".front");
+		this.icons[15] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER) + ".back");
+		this.icons[16] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER) + ".right");
+		this.icons[17] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER) + ".left");
 	}
 }

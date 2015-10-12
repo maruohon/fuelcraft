@@ -25,6 +25,8 @@ public class ItemBlockFuelcraft extends ItemBlock {
 				return "tile." + ReferenceNames.getPrefixedName(ReferenceNames.NAME_TILE_DIESEL_PRODUCER);
 			case 1: // Cart Painter
 				return "tile." + ReferenceNames.getPrefixedName(ReferenceNames.NAME_TILE_CART_PAINTER);
+			case 2: // Token Controller
+				return "tile." + ReferenceNames.getPrefixedName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER);
 		}
 
 		return super.getUnlocalizedName(stack);
