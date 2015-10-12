@@ -125,28 +125,38 @@ public class GuiDieselProducer extends GuiFuelCraftInventory {
 		else if (mouseX >= x + 96 && mouseY >= y + 23 && mouseX <= x + 111 && mouseY <= y + 71)
 		{
 			int oilAmount = this.tileEntityDieselProducer.fluidAmountOil;
-			int oilCapacity = TileEntityDieselProducer.capacityOil;
-			Fluid fluid = FluidRegistry.getFluid(ReferenceNames.NAME_FLUID_OIL);
-			if (fluid != null)
-			{
-				FluidStack fluidStack = new FluidStack(fluid, FluidContainerRegistry.BUCKET_VOLUME);
-				list.add(fluidStack.getLocalizedName());
+			if (oilAmount > 0) {
+				int oilCapacity = TileEntityDieselProducer.capacityOil;
+				Fluid fluid = FluidRegistry.getFluid(ReferenceNames.NAME_FLUID_OIL);
+				if (fluid != null)
+				{
+					FluidStack fluidStack = new FluidStack(fluid, FluidContainerRegistry.BUCKET_VOLUME);
+					list.add(fluidStack.getLocalizedName());
+				}
+				list.add(FuelcraftStringUtils.formatNumberWithKSeparators(oilAmount) + " / " + FuelcraftStringUtils.formatNumberWithKSeparators(oilCapacity) + " mB");
 			}
-			list.add(FuelcraftStringUtils.formatNumberWithKSeparators(oilAmount) + " / " + FuelcraftStringUtils.formatNumberWithKSeparators(oilCapacity) + " mB");
+			else {
+				list.add(I18n.format("fuelcraft.gui.label.empty", new Object[0]));
+			}
 			this.drawHoveringText(list, mouseX, mouseY, this.fontRendererObj);
 		}
 		// Hovering over the diesel tank
 		else if (mouseX >= x + 132 && mouseY >= y + 23 && mouseX <= x + 147 && mouseY <= y + 71)
 		{
 			int dieselAmount = this.tileEntityDieselProducer.fluidAmountDiesel;
-			int dieselCapacity = TileEntityDieselProducer.capacityDiesel;
-			Fluid fluid = FluidRegistry.getFluid(ReferenceNames.NAME_FLUID_DIESEL);
-			if (fluid != null)
-			{
-				FluidStack fluidStack = new FluidStack(fluid, FluidContainerRegistry.BUCKET_VOLUME);
-				list.add(fluidStack.getLocalizedName());
+			if (dieselAmount > 0) {
+				int dieselCapacity = TileEntityDieselProducer.capacityDiesel;
+				Fluid fluid = FluidRegistry.getFluid(ReferenceNames.NAME_FLUID_DIESEL);
+				if (fluid != null)
+				{
+					FluidStack fluidStack = new FluidStack(fluid, FluidContainerRegistry.BUCKET_VOLUME);
+					list.add(fluidStack.getLocalizedName());
+				}
+				list.add(FuelcraftStringUtils.formatNumberWithKSeparators(dieselAmount) + " / " + FuelcraftStringUtils.formatNumberWithKSeparators(dieselCapacity) + " mB");
 			}
-			list.add(FuelcraftStringUtils.formatNumberWithKSeparators(dieselAmount) + " / " + FuelcraftStringUtils.formatNumberWithKSeparators(dieselCapacity) + " mB");
+			else {
+				list.add(I18n.format("fuelcraft.gui.label.empty", new Object[0]));
+			}
 			this.drawHoveringText(list, mouseX, mouseY, this.fontRendererObj);
 		}
 		// Hovering over an empty slot
@@ -166,7 +176,7 @@ public class GuiDieselProducer extends GuiFuelCraftInventory {
 				// Hovering over an empty CorCoal slot
 				if (slot == this.inventorySlots.getSlot(TileEntityDieselProducer.SLOT_FUEL))
 				{
-					list.add(I18n.format("fuelcraft.gui.label.corcoal.in", new Object[0]));
+					list.add(I18n.format("fuelcraft.gui.label.fuel", new Object[0]));
 				}
 				// Hovering over an empty Oil Bucket input slot
 				else if (slot == this.inventorySlots.getSlot(TileEntityDieselProducer.SLOT_OIL_BUCKET_IN))

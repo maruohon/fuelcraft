@@ -1,5 +1,7 @@
 fluid.diesel.name=Diesel Fuel
 
+entity.fuelcraft.dieseltrainengine.name=Diesel Train Engine
+
 item.fuelcraft.BucketDieselFuel.name=Bucket Diesel Fuel
 item.fuelcraft.Corbamite.name=Corbamite
 item.fuelcraft.CorCoal.name=CorCoal
@@ -8,6 +10,7 @@ tile.fuelcraft.CorbamiteOre.name=CorbamiteOre
 tile.fuelcraft.CorCoalOre.name=CorCoalOre
 tile.fuelcraft.cartpainter.name=Cart Painter
 tile.fuelcraft.dieselproducer.name=Diesel Producer
+tile.fuelcraft.tokencontroller.name=Token Controller
 
 tile.effectLeaves.name=Effect Leaves
 tile.lightFire.name=Light Forest Fire
@@ -30,7 +33,8 @@ fuelcraft.container.dieselproducer=Diesel Producer
 #################################
 #          GUI labels           #
 #################################
-fuelcraft.gui.label.corcoal.in=Fuel
+fuelcraft.gui.label.fuel=Fuel
+fuelcraft.gui.label.empty=Empty
 fuelcraft.gui.label.oilbucket.in=Oil Bucket in
 fuelcraft.gui.label.oilbucket.out=Empty Oil Bucket out
 fuelcraft.gui.label.dieselbucket.in=Empty (Diesel) Bucket in
