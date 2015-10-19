@@ -26,7 +26,7 @@ public class OreGeneration implements IWorldGenerator {
 			case 1:
 				generateEnd(world, random, chunkX * 16, chunkZ * 16);
 				break;
-			case -99:
+			case -35:
 				generateLight(world, random, chunkX, chunkZ);
 				break;
 			default:
@@ -39,6 +39,7 @@ public class OreGeneration implements IWorldGenerator {
 
 	public void generateOverworld(World world, Random rand, int x, int z) {
 		this.generateOre(FuelcraftBlocks.blockCorbamiteOre, world, rand, x, z, 16, 16, 6 + rand.nextInt(16), 25, 38, 100);
+		this.generateOre(FuelcraftBlocks.blockCorCoalOre, world, rand, x, z, 16, 16, 6 + rand.nextInt(16), 25, 38, 100);
 	}
 
 	public void generateNether(World world, Random rand, int x, int z) {
@@ -46,7 +47,8 @@ public class OreGeneration implements IWorldGenerator {
 	}
 
 	public void generateLight(World world, Random rand, int x, int z) {
-		this.generateOre(FuelcraftBlocks.blockCorbamiteOre, world, rand, x, z, 16, 16, 6 + rand.nextInt(16), 25, 38, 100);
+		this.generateOre(FuelcraftBlocks.blockBlackDiamondOre, world, rand, x, z, 16, 16, 6 + rand.nextInt(16), 25, 38, 100);
+		this.generateOre(FuelcraftBlocks.blockRedCorOre, world, rand, x, z, 16, 16, 6 + rand.nextInt(16), 25, 38, 100);
 		this.generateOre(FuelcraftBlocks.blockCorCoalOre, world, rand, x, z, 16, 16, 6 + rand.nextInt(16), 25, 38, 100);
 	}
 

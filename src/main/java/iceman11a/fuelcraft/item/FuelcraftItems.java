@@ -9,6 +9,8 @@ public class FuelcraftItems {
 	public static final Item bucketDieselFuel = new ItemBucketDiesel();
 	public static final Item corCoal = new ItemCorCoal();
 	public static final Item token = new ItemToken();
+	public static final Item RedCor = new ItemRedCor();
+	public static final Item BlackDiamond = new ItemBlackDiamond();
 
 	public static void registerItems()
 	{
@@ -16,5 +18,9 @@ public class FuelcraftItems {
 		GameRegistry.registerItem(bucketDieselFuel, "BucketDieselFuel");
 		GameRegistry.registerItem(corCoal, "CorCoal");
 		GameRegistry.registerItem(token, "Token");
+		GameRegistry.registerItem(RedCor, "RedCor");
+		GameRegistry.registerItem(BlackDiamond, "BlackDiamond");
+		
+		
 	}
 }

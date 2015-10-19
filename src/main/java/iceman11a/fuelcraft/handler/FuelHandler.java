@@ -14,6 +14,12 @@ public class FuelHandler implements IFuelHandler {
 		else if(fuel.getItem() == FuelcraftItems.corCoal) {
 			return 400;
 		}
+		else if(fuel.getItem() == FuelcraftItems.BlackDiamond) {
+			return 1200;
+		}
+		else if(fuel.getItem() == FuelcraftItems.RedCor) {
+			return 1000;
+		}
 		else
 			return 0;
 	}
