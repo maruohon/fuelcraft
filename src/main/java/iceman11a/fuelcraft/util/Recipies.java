@@ -1,4 +1,4 @@
-package iceman11a.fuelcraft.Util;
+package iceman11a.fuelcraft.util;
 
 import iceman11a.fuelcraft.block.FuelcraftBlocks;
 import iceman11a.fuelcraft.item.FuelcraftItems;

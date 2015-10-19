@@ -2,7 +2,7 @@ package iceman11a.fuelcraft.worldgen;
 
 import iceman11a.fuelcraft.block.FuelcraftBlocks;
 import iceman11a.fuelcraft.block.ore.BlockFuelcraftOre;
-import iceman11a.fuelcraft.world.DimensionIDs;
+import iceman11a.fuelcraft.config.Configs;
 
 import java.util.Random;
 
@@ -32,7 +32,7 @@ public class OreGeneration implements IWorldGenerator {
 			default:
 		}
 
-		if (world.provider.dimensionId == DimensionIDs.LIGHTFORESTDIMENSION) {
+		if (world.provider.dimensionId == Configs.diomensionIdLightForest) {
 			generateLight(world, random, chunkX, chunkZ);
 		}
 	}
