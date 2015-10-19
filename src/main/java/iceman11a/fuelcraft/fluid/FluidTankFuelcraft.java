@@ -70,7 +70,7 @@ public class FluidTankFuelcraft implements IFluidTank
         {
             if (this.fluidStack == null)
             {
-                return Math.min(capacity, resource.amount);
+                return Math.min(this.capacity, resource.amount);
             }
 
             if (this.fluidStack.isFluidEqual(resource) == false)
@@ -78,12 +78,12 @@ public class FluidTankFuelcraft implements IFluidTank
                 return 0;
             }
 
-            return Math.min(capacity - this.fluidStack.amount, resource.amount);
+            return Math.min(this.capacity - this.fluidStack.amount, resource.amount);
         }
 
         if (this.fluidStack == null)
         {
-            this.fluidStack = new FluidStack(resource, Math.min(capacity, resource.amount));
+            this.fluidStack = new FluidStack(resource, Math.min(this.capacity, resource.amount));
 
             if (this.tileEntity != null)
             {
@@ -98,7 +98,7 @@ public class FluidTankFuelcraft implements IFluidTank
             return 0;
         }
 
-        int filled = capacity - this.fluidStack.amount;
+        int filled = this.capacity - this.fluidStack.amount;
         if (resource.amount < filled)
         {
             this.fluidStack.amount += resource.amount;
@@ -106,7 +106,7 @@ public class FluidTankFuelcraft implements IFluidTank
         }
         else
         {
-            this.fluidStack.amount = capacity;
+            this.fluidStack.amount = this.capacity;
         }
 
         if (this.tileEntity != null)

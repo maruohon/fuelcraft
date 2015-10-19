@@ -85,7 +85,7 @@ public class Fuelcraft {
 	public static CreativeTabs tabFuelcraft = new CreativeTabs("tabFuelcraft") {
 		@Override
 		public Item getTabIconItem(){
-			return FuelcraftItems.itemOreResource;
+			return FuelcraftItems.resource;
 		}
 	};
 }

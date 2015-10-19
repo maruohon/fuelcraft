@@ -27,7 +27,7 @@ public class Recipies {
 		GameRegistry.addRecipe(new ItemStack(FuelcraftBlocks.blockMachines, 1, 0), "R R", " S ", "GGG", 'R', new ItemStack(Items.redstone), 'S', new ItemStack(Blocks.stone), 'G', new ItemStack(Blocks.glass));
 
 		// Items
-		GameRegistry.addRecipe(new ItemStack(FuelcraftItems.itemOreResource, 4, 0), "C C", "   ", " S ", 'C', new ItemStack(Items.coal), 'S', new ItemStack(Blocks.stone));
+		GameRegistry.addRecipe(new ItemStack(FuelcraftItems.resource, 4, 0), "C C", "   ", " S ", 'C', new ItemStack(Items.coal), 'S', new ItemStack(Blocks.stone));
 	}
 
 	/**

@@ -58,6 +58,6 @@ public class FuelcraftFluids
 
 	public static void registerFluidContainers()
 	{
-		FluidContainerRegistry.registerFluidContainer(new FluidContainerData(FluidRegistry.getFluidStack(ReferenceNames.NAME_FLUID_DIESEL, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(FuelcraftItems.bucketDieselFuel), new ItemStack(Items.bucket)));
+		FluidContainerRegistry.registerFluidContainer(new FluidContainerData(FluidRegistry.getFluidStack(ReferenceNames.NAME_FLUID_DIESEL, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(FuelcraftItems.dieselBucket), new ItemStack(Items.bucket)));
 	}
 }

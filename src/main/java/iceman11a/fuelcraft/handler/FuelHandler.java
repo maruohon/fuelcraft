@@ -10,7 +10,7 @@ public class FuelHandler implements IFuelHandler {
 	@Override
 	public int getBurnTime(ItemStack stack) {
 
-		if(stack.getItem() == FuelcraftItems.itemOreResource) {
+		if(stack.getItem() == FuelcraftItems.resource) {
 			int damage = stack.getItemDamage();
 
 			switch (damage) {

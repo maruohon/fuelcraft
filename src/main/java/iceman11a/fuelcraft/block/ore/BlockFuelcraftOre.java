@@ -35,7 +35,7 @@ public class BlockFuelcraftOre extends BlockFuelcraftBase {
 
 	@Override
 	public Item getItemDropped(int metadata, Random rand, int fortune) {
-		return FuelcraftItems.itemOreResource;
+		return FuelcraftItems.resource;
 	}
 
 	@Override

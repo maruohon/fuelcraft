@@ -2,12 +2,14 @@ fluid.diesel.name=Diesel Fuel
 
 entity.fuelcraft.dieseltrainengine.name=Diesel Train Engine
 
-item.fuelcraft.BucketDieselFuel.name=Bucket Diesel Fuel
+item.fuelcraft.dieselbucket.name=Diesel Fuel Bucket
 
 item.fuelcraft.resource.0.name=Corbamite
 item.fuelcraft.resource.1.name=Cor Coal
 item.fuelcraft.resource.2.name=Red Cor
 item.fuelcraft.resource.3.name=Black Diamond
+
+item.fuelcraft.token.name=Token
 
 tile.fuelcraft.ore.0.name=Corbamite Ore
 tile.fuelcraft.ore.1.name=Cor Coal Ore
