@@ -1,16 +1,15 @@
 package iceman11a.fuelcraft;
 
-import iceman11a.fuelcraft.Util.GameLogger;
-import iceman11a.fuelcraft.Util.Recipies;
 import iceman11a.fuelcraft.block.FuelcraftBlocks;
 import iceman11a.fuelcraft.block.fluid.FuelcraftFluids;
-import iceman11a.fuelcraft.config.ModConfig;
+import iceman11a.fuelcraft.config.Configs;
 import iceman11a.fuelcraft.events.EventHelper;
 import iceman11a.fuelcraft.gui.GuiHandler;
 import iceman11a.fuelcraft.handler.FuelHandler;
 import iceman11a.fuelcraft.item.FuelcraftItems;
 import iceman11a.fuelcraft.proxys.ServerProxy;
 import iceman11a.fuelcraft.reference.Reference;
+import iceman11a.fuelcraft.util.Recipies;
 import iceman11a.fuelcraft.world.Dimension;
 import iceman11a.fuelcraft.world.WorldTypesTutorial;
 import iceman11a.fuelcraft.world.biomes.ModBiomes;
@@ -45,9 +44,8 @@ public class Fuelcraft {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		logger = event.getModLog();
+		Configs.loadConfigs(event.getSuggestedConfigurationFile());
 
-		GameLogger.createFolders();
-		ModConfig.createTutConfig();
 		FuelcraftBlocks.registerBlocks();
 		FuelcraftFluids.registerFluids();
 		FuelcraftItems.registerItems();

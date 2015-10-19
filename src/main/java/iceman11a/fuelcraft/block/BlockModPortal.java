@@ -1,9 +1,9 @@
 package iceman11a.fuelcraft.block;
 
 import iceman11a.fuelcraft.Fuelcraft;
-import iceman11a.fuelcraft.Util.LightDimensionTeleporter;
+import iceman11a.fuelcraft.config.Configs;
 import iceman11a.fuelcraft.reference.ReferenceTextures;
-import iceman11a.fuelcraft.world.DimensionIDs;
+import iceman11a.fuelcraft.util.LightDimensionTeleporter;
 
 import java.util.Random;
 
@@ -195,9 +195,9 @@ public class BlockModPortal extends BlockBreakable
 			EntityPlayerMP thePlayer = (EntityPlayerMP)entity;
 			if (thePlayer.timeUntilPortal > 0) {
 				thePlayer.timeUntilPortal = 10;
-			} else if (thePlayer.dimension != DimensionIDs.LIGHTFORESTDIMENSION) {
+			} else if (thePlayer.dimension != Configs.diomensionIdLightForest) {
 				thePlayer.timeUntilPortal = 10;
-				thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, DimensionIDs.LIGHTFORESTDIMENSION, new LightDimensionTeleporter(thePlayer.mcServer.worldServerForDimension(DimensionIDs.LIGHTFORESTDIMENSION)));
+				thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, Configs.diomensionIdLightForest, new LightDimensionTeleporter(thePlayer.mcServer.worldServerForDimension(Configs.diomensionIdLightForest)));
 			} else {
 				thePlayer.timeUntilPortal = 10;
 				thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, 0, new LightDimensionTeleporter(thePlayer.mcServer.worldServerForDimension(0)));

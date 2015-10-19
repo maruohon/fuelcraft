@@ -1,4 +1,4 @@
-package iceman11a.fuelcraft.Util;
+package iceman11a.fuelcraft.util;
 
 public class FuelcraftStringUtils
 {

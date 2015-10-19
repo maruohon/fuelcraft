@@ -1,10 +1,10 @@
 package iceman11a.fuelcraft.gui;
 
-import iceman11a.fuelcraft.Util.FuelcraftStringUtils;
 import iceman11a.fuelcraft.inventory.ContainerTileEntityInventory;
 import iceman11a.fuelcraft.reference.ReferenceNames;
 import iceman11a.fuelcraft.reference.ReferenceReflection;
 import iceman11a.fuelcraft.tileentity.TileEntityDieselProducer;
+import iceman11a.fuelcraft.util.FuelcraftStringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
