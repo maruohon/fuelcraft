@@ -3,15 +3,16 @@ package iceman11a.fuelcraft.inventory;
 import iceman11a.fuelcraft.tileentity.TileEntityDieselProducer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ICrafting;
+import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ContainerDieselProducer extends ContainerTileEntityInventory {
 
 	private TileEntityDieselProducer tileEntityDieselProducer;
-	public int lastFluidAmountOil;
-	public int lastFluidAmountDiesel;
-	public int lastStoredEnergy;
+	public int fluidAmountOil;
+	public int fluidAmountDiesel;
+	public int energyStored;
 
 	public ContainerDieselProducer(InventoryPlayer inventoryPlayer, TileEntityDieselProducer te) {
 		super(inventoryPlayer, te);
@@ -38,19 +39,19 @@ public class ContainerDieselProducer extends ContainerTileEntityInventory {
 
 			// The values need to fit into a short, where these get truncated to in non-local SMP
 
-			if (this.lastStoredEnergy != this.tileEntityDieselProducer.storedEnergy) {
-				icrafting.sendProgressBarUpdate(this, 0, this.tileEntityDieselProducer.storedEnergy / 10);
-				this.lastStoredEnergy = this.tileEntityDieselProducer.storedEnergy;
+			if (this.energyStored != this.tileEntityDieselProducer.getEnergyStored(ForgeDirection.UP)) {
+				icrafting.sendProgressBarUpdate(this, 0, this.tileEntityDieselProducer.getEnergyStored(ForgeDirection.UP) / 10);
+				this.energyStored = this.tileEntityDieselProducer.getEnergyStored(ForgeDirection.UP);
 			}
 
-			if (this.lastFluidAmountOil != this.tileEntityDieselProducer.getOilAmount()) {
+			if (this.fluidAmountOil != this.tileEntityDieselProducer.getOilAmount()) {
 				icrafting.sendProgressBarUpdate(this, 1, this.tileEntityDieselProducer.getOilAmount());
-				this.lastFluidAmountOil = this.tileEntityDieselProducer.getOilAmount();
+				this.fluidAmountOil = this.tileEntityDieselProducer.getOilAmount();
 			}
 
-			if (this.lastFluidAmountDiesel != this.tileEntityDieselProducer.getDieselAmount()) {
+			if (this.fluidAmountDiesel != this.tileEntityDieselProducer.getDieselAmount()) {
 				icrafting.sendProgressBarUpdate(this, 2, this.tileEntityDieselProducer.getDieselAmount());
-				this.lastFluidAmountDiesel = this.tileEntityDieselProducer.getDieselAmount();
+				this.fluidAmountDiesel = this.tileEntityDieselProducer.getDieselAmount();
 			}
 		}
 	}
@@ -60,13 +61,13 @@ public class ContainerDieselProducer extends ContainerTileEntityInventory {
 	public void updateProgressBar(int var, int val) {
 		switch (var) {
 			case 0:
-				this.tileEntityDieselProducer.storedEnergy = val * 10;
+				this.energyStored = val * 10;
 				break;
 			case 1:
-				this.tileEntityDieselProducer.fluidAmountOil = val;
+				this.fluidAmountOil = val;
 				break;
 			case 2:
-				this.tileEntityDieselProducer.fluidAmountDiesel = val;
+				this.fluidAmountDiesel = val;
 				break;
 			default:
 		}

@@ -1,6 +1,6 @@
 package iceman11a.fuelcraft.gui;
 
-import iceman11a.fuelcraft.inventory.ContainerTileEntityInventory;
+import iceman11a.fuelcraft.inventory.ContainerDieselProducer;
 import iceman11a.fuelcraft.reference.ReferenceNames;
 import iceman11a.fuelcraft.reference.ReferenceReflection;
 import iceman11a.fuelcraft.tileentity.TileEntityDieselProducer;
@@ -18,18 +18,21 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class GuiDieselProducer extends GuiFuelCraftInventory {
 
-	protected TileEntityDieselProducer tileEntityDieselProducer;
+	protected ContainerDieselProducer containerDieselProducer;
 
 	protected FluidStack fluidInput;
 	protected FluidStack fluidOutput;
 
-	public GuiDieselProducer(ContainerTileEntityInventory container, TileEntityDieselProducer te) {
+	public GuiDieselProducer(ContainerDieselProducer container, TileEntityDieselProducer te) {
 		super(container, te);
-		this.tileEntityDieselProducer = te;
+
+		this.containerDieselProducer = container;
+
 		Fluid fluid = FluidRegistry.getFluid(ReferenceNames.NAME_FLUID_OIL);
 		if (fluid != null) {
 			this.fluidInput = new FluidStack(fluid, 0);
 		}
+
 		fluid = FluidRegistry.getFluid(ReferenceNames.NAME_FLUID_DIESEL);
 		if (fluid != null) {
 			this.fluidOutput = new FluidStack(fluid, 0);
@@ -61,17 +64,17 @@ public class GuiDieselProducer extends GuiFuelCraftInventory {
 		}
 
 		// Some energy stored
-		if (this.tileEntityDieselProducer.storedEnergy > 0)
+		if (this.containerDieselProducer.energyStored > 0)
 		{
 			int h = 36;
-			int t = this.tileEntityDieselProducer.storedEnergy * h / TileEntityDieselProducer.capacityEnergy;
+			int t = this.containerDieselProducer.energyStored * h / TileEntityDieselProducer.capacityEnergy;
 			this.drawTexturedModalRect(x + 9, y + 23 + h - t, 178, 69 + h - t, 6, t);
 		}
 
 		// Some oil stored in the tank
-		if (this.tileEntityDieselProducer.fluidAmountOil > 0 && this.fluidInput != null)
+		if (this.containerDieselProducer.fluidAmountOil > 0 && this.fluidInput != null)
 		{
-			this.fluidInput.amount = this.tileEntityDieselProducer.fluidAmountOil;
+			this.fluidInput.amount = this.containerDieselProducer.fluidAmountOil;
 			this.drawFluid(this.fluidInput, x + 97, y + 24, 14, 47, TileEntityDieselProducer.capacityOil);
 			/*int h = 47;
 			int t = this.tileEntityDieselProducer.fluidAmountOil * h / TileEntityDieselProducer.capacityOil;
@@ -83,9 +86,9 @@ public class GuiDieselProducer extends GuiFuelCraftInventory {
 		this.drawTexturedModalRect(x + 97, y + 24, 209, 17, 14, 47);
 
 		// Some diesel stored in the tank
-		if (this.tileEntityDieselProducer.fluidAmountOil > 0 && this.fluidOutput != null)
+		if (this.containerDieselProducer.fluidAmountOil > 0 && this.fluidOutput != null)
 		{
-			this.fluidOutput.amount = this.tileEntityDieselProducer.fluidAmountDiesel;
+			this.fluidOutput.amount = this.containerDieselProducer.fluidAmountDiesel;
 			this.drawFluid(this.fluidOutput, x + 133, y + 24, 14, 47, TileEntityDieselProducer.capacityDiesel);
 			/*int h = 47;
 			int t = this.tileEntityDieselProducer.fluidAmountDiesel * h / TileEntityDieselProducer.capacityDiesel;
@@ -116,7 +119,7 @@ public class GuiDieselProducer extends GuiFuelCraftInventory {
 		// Hovering over the energy meter
 		if (mouseX >= x + 7 && mouseY >= y + 21 && mouseX <= x + 15 && mouseY <= y + 60)
 		{
-			int energyAmount = this.tileEntityDieselProducer.storedEnergy;
+			int energyAmount = this.containerDieselProducer.energyStored;
 			int energyCapacity = TileEntityDieselProducer.capacityEnergy;
 			list.add(FuelcraftStringUtils.formatNumberWithKSeparators(energyAmount) + " / " + FuelcraftStringUtils.formatNumberWithKSeparators(energyCapacity) + " RF");
 			this.drawHoveringText(list, mouseX, mouseY, this.fontRendererObj);
@@ -124,7 +127,7 @@ public class GuiDieselProducer extends GuiFuelCraftInventory {
 		// Hovering over the oil tank
 		else if (mouseX >= x + 96 && mouseY >= y + 23 && mouseX <= x + 111 && mouseY <= y + 71)
 		{
-			int oilAmount = this.tileEntityDieselProducer.fluidAmountOil;
+			int oilAmount = this.containerDieselProducer.fluidAmountOil;
 			if (oilAmount > 0) {
 				int oilCapacity = TileEntityDieselProducer.capacityOil;
 				Fluid fluid = FluidRegistry.getFluid(ReferenceNames.NAME_FLUID_OIL);
@@ -143,7 +146,7 @@ public class GuiDieselProducer extends GuiFuelCraftInventory {
 		// Hovering over the diesel tank
 		else if (mouseX >= x + 132 && mouseY >= y + 23 && mouseX <= x + 147 && mouseY <= y + 71)
 		{
-			int dieselAmount = this.tileEntityDieselProducer.fluidAmountDiesel;
+			int dieselAmount = this.containerDieselProducer.fluidAmountDiesel;
 			if (dieselAmount > 0) {
 				int dieselCapacity = TileEntityDieselProducer.capacityDiesel;
 				Fluid fluid = FluidRegistry.getFluid(ReferenceNames.NAME_FLUID_DIESEL);

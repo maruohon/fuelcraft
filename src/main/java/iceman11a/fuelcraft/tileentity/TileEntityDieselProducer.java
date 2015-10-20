@@ -1,5 +1,6 @@
 package iceman11a.fuelcraft.tileentity;
 
+import iceman11a.fuelcraft.energy.FuelcraftEnergyStorage;
 import iceman11a.fuelcraft.fluid.FluidTankFuelcraft;
 import iceman11a.fuelcraft.gui.GuiDieselProducer;
 import iceman11a.fuelcraft.gui.GuiFuelCraftInventory;
@@ -17,11 +18,13 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+import cofh.api.energy.IEnergyReceiver;
+import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-
-public class TileEntityDieselProducer extends TileEntityFuelCraftInventory implements IFluidHandler {
+@Optional.Interface(iface = "cofh.api.energy.IEnergyReceiver", modid = "CoFHCore") // TODO Which mod should provide the API?
+public class TileEntityDieselProducer extends TileEntityFuelCraftInventory implements IFluidHandler, IEnergyReceiver {
 
 	public static final int SLOT_FUEL              = 0;
 	public static final int SLOT_OIL_BUCKET_IN     = 1;
@@ -29,11 +32,9 @@ public class TileEntityDieselProducer extends TileEntityFuelCraftInventory imple
 	public static final int SLOT_DIESEL_BUCKET_IN  = 3;
 	public static final int SLOT_DIESEL_BUCKET_OUT = 4;
 
-	public static int capacityOil = 16000;
-	public static int capacityDiesel = 16000;
+	public static int capacityOil    =  16000;
+	public static int capacityDiesel =  16000;
 	public static int capacityEnergy = 100000;
-
-	public int storedEnergy;
 
 	private Fluid fluidInput;
 	private Fluid fluidOutput;
@@ -41,12 +42,9 @@ public class TileEntityDieselProducer extends TileEntityFuelCraftInventory imple
 	private FluidTankFuelcraft tankInput;
 	private FluidTankFuelcraft tankOutput;
 
-	private int counter;
+	private FuelcraftEnergyStorage energyStorage;
 
-	@SideOnly(Side.CLIENT)
-	public int fluidAmountOil;
-	@SideOnly(Side.CLIENT)
-	public int fluidAmountDiesel;
+	private int counter;
 
 	public TileEntityDieselProducer() {
 		super(ReferenceNames.NAME_TILE_DIESEL_PRODUCER);
@@ -55,13 +53,14 @@ public class TileEntityDieselProducer extends TileEntityFuelCraftInventory imple
 		this.fluidOutput = FluidRegistry.getFluid(ReferenceNames.NAME_FLUID_DIESEL);
 		this.tankInput = new FluidTankFuelcraft(this, null, capacityOil);
 		this.tankOutput = new FluidTankFuelcraft(this, null, capacityDiesel);
+		this.energyStorage = new FuelcraftEnergyStorage(capacityEnergy);
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 
-		this.storedEnergy = nbt.getInteger("StoredEnergy");
+		this.energyStorage.setStoredEnergy(nbt.getInteger("StoredEnergy"));
 
 		if (nbt.hasKey("FluidInput", Constants.NBT.TAG_COMPOUND) == true) {
 			this.tankInput.setFluid(FluidStack.loadFluidStackFromNBT(nbt.getCompoundTag("FluidInput")));
@@ -76,7 +75,7 @@ public class TileEntityDieselProducer extends TileEntityFuelCraftInventory imple
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 
-		nbt.setInteger("StoredEnergy", this.storedEnergy);
+		nbt.setInteger("StoredEnergy", this.energyStorage.getEnergyStored());
 
 		if (this.tankInput.getFluid() != null) {
 			nbt.setTag("FluidInput", this.tankInput.getFluid().writeToNBT(new NBTTagCompound()));
@@ -303,5 +302,29 @@ public class TileEntityDieselProducer extends TileEntityFuelCraftInventory imple
 	@Override
 	public GuiFuelCraftInventory getGui(InventoryPlayer inventoryPlayer) {
 		return new GuiDieselProducer(this.getContainer(inventoryPlayer), this);
+	}
+
+	@Optional.Method(modid = "CoFHCore")
+	@Override
+	public boolean canConnectEnergy(ForgeDirection from) {
+		return true;
+	}
+
+	@Optional.Method(modid = "CoFHCore")
+	@Override
+	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
+		return this.energyStorage.receiveEnergy(maxReceive, simulate);
+	}
+
+	@Optional.Method(modid = "CoFHCore")
+	@Override
+	public int getEnergyStored(ForgeDirection from) {
+		return this.energyStorage.getEnergyStored();
+	}
+
+	@Optional.Method(modid = "CoFHCore")
+	@Override
+	public int getMaxEnergyStored(ForgeDirection from) {
+		return this.energyStorage.getMaxEnergyStored();
 	}
 }
