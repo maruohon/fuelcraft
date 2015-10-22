@@ -11,14 +11,18 @@ public class Configs {
 	public static Property propBiomeIdBlue;
 	public static Property propBiomeIdDark;
 	public static Property propBiomeIdLight;
-
 	public static Property propDimensionIdLightForest;
+
+	public static Property propDieselProducerOilPerDieselBucket;
+	public static Property propDieselProducerEnergyPerDieselBucket;
 
 	public static int biomeIdBlue;
 	public static int biomeIdDark;
 	public static int biomeIdLight;
-
 	public static int diomensionIdLightForest;
+
+	public static int dieselProducerOilPerDieselBucket;
+	public static int dieselProducerEnergyPerDieselBucket;
 
 	public static void loadConfigs(File configFile) {
 		Fuelcraft.logger.info("Loading configuration...");
@@ -39,6 +43,15 @@ public class Configs {
 		category = "DimensionIDs";
 		propDimensionIdLightForest = conf.get(category, "lightDimension", 35).setRequiresMcRestart(false);
 		diomensionIdLightForest = propDimensionIdLightForest.getInt();
+
+		category = "Generic";
+		propDieselProducerOilPerDieselBucket = conf.get(category, "dieselProducerOilPerDieselBucket", 4000).setRequiresMcRestart(false);
+		propDieselProducerOilPerDieselBucket.comment = "The amount of Oil required to make one bucket of Diesel, in millibuckets. Default: 4000 (= 4 buckets)";
+		dieselProducerOilPerDieselBucket = propDieselProducerOilPerDieselBucket.getInt();
+
+		propDieselProducerEnergyPerDieselBucket = conf.get(category, "dieselProducerEnergyPerDieselBucket", 100000).setRequiresMcRestart(false);
+		propDieselProducerEnergyPerDieselBucket.comment = "The amount of RF energy required to make one bucket of Diesel. Default: 100000";
+		dieselProducerEnergyPerDieselBucket = propDieselProducerEnergyPerDieselBucket.getInt();
 
 		if (conf.hasChanged()) {
 			conf.save();

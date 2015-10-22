@@ -1,5 +1,6 @@
 package iceman11a.fuelcraft.tileentity;
 
+import iceman11a.fuelcraft.config.Configs;
 import iceman11a.fuelcraft.energy.FuelcraftEnergyStorage;
 import iceman11a.fuelcraft.fluid.FluidTankFuelcraft;
 import iceman11a.fuelcraft.gui.GuiDieselProducer;
@@ -35,16 +36,20 @@ public class TileEntityDieselProducer extends TileEntityFuelCraftInventory imple
 	public static int capacityOil    =  16000;
 	public static int capacityDiesel =  16000;
 	public static int capacityEnergy = 100000;
+	public static int energyPerFuelTick = 30; // 30 should be in line with ThermalExpansion's default energy value per vanilla item burn time
+	public static int dieselProductionRate = 3; // mB per tick; 3 * 20 = 60 mB per second
 
-	private Fluid fluidInput;
-	private Fluid fluidOutput;
+	protected Fluid fluidInput;
+	protected Fluid fluidOutput;
 
-	private FluidTankFuelcraft tankInput;
-	private FluidTankFuelcraft tankOutput;
+	protected FluidTankFuelcraft tankInput;
+	protected FluidTankFuelcraft tankOutput;
 
-	private FuelcraftEnergyStorage energyStorage;
+	protected FuelcraftEnergyStorage energyStorage;
 
-	private int counter;
+	protected int counter;
+	protected int fuelBurnTime;
+	protected int fuelBurnTimeFresh;
 
 	public TileEntityDieselProducer() {
 		super(ReferenceNames.NAME_TILE_DIESEL_PRODUCER);
@@ -61,6 +66,7 @@ public class TileEntityDieselProducer extends TileEntityFuelCraftInventory imple
 		super.readFromNBT(nbt);
 
 		this.energyStorage.setStoredEnergy(nbt.getInteger("StoredEnergy"));
+		this.fuelBurnTime = nbt.getInteger("BurnTime");
 
 		if (nbt.hasKey("FluidInput", Constants.NBT.TAG_COMPOUND) == true) {
 			this.tankInput.setFluid(FluidStack.loadFluidStackFromNBT(nbt.getCompoundTag("FluidInput")));
@@ -76,6 +82,7 @@ public class TileEntityDieselProducer extends TileEntityFuelCraftInventory imple
 		super.writeToNBT(nbt);
 
 		nbt.setInteger("StoredEnergy", this.energyStorage.getEnergyStored());
+		nbt.setInteger("BurnTime", this.fuelBurnTime);
 
 		if (this.tankInput.getFluid() != null) {
 			nbt.setTag("FluidInput", this.tankInput.getFluid().writeToNBT(new NBTTagCompound()));
@@ -88,15 +95,80 @@ public class TileEntityDieselProducer extends TileEntityFuelCraftInventory imple
 
 	@Override
 	public void updateEntity() {
+		if (this.worldObj.isRemote == true) {
+			return;
+		}
+
 		if (++counter >= 10) {
 			counter = 0;
 
 			//if (this.tankInput.getFluidAmount() == 16000) this.tankInput.drain(1000, true); // FIXME debug
 			//if (this.tankOutput.getFluidAmount() == 0) this.tankOutput.fill(new FluidStack(this.fluidOutput, 16000), true); // FIXME debug
 
-			if (this.worldObj.isRemote == false) {
-				this.consumeInputFluidItem();
-				this.fillOutputFluidItem();
+			this.consumeInputFluidItem();
+			this.fillOutputFluidItem();
+		}
+
+		this.burnFuelItem();
+		this.processFluids();
+	}
+
+	public int getFuelBurnTime() {
+		return this.fuelBurnTime;
+	}
+
+	public int getFuelBurnTimeFresh() {
+		return this.fuelBurnTimeFresh;
+	}
+
+	/**
+	 * Burns fuel from the input slot, if the energy buffer is not full.
+	 */
+	public void burnFuelItem() {
+
+		if (this.fuelBurnTime == 0 && this.energyStorage.getEnergyStored() < this.energyStorage.getMaxEnergyStored() && this.itemStacks[SLOT_FUEL] != null) {
+
+			this.fuelBurnTime = TileEntityFurnace.getItemBurnTime(this.itemStacks[SLOT_FUEL]);
+			this.fuelBurnTimeFresh = this.fuelBurnTime;
+
+			if (this.fuelBurnTime > 0) {
+				this.decrStackSize(SLOT_FUEL, 1);
+			}
+		}
+
+		if (this.fuelBurnTime > 0) {
+
+			this.fuelBurnTime--;
+
+			if (this.energyStorage.getEnergyStored() < this.energyStorage.getMaxEnergyStored()) {
+				this.energyStorage.receiveEnergy(energyPerFuelTick, false);
+			}
+		}
+	}
+
+	/**
+	 * Converts Oil into Diesel, if there is enough energy available and room in the output tank, and Oil in the input tank.
+	 */
+	public void processFluids() {
+
+		int energyRequired = Configs.dieselProducerEnergyPerDieselBucket * dieselProductionRate / 1000;
+		int oilRequired = Configs.dieselProducerOilPerDieselBucket * dieselProductionRate / 1000;
+		int producedAmount = dieselProductionRate;
+
+		// Handle the remaining bits in the tank that are below the regular production rate
+		if (this.energyStorage.getEnergyStored() < energyRequired || this.tankInput.getFluidAmount() < oilRequired) {
+			producedAmount = 1;
+			energyRequired = Configs.dieselProducerEnergyPerDieselBucket / 1000;
+			oilRequired = Configs.dieselProducerOilPerDieselBucket / 1000;
+		}
+
+		if (this.energyStorage.getEnergyStored() >= energyRequired && this.tankInput.getFluidAmount() >= oilRequired) {
+			FluidStack fluidStack = new FluidStack(this.fluidOutput, producedAmount);
+			// Enough room to store the produced fluid amount
+			if (this.tankOutput.fill(fluidStack, false) == producedAmount) {
+				this.energyStorage.extractEnergy(energyRequired, false);
+				this.tankInput.drain(oilRequired, true);
+				this.tankOutput.fill(fluidStack, true);
 			}
 		}
 	}
