@@ -45,10 +45,16 @@ public class GuiDieselProducer extends GuiFuelCraftInventory {
 		int x = (this.width - this.xSize) / 2;
 		int y = (this.height - this.ySize) / 2;
 
-		// Empty CorCoal input slot, draw the slot background
+		// Empty fuel input slot, draw the slot background
 		if (this.inventorySlots.getSlot(TileEntityDieselProducer.SLOT_FUEL).getStack() == null)
 		{
 			this.drawTexturedModalRect(x + 8, y + 64, 192, 0, 16, 16);
+		}
+
+		// Draw the burn time flame
+		if (this.containerDieselProducer.burnTime > 0 && this.containerDieselProducer.burnTimeFresh != 0) {
+			int height = this.containerDieselProducer.burnTime * 13 / this.containerDieselProducer.burnTimeFresh;
+			this.drawTexturedModalRect(x + 28, y + 65 + 13 - height, 208, 14 - height, 16, height);
 		}
 
 		// Empty Oil Bucket input slot, draw the slot background
@@ -86,7 +92,7 @@ public class GuiDieselProducer extends GuiFuelCraftInventory {
 		this.drawTexturedModalRect(x + 97, y + 24, 209, 17, 14, 47);
 
 		// Some diesel stored in the tank
-		if (this.containerDieselProducer.fluidAmountOil > 0 && this.fluidOutput != null)
+		if (this.containerDieselProducer.fluidAmountDiesel > 0 && this.fluidOutput != null)
 		{
 			this.fluidOutput.amount = this.containerDieselProducer.fluidAmountDiesel;
 			this.drawFluid(this.fluidOutput, x + 133, y + 24, 14, 47, TileEntityDieselProducer.capacityDiesel);

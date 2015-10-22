@@ -13,6 +13,8 @@ public class ContainerDieselProducer extends ContainerTileEntityInventory {
 	public int fluidAmountOil;
 	public int fluidAmountDiesel;
 	public int energyStored;
+	public int burnTime;
+	public int burnTimeFresh;
 
 	public ContainerDieselProducer(InventoryPlayer inventoryPlayer, TileEntityDieselProducer te) {
 		super(inventoryPlayer, te);
@@ -40,18 +42,28 @@ public class ContainerDieselProducer extends ContainerTileEntityInventory {
 			// The values need to fit into a short, where these get truncated to in non-local SMP
 
 			if (this.energyStored != this.tileEntityDieselProducer.getEnergyStored(ForgeDirection.UP)) {
-				icrafting.sendProgressBarUpdate(this, 0, this.tileEntityDieselProducer.getEnergyStored(ForgeDirection.UP) / 10);
 				this.energyStored = this.tileEntityDieselProducer.getEnergyStored(ForgeDirection.UP);
+				icrafting.sendProgressBarUpdate(this, 0, this.energyStored / 10);
 			}
 
 			if (this.fluidAmountOil != this.tileEntityDieselProducer.getOilAmount()) {
-				icrafting.sendProgressBarUpdate(this, 1, this.tileEntityDieselProducer.getOilAmount());
 				this.fluidAmountOil = this.tileEntityDieselProducer.getOilAmount();
+				icrafting.sendProgressBarUpdate(this, 1, this.fluidAmountOil);
 			}
 
 			if (this.fluidAmountDiesel != this.tileEntityDieselProducer.getDieselAmount()) {
-				icrafting.sendProgressBarUpdate(this, 2, this.tileEntityDieselProducer.getDieselAmount());
 				this.fluidAmountDiesel = this.tileEntityDieselProducer.getDieselAmount();
+				icrafting.sendProgressBarUpdate(this, 2, this.fluidAmountDiesel);
+			}
+
+			if (this.burnTime != this.tileEntityDieselProducer.getFuelBurnTime()) {
+				this.burnTime = this.tileEntityDieselProducer.getFuelBurnTime();
+				icrafting.sendProgressBarUpdate(this, 3, this.burnTime / 10);
+			}
+
+			if (this.burnTimeFresh != this.tileEntityDieselProducer.getFuelBurnTimeFresh()) {
+				this.burnTimeFresh = this.tileEntityDieselProducer.getFuelBurnTimeFresh();
+				icrafting.sendProgressBarUpdate(this, 4, this.tileEntityDieselProducer.getFuelBurnTimeFresh() / 10);
 			}
 		}
 	}
@@ -68,6 +80,12 @@ public class ContainerDieselProducer extends ContainerTileEntityInventory {
 				break;
 			case 2:
 				this.fluidAmountDiesel = val;
+				break;
+			case 3:
+				this.burnTime = val * 10;
+				break;
+			case 4:
+				this.burnTimeFresh = val * 10;
 				break;
 			default:
 		}
