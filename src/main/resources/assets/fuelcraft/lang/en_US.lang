@@ -14,9 +14,6 @@ tile.fuelcraft.CorbamiteOre.name=CorbamiteOre
 tile.fuelcraft.CorCoalOre.name=CorCoalOre
 tile.fuelcraft.cartpainter.name=Cart Painter
 tile.fuelcraft.dieselproducer.name=Diesel Producer
-
-tile.fuelcraft.tapoilproducer.name=Tapoil Producer
-tile.fuelcraft.oilproducer.name=Oil Producer
 tile.fuelcraft.tokencontroller.name=Token Controller
 tile.fuelcraft.BlackDiamondOre.name=Black Diamond Ore
 

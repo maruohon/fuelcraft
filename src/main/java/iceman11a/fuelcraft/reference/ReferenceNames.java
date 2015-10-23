@@ -13,8 +13,6 @@ public class ReferenceNames {
 	public static final String NAME_TILE_CART_PAINTER				= "cartpainter";
 	public static final String NAME_TILE_DIESEL_PRODUCER			= "dieselproducer";
 	public static final String NAME_TILE_TOKEN_CONTROLLER           = "tokencontroller";
-	public static final String NAME_TILE_TAPOIL_PRODUCER            = "tapoilproducer";
-	public static final String NAME_TILE_OIL_PRODUCER               = "oilproducer";
 	
 	public static final String NAME_ENTITY_DIESEL_TRAIN_ENGINE      = "dieseltrainengine";
 
