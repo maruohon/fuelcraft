@@ -1,16 +1,21 @@
 fluid.diesel.name=Diesel Fuel
-
+fluid.tapoil.name=Tapoil
 entity.fuelcraft.dieseltrainengine.name=Diesel Train Engine
 
 item.fuelcraft.BucketDieselFuel.name=Bucket Diesel Fuel
+item.fuelcraft.BucketTapoil.name=Bucket Tapoil
 item.fuelcraft.Corbamite.name=Corbamite
 item.fuelcraft.CorCoal.name=CorCoal
+item.fuelcraft.Token.name=Track Token
+item.fuelcraft.RedCor.name=RedCor
+item.fuelcraft.BlackDiamond.name=Black Diamond
 
 tile.fuelcraft.CorbamiteOre.name=CorbamiteOre
 tile.fuelcraft.CorCoalOre.name=CorCoalOre
 tile.fuelcraft.cartpainter.name=Cart Painter
 tile.fuelcraft.dieselproducer.name=Diesel Producer
 tile.fuelcraft.tokencontroller.name=Token Controller
+tile.fuelcraft.BlackDiamondOre.name=Black Diamond Ore
 
 tile.effectLeaves.name=Effect Leaves
 tile.lightFire.name=Light Forest Fire
