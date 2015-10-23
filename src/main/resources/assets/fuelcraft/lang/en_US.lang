@@ -3,14 +3,20 @@ fluid.diesel.name=Diesel Fuel
 entity.fuelcraft.dieseltrainengine.name=Diesel Train Engine
 
 item.fuelcraft.BucketDieselFuel.name=Bucket Diesel Fuel
-item.fuelcraft.Corbamite.name=Corbamite
-item.fuelcraft.CorCoal.name=CorCoal
 
-tile.fuelcraft.CorbamiteOre.name=CorbamiteOre
-tile.fuelcraft.CorCoalOre.name=CorCoalOre
-tile.fuelcraft.cartpainter.name=Cart Painter
-tile.fuelcraft.dieselproducer.name=Diesel Producer
-tile.fuelcraft.tokencontroller.name=Token Controller
+item.fuelcraft.resource.0.name=Corbamite
+item.fuelcraft.resource.1.name=Cor Coal
+item.fuelcraft.resource.2.name=Red Cor
+item.fuelcraft.resource.3.name=Black Diamond
+
+tile.fuelcraft.ore.0.name=Corbamite Ore
+tile.fuelcraft.ore.1.name=Cor Coal Ore
+tile.fuelcraft.ore.2.name=Red Cor Ore
+tile.fuelcraft.ore.3.name=Black Diamond Ore
+
+tile.fuelcraft.machine.0.name=Diesel Producer
+tile.fuelcraft.machine.1.name=Cart Painter
+tile.fuelcraft.machine.2.name=Token Controller
 
 tile.effectLeaves.name=Effect Leaves
 tile.lightFire.name=Light Forest Fire

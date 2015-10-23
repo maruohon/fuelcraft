@@ -8,18 +8,18 @@ import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBucket;
 
-public class ItemBucketDiesel extends ItemBucket {
+public class ItemDieselBucket extends ItemBucket {
 
-	public ItemBucketDiesel() {
+	public ItemDieselBucket() {
 		this(FuelcraftFluids.blockFluidDiesel);
 	}
 
-	public ItemBucketDiesel(Block fluidBlock) {
+	public ItemDieselBucket(Block fluidBlock) {
 		super(fluidBlock);
 		setMaxStackSize(1);
 		setContainerItem(Items.bucket);
 		setCreativeTab(Fuelcraft.tabFuelcraft);
-		this.setUnlocalizedName(ReferenceNames.getPrefixedName("BucketDieselFuel"));
-		this.setTextureName(ReferenceTextures.getItemTextureName("BucketDieselFuel"));
+		this.setUnlocalizedName(ReferenceNames.getPrefixedName(ReferenceNames.NAME_ITEM_DIESEL_BUCKET));
+		this.setTextureName(ReferenceTextures.getItemTextureName(ReferenceNames.NAME_ITEM_DIESEL_BUCKET));
 	}
 }
