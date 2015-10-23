@@ -8,6 +8,8 @@ import iceman11a.fuelcraft.reference.ReferenceTextures;
 import iceman11a.fuelcraft.tileentity.TileEntityCartPainter;
 import iceman11a.fuelcraft.tileentity.TileEntityDieselProducer;
 import iceman11a.fuelcraft.tileentity.TileEntityFuelCraft;
+import iceman11a.fuelcraft.tileentity.TileEntityOilProducer;
+import iceman11a.fuelcraft.tileentity.TileEntityTapoilProducer;
 import iceman11a.fuelcraft.tileentity.TileEntityTokenController;
 
 import java.util.List;
@@ -57,6 +59,10 @@ public class BlockMachine extends BlockFuelcraftBase {
 				return new TileEntityCartPainter();
 			case 2:
 				return new TileEntityTokenController();
+			case 3:
+				return new TileEntityTapoilProducer();
+			case 4:
+				return new TileEntityOilProducer();
 		}
 
 		return null;
@@ -109,6 +115,8 @@ public class BlockMachine extends BlockFuelcraftBase {
 		list.add(new ItemStack(this, 1, 0)); // Diesel Producer
 		list.add(new ItemStack(this, 1, 1)); // Cart Painter
 		list.add(new ItemStack(this, 1, 2)); // Token Controller
+		list.add(new ItemStack(this, 1, 3)); // Tapoil producer
+		list.add(new ItemStack(this, 1, 4)); // Oil Producer
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -203,5 +211,23 @@ public class BlockMachine extends BlockFuelcraftBase {
 		this.icons[15] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER) + ".back");
 		this.icons[16] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER) + ".right");
 		this.icons[17] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER) + ".left");
+		
+		// Tapoil Producer
+		this.icons[18] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TAPOIL_PRODUCER) + ".bottom");
+		this.icons[19] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TAPOIL_PRODUCER) + ".top");
+		this.icons[20] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TAPOIL_PRODUCER) + ".front");
+		this.icons[21] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TAPOIL_PRODUCER) + ".back");
+		this.icons[22] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TAPOIL_PRODUCER) + ".right");
+		this.icons[23] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_TAPOIL_PRODUCER) + ".left");
+
+				
+		// Oil Producer
+		this.icons[24] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_OIL_PRODUCER) + ".bottom");
+		this.icons[25] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_OIL_PRODUCER) + ".top");
+		this.icons[26] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_OIL_PRODUCER) + ".front");
+		this.icons[27] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_OIL_PRODUCER) + ".back");
+		this.icons[28] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_OIL_PRODUCER) + ".right");
+		this.icons[29] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_OIL_PRODUCER) + ".left");
+
 	}
 }
