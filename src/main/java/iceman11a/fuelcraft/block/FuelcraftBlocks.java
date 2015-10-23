@@ -25,8 +25,8 @@ public class FuelcraftBlocks {
 
 	public static final Block blockCorbamiteOre = new BlockCorbamiteOre("CorbamiteOre", 0.5F, Material.rock);
 	public static final Block blockCorCoalOre = new BlockCorCoalOre("CorCoalOre", 0.5F, Material.rock);
-	public static final Block blockRedCorOre = new BlockRedCorOre("RedCorOre", 0.5F, Material.rock);
-	public static final Block blockBlackDiamondOre = new BlockBlackDiamondOre("BlackDiamondOre", 0.5F, Material.rock);
+	public static final Block blockRedCorOre = new BlockRedCorOre("RedCorOre", 0.5F, Blocks.stone);
+	public static final Block blockBlackDiamondOre = new BlockBlackDiamondOre("BlackDiamondOre", 0.5F, Blocks.stone);
 	
 	public static final Block blockMachines = new BlockMachine(ReferenceNames.NAME_TILE_MACHINES, 1.0f, Material.iron);
 	

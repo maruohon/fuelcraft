@@ -5,7 +5,6 @@ public class ReferenceNames {
 
 	public static final String NAME_FLUID_OIL						= "oil";
 	public static final String NAME_FLUID_DIESEL					= "diesel";
-	public static final String NAME_FLUID_TAPOIL					= "tapoil";
 
 	public static final String NAME_TILE_CORBAMITORE                = "corbamiteore";
 	public static final String NAME_TILE_CORCOALORE                 = "corcoalore";

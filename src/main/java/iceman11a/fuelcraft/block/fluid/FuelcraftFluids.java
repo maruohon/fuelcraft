@@ -15,10 +15,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class FuelcraftFluids
 {
 	public static BlockFluidBaseFuelcraft blockFluidDiesel;
-	public static BlockFluidBaseFuelcraft blockFluidTapoil;
 	public static Fluid fluidDiesel;
-	public static Fluid fluidTapoil;
-	
 
 	public static Fluid registerFluid(String fluidName, int density, int lightLevel, int temp, EnumRarity rarity)
 	{
@@ -57,12 +54,6 @@ public class FuelcraftFluids
 		fluidDiesel = registerFluid(ReferenceNames.NAME_FLUID_DIESEL, 1050, EnumRarity.common);
 		blockFluidDiesel = new BlockFluidDiesel(fluidDiesel);
 		GameRegistry.registerBlock(blockFluidDiesel, blockFluidDiesel.getUnlocalizedName());
-		
-		fluidTapoil = registerFluid(ReferenceNames.NAME_FLUID_TAPOIL, 1050, EnumRarity.common);
-		blockFluidTapoil = new BlockFluidTapoil(fluidTapoil);
-		GameRegistry.registerBlock(blockFluidTapoil, blockFluidTapoil.getUnlocalizedName());
-		
-		
 	}
 
 	public static void registerFluidContainers()
