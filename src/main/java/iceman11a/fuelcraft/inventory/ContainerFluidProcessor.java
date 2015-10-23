@@ -1,24 +1,24 @@
 package iceman11a.fuelcraft.inventory;
 
-import iceman11a.fuelcraft.tileentity.TileEntityDieselProducer;
+import iceman11a.fuelcraft.tileentity.TileEntityFluidProcessor;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ICrafting;
 import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ContainerDieselProducer extends ContainerTileEntityInventory {
+public class ContainerFluidProcessor extends ContainerTileEntityInventory {
 
-	private TileEntityDieselProducer tileEntityDieselProducer;
-	public int fluidAmountOil;
-	public int fluidAmountDiesel;
+	private TileEntityFluidProcessor tileEntityFluidProcessor;
+	public int fluidAmountInput;
+	public int fluidAmountOutput;
 	public int energyStored;
 	public int burnTime;
 	public int burnTimeFresh;
 
-	public ContainerDieselProducer(InventoryPlayer inventoryPlayer, TileEntityDieselProducer te) {
+	public ContainerFluidProcessor(InventoryPlayer inventoryPlayer, TileEntityFluidProcessor te) {
 		super(inventoryPlayer, te);
-		this.tileEntityDieselProducer = te;
+		this.tileEntityFluidProcessor = te;
 		this.addPlayerInventorySlots(8, 94);
 	}
 
@@ -41,29 +41,29 @@ public class ContainerDieselProducer extends ContainerTileEntityInventory {
 
 			// The values need to fit into a short, where these get truncated to in non-local SMP
 
-			if (this.energyStored != this.tileEntityDieselProducer.getEnergyStored(ForgeDirection.UP)) {
-				this.energyStored = this.tileEntityDieselProducer.getEnergyStored(ForgeDirection.UP);
+			if (this.energyStored != this.tileEntityFluidProcessor.getEnergyStored(ForgeDirection.UP)) {
+				this.energyStored = this.tileEntityFluidProcessor.getEnergyStored(ForgeDirection.UP);
 				icrafting.sendProgressBarUpdate(this, 0, this.energyStored / 10);
 			}
 
-			if (this.fluidAmountOil != this.tileEntityDieselProducer.getOilAmount()) {
-				this.fluidAmountOil = this.tileEntityDieselProducer.getOilAmount();
-				icrafting.sendProgressBarUpdate(this, 1, this.fluidAmountOil);
+			if (this.fluidAmountInput != this.tileEntityFluidProcessor.getInputFluidAmount()) {
+				this.fluidAmountInput = this.tileEntityFluidProcessor.getInputFluidAmount();
+				icrafting.sendProgressBarUpdate(this, 1, this.fluidAmountInput);
 			}
 
-			if (this.fluidAmountDiesel != this.tileEntityDieselProducer.getDieselAmount()) {
-				this.fluidAmountDiesel = this.tileEntityDieselProducer.getDieselAmount();
-				icrafting.sendProgressBarUpdate(this, 2, this.fluidAmountDiesel);
+			if (this.fluidAmountOutput != this.tileEntityFluidProcessor.getOutputFluidAmount()) {
+				this.fluidAmountOutput = this.tileEntityFluidProcessor.getOutputFluidAmount();
+				icrafting.sendProgressBarUpdate(this, 2, this.fluidAmountOutput);
 			}
 
-			if (this.burnTime != this.tileEntityDieselProducer.getFuelBurnTime()) {
-				this.burnTime = this.tileEntityDieselProducer.getFuelBurnTime();
+			if (this.burnTime != this.tileEntityFluidProcessor.getFuelBurnTime()) {
+				this.burnTime = this.tileEntityFluidProcessor.getFuelBurnTime();
 				icrafting.sendProgressBarUpdate(this, 3, this.burnTime / 10);
 			}
 
-			if (this.burnTimeFresh != this.tileEntityDieselProducer.getFuelBurnTimeFresh()) {
-				this.burnTimeFresh = this.tileEntityDieselProducer.getFuelBurnTimeFresh();
-				icrafting.sendProgressBarUpdate(this, 4, this.tileEntityDieselProducer.getFuelBurnTimeFresh() / 10);
+			if (this.burnTimeFresh != this.tileEntityFluidProcessor.getFuelBurnTimeFresh()) {
+				this.burnTimeFresh = this.tileEntityFluidProcessor.getFuelBurnTimeFresh();
+				icrafting.sendProgressBarUpdate(this, 4, this.tileEntityFluidProcessor.getFuelBurnTimeFresh() / 10);
 			}
 		}
 	}
@@ -76,10 +76,10 @@ public class ContainerDieselProducer extends ContainerTileEntityInventory {
 				this.energyStored = val * 10;
 				break;
 			case 1:
-				this.fluidAmountOil = val;
+				this.fluidAmountInput = val;
 				break;
 			case 2:
-				this.fluidAmountDiesel = val;
+				this.fluidAmountOutput = val;
 				break;
 			case 3:
 				this.burnTime = val * 10;
