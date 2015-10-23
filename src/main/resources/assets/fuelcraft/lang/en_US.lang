@@ -1,4 +1,5 @@
 fluid.diesel.name=Diesel Fuel
+fluid.tapoil.name=Tapoil
 
 entity.fuelcraft.dieseltrainengine.name=Diesel Train Engine
 
@@ -9,6 +10,7 @@ item.fuelcraft.resource.1.name=Cor Coal
 item.fuelcraft.resource.2.name=Red Cor
 item.fuelcraft.resource.3.name=Black Diamond
 
+item.fuelcraft.tapoilbucket.name=Tapoil Bucket
 item.fuelcraft.token.name=Token
 
 tile.fuelcraft.ore.0.name=Corbamite Ore
@@ -19,6 +21,8 @@ tile.fuelcraft.ore.3.name=Black Diamond Ore
 tile.fuelcraft.machine.0.name=Diesel Producer
 tile.fuelcraft.machine.1.name=Cart Painter
 tile.fuelcraft.machine.2.name=Token Controller
+tile.fuelcraft.machine.3.name=Tapoil Producer
+tile.fuelcraft.machine.4.name=Oil Producer
 
 tile.effectLeaves.name=Effect Leaves
 tile.lightFire.name=Light Forest Fire
@@ -37,13 +41,24 @@ itemGroup.tabFuelcraft=Fuelcraft
 #################################
 fuelcraft.container.cartpainter=Cart Painter
 fuelcraft.container.dieselproducer=Diesel Producer
+fuelcraft.container.oilproducer=Oil Producer
+fuelcraft.container.tapoilproducer=Tapoil Producer
+fuelcraft.container.tokencontroller=Token Controller
 
 #################################
 #          GUI labels           #
 #################################
 fuelcraft.gui.label.fuel=Fuel
 fuelcraft.gui.label.empty=Empty
-fuelcraft.gui.label.oilbucket.in=Oil Bucket in
-fuelcraft.gui.label.oilbucket.out=Empty Oil Bucket out
-fuelcraft.gui.label.dieselbucket.in=Empty (Diesel) Bucket in
-fuelcraft.gui.label.dieselbucket.out=Diesel Bucket out
+fuelcraft.gui.label.dieselbucket.in.empty=Empty (Diesel) Bucket in
+fuelcraft.gui.label.dieselbucket.out.filled=Diesel Bucket out
+fuelcraft.gui.label.oilbucket.in.empty=Empty (Oil) Bucket in
+fuelcraft.gui.label.oilbucket.in.filled=Oil Bucket in
+fuelcraft.gui.label.oilbucket.out.empty=Empty (Oil) Bucket out
+fuelcraft.gui.label.oilbucket.out.filled=Oil Bucket out
+fuelcraft.gui.label.tapoilbucket.in.empty=Empty (Tapoil) Bucket in
+fuelcraft.gui.label.tapoilbucket.in.filled=Tapoil Bucket in
+fuelcraft.gui.label.tapoilbucket.out.empty=Empty (Tapoil) Bucket out
+fuelcraft.gui.label.tapoilbucket.out.filled=Tapoil Bucket out
+fuelcraft.gui.label.waterbucket.in.filled=Water Bucket in
+fuelcraft.gui.label.waterbucket.out.empty=Empty (Water) Bucket out

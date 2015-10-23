@@ -15,10 +15,9 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class FuelcraftFluids
 {
 	public static BlockFluidBaseFuelcraft blockFluidDiesel;
-	public static Fluid fluidDiesel;
+	public static BlockFluidBaseFuelcraft blockFluidTapoil;
 
-	public static Fluid registerFluid(String fluidName, int density, int lightLevel, int temp, EnumRarity rarity)
-	{
+	public static Fluid registerFluid(String fluidName, int density, int lightLevel, int temp, EnumRarity rarity) {
 		Fluid fluid = new Fluid(fluidName);
 		if (FluidRegistry.registerFluid(fluid) == false)
 		{
@@ -37,27 +36,26 @@ public class FuelcraftFluids
 			}
 
 			fluid.setRarity(rarity);
-			//fluid.setUnlocalizedName(fluidName + ".still");
 			fluid.setUnlocalizedName(fluidName + ".name");
 		}
 
 		return fluid;
 	}
 
-	public static Fluid registerFluid(String fluidName, int density, EnumRarity rarity)
-	{
+	public static Fluid registerFluid(String fluidName, int density, EnumRarity rarity) {
 		return registerFluid(fluidName, density, -1, -1, rarity);
 	}
 
 	public static void registerFluids() {
 		
-		fluidDiesel = registerFluid(ReferenceNames.NAME_FLUID_DIESEL, 1050, EnumRarity.common);
-		blockFluidDiesel = new BlockFluidDiesel(fluidDiesel);
-		GameRegistry.registerBlock(blockFluidDiesel, blockFluidDiesel.getUnlocalizedName());
+		blockFluidDiesel = new BlockFluidBaseFuelcraft(ReferenceNames.NAME_FLUID_DIESEL, registerFluid(ReferenceNames.NAME_FLUID_DIESEL, 1050, EnumRarity.common));
+		blockFluidTapoil = new BlockFluidBaseFuelcraft(ReferenceNames.NAME_FLUID_TAPOIL, registerFluid(ReferenceNames.NAME_FLUID_TAPOIL, 1050, EnumRarity.common));
+		GameRegistry.registerBlock(blockFluidDiesel, ReferenceNames.NAME_FLUID_DIESEL);
+		GameRegistry.registerBlock(blockFluidTapoil, ReferenceNames.NAME_FLUID_TAPOIL);
 	}
 
-	public static void registerFluidContainers()
-	{
+	public static void registerFluidContainers() {
 		FluidContainerRegistry.registerFluidContainer(new FluidContainerData(FluidRegistry.getFluidStack(ReferenceNames.NAME_FLUID_DIESEL, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(FuelcraftItems.dieselBucket), new ItemStack(Items.bucket)));
+		FluidContainerRegistry.registerFluidContainer(new FluidContainerData(FluidRegistry.getFluidStack(ReferenceNames.NAME_FLUID_TAPOIL, FluidContainerRegistry.BUCKET_VOLUME), new ItemStack(FuelcraftItems.tapoilBucket), new ItemStack(Items.bucket)));
 	}
 }

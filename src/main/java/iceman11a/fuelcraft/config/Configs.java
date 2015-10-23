@@ -15,6 +15,8 @@ public class Configs {
 
 	public static Property propDieselProducerOilPerDieselBucket;
 	public static Property propDieselProducerEnergyPerDieselBucket;
+	public static Property propOilProducerTapoilPerOilBucket;
+	public static Property propOilProducerEnergyPerOilBucket;
 
 	public static int biomeIdBlue;
 	public static int biomeIdDark;
@@ -23,6 +25,8 @@ public class Configs {
 
 	public static int dieselProducerOilPerDieselBucket;
 	public static int dieselProducerEnergyPerDieselBucket;
+	public static int oilProducerTapoilPerOilBucket;
+	public static int oilProducerEnergyPerOilBucket;
 
 	public static void loadConfigs(File configFile) {
 		Fuelcraft.logger.info("Loading configuration...");
@@ -52,6 +56,14 @@ public class Configs {
 		propDieselProducerEnergyPerDieselBucket = conf.get(category, "dieselProducerEnergyPerDieselBucket", 100000).setRequiresMcRestart(false);
 		propDieselProducerEnergyPerDieselBucket.comment = "The amount of RF energy required to make one bucket of Diesel. Default: 100000";
 		dieselProducerEnergyPerDieselBucket = propDieselProducerEnergyPerDieselBucket.getInt();
+
+		propOilProducerTapoilPerOilBucket = conf.get(category, "oilProducerTapoilPerOilBucket", 2000).setRequiresMcRestart(false);
+		propOilProducerTapoilPerOilBucket.comment = "The amount of Tapoil required to make one bucket of Oil, in millibuckets. Default: 2000 (= 2 buckets)";
+		oilProducerTapoilPerOilBucket = propOilProducerTapoilPerOilBucket.getInt();
+
+		propOilProducerEnergyPerOilBucket = conf.get(category, "oilProducerEnergyPerOilBucket", 100000).setRequiresMcRestart(false);
+		propOilProducerEnergyPerOilBucket.comment = "The amount of RF energy required to make one bucket of Oil. Default: 100000";
+		oilProducerEnergyPerOilBucket = propOilProducerEnergyPerOilBucket.getInt();
 
 		if (conf.hasChanged()) {
 			conf.save();
