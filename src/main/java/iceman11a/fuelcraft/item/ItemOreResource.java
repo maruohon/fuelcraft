@@ -48,7 +48,7 @@ public class ItemOreResource extends ItemFuelcraftBase
 	@Override
 	public void registerIcons(IIconRegister iconRegister)
 	{
-		this.itemIcon = iconRegister.registerIcon(this.getIconString() + ".0");
+		this.itemIcon = iconRegister.registerIcon(this.getIconString() + ".corbamite");
 		this.iconArray = new IIcon[4];
 
 		this.iconArray[0] = iconRegister.registerIcon(this.getIconString() + ".corbamite");
