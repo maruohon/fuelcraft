@@ -1,26 +1,30 @@
 package iceman11a.fuelcraft.handler;
 
-import cpw.mods.fml.common.IFuelHandler;
+import iceman11a.fuelcraft.block.ore.BlockFuelcraftOre;
 import iceman11a.fuelcraft.item.FuelcraftItems;
 import net.minecraft.item.ItemStack;
+import cpw.mods.fml.common.IFuelHandler;
 
 public class FuelHandler implements IFuelHandler {
 
 	@Override
-	public int getBurnTime(ItemStack fuel) {
-		if(fuel.getItem() == FuelcraftItems.corbamite) {
-			return 900;
+	public int getBurnTime(ItemStack stack) {
+
+		if(stack.getItem() == FuelcraftItems.resource) {
+			int damage = stack.getItemDamage();
+
+			switch (damage) {
+				case BlockFuelcraftOre.META_CORBAMITE:
+					return 900;
+				case BlockFuelcraftOre.META_CORCOAL:
+					return 400;
+				case BlockFuelcraftOre.META_REDCOR:
+					return 1000;
+				case BlockFuelcraftOre.META_BLACK_DIAMOND:
+					return 1200;
+			}
 		}
-		else if(fuel.getItem() == FuelcraftItems.corCoal) {
-			return 400;
-		}
-		else if(fuel.getItem() == FuelcraftItems.BlackDiamond) {
-			return 1200;
-		}
-		else if(fuel.getItem() == FuelcraftItems.RedCor) {
-			return 1000;
-		}
-		else
-			return 0;
+
+		return 0;
 	}
 }

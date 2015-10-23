@@ -8,14 +8,14 @@ import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.Ev
 import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.ICE;
 import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAKE;
 import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAVA;
+import iceman11a.fuelcraft.Fuelcraft;
+import iceman11a.fuelcraft.block.FuelcraftBlocks;
+import iceman11a.fuelcraft.reference.Reference;
+import iceman11a.fuelcraft.world.biomes.ModBiomes;
 
 import java.util.List;
 import java.util.Random;
-import java.util.logging.Level;
 
-import iceman11a.fuelcraft.block.FuelcraftBlocks;
-import iceman11a.fuelcraft.Util.GameLogHelper;
-import iceman11a.fuelcraft.world.biomes.ModBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.EnumCreatureType;
@@ -97,7 +97,7 @@ public class ChunkProviderForest implements IChunkProvider {
 
 	public ChunkProviderForest(World world, long seed, boolean mapFeaturesEnabled)
 	{
-		GameLogHelper.writeToLog(Level.INFO, "Loading Chunk Provider for dmension.");
+		Fuelcraft.logger.info("Loading ChunkProviderForest for " + Reference.MOD_NAME);
 		this.worldObj = world;
 		this.mapFeaturesEnabled = mapFeaturesEnabled;
 		this.worldType = world.getWorldInfo().getTerrainType();
@@ -195,7 +195,6 @@ public class ChunkProviderForest implements IChunkProvider {
 	}
 
 	public void replaceBlocksForBiome(int par1, int par2, Block[] blocks, byte[] par3ArrayOfByte, BiomeGenBase[] par4ArrayOfBiomeGenBase) {
-		GameLogHelper.writeToLog(Level.INFO, "Replacing block for biome.");
 		@SuppressWarnings("deprecation")
 		ChunkProviderEvent.ReplaceBiomeBlocks event = new ChunkProviderEvent.ReplaceBiomeBlocks(this, par1, par2, blocks, par3ArrayOfByte, par4ArrayOfBiomeGenBase);
 		MinecraftForge.EVENT_BUS.post(event);

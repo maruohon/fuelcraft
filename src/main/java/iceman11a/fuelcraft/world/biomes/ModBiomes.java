@@ -1,9 +1,11 @@
 package iceman11a.fuelcraft.world.biomes;
 
+import iceman11a.fuelcraft.block.FuelcraftBlocks;
+import iceman11a.fuelcraft.config.Configs;
+import iceman11a.fuelcraft.world.biomes.decorators.BiomeDecoratorMod;
+
 import java.util.Random;
 
-import iceman11a.fuelcraft.block.FuelcraftBlocks;
-import iceman11a.fuelcraft.world.biomes.decorators.BiomeDecoratorMod;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
@@ -33,8 +35,8 @@ public class ModBiomes extends BiomeGenBase {
     }
 
     static {
-        forestLight = (new BiomeLightForest(BiomeIDs.LIGHT).setColor(5470985).setTemperatureRainfall(0.95F, 0.9F).setHeight(biomeHeight).setBiomeName("Forest Of Light"));
-        forestDark = (new BiomeDarkForest(BiomeIDs.DARK).setColor(34049320).setTemperatureRainfall(0.8F, 0.4F).setHeight(biomeHeight).setBiomeName("Darkness Forest"));
+        forestLight = (new BiomeLightForest(Configs.biomeIdLight).setColor(5470985).setTemperatureRainfall(0.95F, 0.9F).setHeight(biomeHeight).setBiomeName("Forest Of Light"));
+        forestDark = (new BiomeDarkForest(Configs.biomeIdDark).setColor(34049320).setTemperatureRainfall(0.8F, 0.4F).setHeight(biomeHeight).setBiomeName("Darkness Forest"));
     }
 
     public WorldGenerator getRandomWorldGenForGrass(Random random)

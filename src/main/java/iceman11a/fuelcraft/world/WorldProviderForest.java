@@ -1,5 +1,6 @@
 package iceman11a.fuelcraft.world;
 
+import iceman11a.fuelcraft.config.Configs;
 import iceman11a.fuelcraft.world.renderers.CloudRenderer;
 import iceman11a.fuelcraft.world.renderers.SkyRenderer;
 import iceman11a.fuelcraft.world.renderers.WeatherRenderer;
@@ -27,13 +28,13 @@ public class WorldProviderForest extends WorldProvider{
 	/** tells Minecraft to use our new WorldChunkManager **/
 	public void registerWorldChunkManager() {
 		this.worldChunkMgr = new WorldChunkManagerForest(worldObj.getSeed(), terrainType);
-		this.dimensionId = DimensionIDs.LIGHTFORESTDIMENSION;
+		this.dimensionId = Configs.diomensionIdLightForest;
 	}
 	
 	/** Get Provider for Dimension **/
 	public static WorldProvider getProviderForDimension(int id)
 	{
-		return DimensionManager.createProviderFor(DimensionIDs.LIGHTFORESTDIMENSION);
+		return DimensionManager.createProviderFor(Configs.diomensionIdLightForest);
 	}
 
 	@Override
@@ -47,7 +48,7 @@ public class WorldProviderForest extends WorldProvider{
 	@Override
 	/** sets/creates the save folder */
 	public String getSaveFolder() {
-			return "DIM" + DimensionIDs.LIGHTFORESTDIMENSION;
+			return "DIM" + Configs.diomensionIdLightForest;
 	}
 
 	@SideOnly(Side.CLIENT)

@@ -1,14 +1,10 @@
 package iceman11a.fuelcraft.block;
 
 import iceman11a.fuelcraft.block.machine.BlockMachine;
-import iceman11a.fuelcraft.block.ore.BlockBlackDiamondOre;
-import iceman11a.fuelcraft.block.ore.BlockCorCoalOre;
-import iceman11a.fuelcraft.block.ore.BlockCorbamiteOre;
-import iceman11a.fuelcraft.block.ore.BlockRedCorOre;
+import iceman11a.fuelcraft.block.ore.BlockFuelcraftOre;
 import iceman11a.fuelcraft.reference.ReferenceNames;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class FuelcraftBlocks {
@@ -23,12 +19,8 @@ public class FuelcraftBlocks {
 	public static final Block lightSapling = new BlockModLightSapling("lightSapling", "light");
 	public static final Block lightStone = new BlockBasic(Material.rock, "lightStone", "lightStone", Block.soundTypeStone);
 
-	public static final Block blockCorbamiteOre = new BlockCorbamiteOre("CorbamiteOre", 0.5F, Material.rock);
-	public static final Block blockCorCoalOre = new BlockCorCoalOre("CorCoalOre", 0.5F, Material.rock);
-	public static final Block blockRedCorOre = new BlockRedCorOre("RedCorOre", 0.5F, Blocks.stone);
-	public static final Block blockBlackDiamondOre = new BlockBlackDiamondOre("BlackDiamondOre", 0.5F, Blocks.stone);
-	
-	public static final Block blockMachines = new BlockMachine(ReferenceNames.NAME_TILE_MACHINES, 1.0f, Material.iron);
+	public static final Block blockOre = new BlockFuelcraftOre(ReferenceNames.NAME_TILE_ORES, 1.5f, Material.rock);
+	public static final Block blockMachines = new BlockMachine(ReferenceNames.NAME_TILE_MACHINE, 1.0f, Material.iron);
 	
 	
 	/**
@@ -47,13 +39,9 @@ public class FuelcraftBlocks {
 		GameRegistry.registerBlock(lightSapling, "lightSapling");
 
 		// Ores
-		GameRegistry.registerBlock(blockCorbamiteOre, "BlockCorbamiteOre");
-		GameRegistry.registerBlock(blockCorCoalOre, "BlockCorCoalOre");
-		GameRegistry.registerBlock(blockRedCorOre, "BlockRedCorOre");
-		GameRegistry.registerBlock(blockBlackDiamondOre, "BlockBlackDiamondOre");
-		
+		GameRegistry.registerBlock(blockOre, ItemBlockFuelcraftBase.class, ReferenceNames.NAME_TILE_ORES);
 
 		// Machines
-		GameRegistry.registerBlock(blockMachines, ItemBlockFuelcraft.class, ReferenceNames.NAME_TILE_MACHINES);
+		GameRegistry.registerBlock(blockMachines, ItemBlockFuelcraftBase.class, ReferenceNames.NAME_TILE_MACHINE);
 	}
 }
