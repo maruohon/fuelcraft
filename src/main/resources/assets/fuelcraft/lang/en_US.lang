@@ -12,6 +12,7 @@ item.fuelcraft.resource.3.name=Black Diamond
 
 item.fuelcraft.tapoilbucket.name=Tapoil Bucket
 item.fuelcraft.token.name=Token
+tile.fuelcraft.tokentrack.name=Token Track
 
 tile.fuelcraft.ore.0.name=Corbamite Ore
 tile.fuelcraft.ore.1.name=Cor Coal Ore

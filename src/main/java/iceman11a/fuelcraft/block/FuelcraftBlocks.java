@@ -21,7 +21,7 @@ public class FuelcraftBlocks {
 
 	public static final Block blockOre = new BlockFuelcraftOre(ReferenceNames.NAME_TILE_ORES, 1.5f, Material.rock);
 	public static final Block blockMachines = new BlockMachine(ReferenceNames.NAME_TILE_MACHINE, 1.0f, Material.iron);
-	
+	public static final Block blockTokenTrack = new BlockTokenTrack(ReferenceNames.NAME_BLOCK_TOKEN_TRACK, 1.0f, Material.rock);
 	
 	/**
 	 * Register Blocks.
@@ -37,6 +37,9 @@ public class FuelcraftBlocks {
 		GameRegistry.registerBlock(lightLeaves, "lightLeaves");
 		GameRegistry.registerBlock(effectLeaves, "effectLeaves");
 		GameRegistry.registerBlock(lightSapling, "lightSapling");
+		
+		// Tracks
+		GameRegistry.registerBlock(blockTokenTrack, "blockTokenTrack");
 
 		// Ores
 		GameRegistry.registerBlock(blockOre, ItemBlockFuelcraftBase.class, ReferenceNames.NAME_TILE_ORES);

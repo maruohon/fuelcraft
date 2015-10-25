@@ -32,6 +32,7 @@ public class ReferenceNames {
 	public static final String NAME_ENTITY_DIESEL_TRAIN_ENGINE		= "dieseltrainengine";
 
 	public static final String FORESTBIOMENAME						= "Blue light Forest";
+	public static final String NAME_BLOCK_TOKEN_TRACK				= "tokentrack";
 
 	public static String getPrefixedName(String name) {
 		return Reference.MOD_ID + "." + name;
