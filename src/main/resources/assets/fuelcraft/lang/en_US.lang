@@ -24,6 +24,7 @@ tile.fuelcraft.machine.1.name=Cart Painter
 tile.fuelcraft.machine.2.name=Token Controller
 tile.fuelcraft.machine.3.name=Tapoil Producer
 tile.fuelcraft.machine.4.name=Oil Producer
+tile.fuelcraft.machine.5.name=Cart Filter
 
 tile.effectLeaves.name=Effect Leaves
 tile.lightFire.name=Light Forest Fire
