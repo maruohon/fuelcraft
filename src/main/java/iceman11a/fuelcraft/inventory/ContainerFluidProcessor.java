@@ -24,11 +24,11 @@ public class ContainerFluidProcessor extends ContainerTileEntityInventory {
 
 	@Override
 	protected void addCustomInventorySlots() {
-		this.addSlotToContainer(new SlotGeneric(this.inventory, 0,   8, 64));
-		this.addSlotToContainer(new SlotGeneric(this.inventory, 1,  76, 24));
-		this.addSlotToContainer(new SlotGeneric(this.inventory, 2,  76, 55));
-		this.addSlotToContainer(new SlotGeneric(this.inventory, 3, 154, 24));
-		this.addSlotToContainer(new SlotGeneric(this.inventory, 4, 154, 55));
+		this.addSlotToContainer(new SlotGeneric(this.inventory, 0,   8, 55));
+		this.addSlotToContainer(new SlotGeneric(this.inventory, 1,  74, 24));
+		this.addSlotToContainer(new SlotGeneric(this.inventory, 2,  74, 55));
+		this.addSlotToContainer(new SlotGeneric(this.inventory, 3, 152, 24));
+		this.addSlotToContainer(new SlotGeneric(this.inventory, 4, 152, 55));
 	}
 
 	@Override

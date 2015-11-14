@@ -50,6 +50,8 @@ fuelcraft.container.tokencontroller=Token Controller
 #################################
 #          GUI labels           #
 #################################
+fuelcraft.gui.label.blazepowder=Blaze Powder
+fuelcraft.gui.label.coalorcharcoal=Coal or Charcoal
 fuelcraft.gui.label.fuel=Fuel
 fuelcraft.gui.label.empty=Empty
 fuelcraft.gui.label.dieselbucket.in.empty=Empty (Diesel) Bucket in
@@ -58,6 +60,7 @@ fuelcraft.gui.label.oilbucket.in.empty=Empty (Oil) Bucket in
 fuelcraft.gui.label.oilbucket.in.filled=Oil Bucket in
 fuelcraft.gui.label.oilbucket.out.empty=Empty (Oil) Bucket out
 fuelcraft.gui.label.oilbucket.out.filled=Oil Bucket out
+fuelcraft.gui.label.saplings=Saplings
 fuelcraft.gui.label.tapoilbucket.in.empty=Empty (Tapoil) Bucket in
 fuelcraft.gui.label.tapoilbucket.in.filled=Tapoil Bucket in
 fuelcraft.gui.label.tapoilbucket.out.empty=Empty (Tapoil) Bucket out

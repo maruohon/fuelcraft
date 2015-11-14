@@ -45,7 +45,6 @@ public abstract class TileEntityFluidProcessor extends TileEntityFuelCraftInvent
 
 	public TileEntityFluidProcessor(String name, Fluid inputFluid, Fluid outputFluid) {
 		super(name);
-		this.itemStacks = new ItemStack[5];
 		this.fluidInput = inputFluid;
 		this.fluidOutput = outputFluid;
 		this.tankInput = new FluidTankFuelcraft(this, null, capacityFluidInput);

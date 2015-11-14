@@ -1,8 +1,9 @@
 package iceman11a.fuelcraft.gui;
 
-import iceman11a.fuelcraft.inventory.ContainerFluidProcessor;
+import iceman11a.fuelcraft.inventory.ContainerTapoilProducer;
 import iceman11a.fuelcraft.reference.ReferenceNames;
 import iceman11a.fuelcraft.tileentity.TileEntityFluidProcessor;
+import iceman11a.fuelcraft.tileentity.TileEntityTapoilProducer;
 
 import java.util.List;
 
@@ -12,13 +13,35 @@ import net.minecraftforge.fluids.FluidRegistry;
 
 public class GuiTapoilProducer extends GuiFluidProcessor
 {
-	public GuiTapoilProducer(ContainerFluidProcessor container, TileEntityFluidProcessor te) {
+	public GuiTapoilProducer(ContainerTapoilProducer container, TileEntityTapoilProducer te) {
 		super(container, te, FluidRegistry.getFluid("water"), FluidRegistry.getFluid(ReferenceNames.NAME_FLUID_TAPOIL));
+		this.xFluidInputSlot = 34;
+		this.xInputTank = 55;
+	}
+
+	@Override
+	protected void drawGuiContainerBackgroundLayer(float gameTicks, int mouseX, int mouseY) {
+	    super.drawGuiContainerBackgroundLayer(gameTicks, mouseX, mouseY);
+
+	    int x = (this.width - this.xSize) / 2;
+	    int y = (this.height - this.ySize) / 2;
+
+        // Empty sapling slot, draw the slot background
+        if (this.inventorySlots.getSlot(TileEntityTapoilProducer.SLOT_SAPLING).getStack() == null)
+        {
+            this.drawTexturedModalRect(x + 77, y + 24, 224, 0, 16, 16);
+        }
+
+        // Empty coal slot, draw the slot background
+        if (this.inventorySlots.getSlot(TileEntityTapoilProducer.SLOT_COAL).getStack() == null)
+        {
+            this.drawTexturedModalRect(x + 96, y + 24, this.uFuelBackground, this.vFuelBackground, 16, 16);
+        }
 	}
 
 	@Override
 	protected void addSlotHoveringText(Slot slot, List<String> list) {
-		// Hovering over an empty CorCoal slot
+		// Hovering over an empty fuel slot
 		if (slot == this.inventorySlots.getSlot(TileEntityFluidProcessor.SLOT_FUEL))
 		{
 			list.add(I18n.format("fuelcraft.gui.label.fuel", new Object[0]));
@@ -43,5 +66,15 @@ public class GuiTapoilProducer extends GuiFluidProcessor
 		{
 			list.add(I18n.format("fuelcraft.gui.label.tapoilbucket.out.filled", new Object[0]));
 		}
+	    // Hovering over an empty sapling slot
+        else if (slot == this.inventorySlots.getSlot(TileEntityTapoilProducer.SLOT_SAPLING))
+        {
+            list.add(I18n.format("fuelcraft.gui.label.saplings", new Object[0]));
+        }
+	    // Hovering over an empty coal slot
+        else if (slot == this.inventorySlots.getSlot(TileEntityTapoilProducer.SLOT_COAL))
+        {
+            list.add(I18n.format("fuelcraft.gui.label.coalorcharcoal", new Object[0]));
+        }
 	}
 }
