@@ -3,6 +3,7 @@ package iceman11a.fuelcraft.gui;
 import iceman11a.fuelcraft.inventory.ContainerFluidProcessor;
 import iceman11a.fuelcraft.reference.ReferenceReflection;
 import iceman11a.fuelcraft.tileentity.TileEntityFluidProcessor;
+import iceman11a.fuelcraft.tileentity.TileEntityTapoilProducer;
 import iceman11a.fuelcraft.util.FuelcraftStringUtils;
 
 import java.util.ArrayList;
@@ -20,8 +21,6 @@ public abstract class GuiFluidProcessor extends GuiFuelCraftInventory {
 	protected FluidStack fluidInput;
 	protected FluidStack fluidOutput;
 
-	protected int xFuelSlot = 8;
-	protected int yFuelSlot = 55;
 	protected int uFuelBackground = 192;
 	protected int vFuelBackground = 0;
 
@@ -30,13 +29,9 @@ public abstract class GuiFluidProcessor extends GuiFuelCraftInventory {
 	protected int uFuelBurnIndicator = 193;
 	protected int vFuelBurnIndicator = 68;
 
-	protected int xFluidInputSlot = 74;
-	protected int yFluidInputSlot = 24;
 	protected int uFluidInputSlotBackground = 176;
 	protected int vFluidInputSlotBackground = 0;
 
-	protected int xFluidOutputSlot = 152;
-	protected int yFluidOutputSlot = 24;
 	protected int uFluidOutputSlotBackground = 176;
 	protected int vFluidOutputSlotBackground = 0;
 
@@ -45,7 +40,7 @@ public abstract class GuiFluidProcessor extends GuiFuelCraftInventory {
 	protected int uEnergyMeter = 178;
 	protected int vEnergyMeter = 69;
 
-	protected int xInputTank = 95;
+	protected int xInputTank = 55;
 	protected int yInputTank = 24;
 	protected int uInputTank = 209;
 	protected int vInputTank = 17;
@@ -54,6 +49,14 @@ public abstract class GuiFluidProcessor extends GuiFuelCraftInventory {
 	protected int yOutputTank = 24;
 	protected int uOutputTank = 225;
 	protected int vOutputTank = 17;
+
+	protected int xTemperatureMeter = 116;
+	protected int yTemperatureMeter = 57;
+	protected int uTemperatureMeter = 186;
+	protected int vTemperatureMeter = 68;
+
+	protected int maxTemperature = TileEntityTapoilProducer.MAX_TEMPERATURE;
+	protected int requiredTemperature = TileEntityTapoilProducer.REQUIRED_TEMPERATURE;
 
 	public GuiFluidProcessor(ContainerFluidProcessor container, TileEntityFluidProcessor te, Fluid fluidInput, Fluid fluidOutput) {
 		super(container, te);
@@ -70,22 +73,25 @@ public abstract class GuiFluidProcessor extends GuiFuelCraftInventory {
 		int x = (this.width - this.xSize) / 2;
 		int y = (this.height - this.ySize) / 2;
 
+		Slot slot = this.inventorySlots.getSlot(TileEntityFluidProcessor.SLOT_FUEL);
 		// Empty fuel input slot, draw the slot background
-		if (this.inventorySlots.getSlot(TileEntityFluidProcessor.SLOT_FUEL).getStack() == null)
+		if (slot.getStack() == null)
 		{
-			this.drawTexturedModalRect(x + this.xFuelSlot, y + this.yFuelSlot, this.uFuelBackground, this.vFuelBackground, 16, 16);
+			this.drawTexturedModalRect(x + slot.xDisplayPosition, y + slot.yDisplayPosition, this.uFuelBackground, this.vFuelBackground, 16, 16);
 		}
 
 		// Empty input fluid bucket (input) slot, draw the slot background
-		if (this.inventorySlots.getSlot(TileEntityFluidProcessor.SLOT_INPUT_FLUID_BUCKET_IN).getStack() == null)
+		slot = this.inventorySlots.getSlot(TileEntityFluidProcessor.SLOT_INPUT_FLUID_BUCKET_IN);
+		if (slot.getStack() == null)
 		{
-			this.drawTexturedModalRect(x + this.xFluidInputSlot, y + this.yFluidInputSlot, this.uFluidInputSlotBackground, this.vFluidInputSlotBackground, 16, 16);
+			this.drawTexturedModalRect(x + slot.xDisplayPosition, y + slot.yDisplayPosition, this.uFluidInputSlotBackground, this.vFluidInputSlotBackground, 16, 16);
 		}
 
 		// Empty output fluid bucket (input) slot, draw the slot background
-		if (this.inventorySlots.getSlot(TileEntityFluidProcessor.SLOT_OUTPUT_FLUID_BUCKET_IN).getStack() == null)
+		slot = this.inventorySlots.getSlot(TileEntityFluidProcessor.SLOT_OUTPUT_FLUID_BUCKET_IN);
+		if (slot.getStack() == null)
 		{
-			this.drawTexturedModalRect(x + this.xFluidOutputSlot, y + this.yFluidOutputSlot, this.uFluidOutputSlotBackground, this.vFluidOutputSlotBackground, 16, 16);
+			this.drawTexturedModalRect(x + slot.xDisplayPosition, y + slot.yDisplayPosition, this.uFluidOutputSlotBackground, this.vFluidOutputSlotBackground, 16, 16);
 		}
 
 		// Draw the burn time indicator
@@ -95,7 +101,7 @@ public abstract class GuiFluidProcessor extends GuiFuelCraftInventory {
 			this.drawTexturedModalRect(x + this.xFuelBurnIndicator, y + this.yFuelBurnIndicator + height - renderHeight, this.uFuelBurnIndicator, this.vFuelBurnIndicator + height - renderHeight, 2, renderHeight);
 		}
 
-		// Some energy stored
+		// Draw the energy meter
 		if (this.containerFluidProcessor.energyStored > 0)
 		{
 			int height = 36;
@@ -103,7 +109,17 @@ public abstract class GuiFluidProcessor extends GuiFuelCraftInventory {
 			this.drawTexturedModalRect(x + this.xEnergyMeter, y + this.yEnergyMeter + height - renderHeight, this.uEnergyMeter, this.vEnergyMeter + height - renderHeight, 6, renderHeight);
 		}
 
-		// Some input fluid stored in the tank
+		// Draw the temperature gauge
+		int height = 28;
+		int renderHeight = height * this.containerFluidProcessor.temperature / this.maxTemperature;
+		int yPos = height - renderHeight;
+		this.drawTexturedModalRect(x + this.xTemperatureMeter, y + this.yTemperatureMeter + yPos, this.uTemperatureMeter, this.vTemperatureMeter + yPos, 5, renderHeight);
+
+		// Draw the required-temperature marker
+		yPos = height * (this.maxTemperature - this.requiredTemperature) / this.maxTemperature;
+		this.drawTexturedModalRect(x + this.xTemperatureMeter, y + this.yTemperatureMeter + yPos, 196, 67, 12, 5);
+
+		// Some input fluid stored in the tank -> draw the input fluid
 		if (this.containerFluidProcessor.fluidAmountInput > 0 && this.fluidInput != null)
 		{
 			this.fluidInput.amount = this.containerFluidProcessor.fluidAmountInput;
@@ -114,7 +130,7 @@ public abstract class GuiFluidProcessor extends GuiFuelCraftInventory {
 		this.bindTexture(this.guiTexture);
 		this.drawTexturedModalRect(x + this.xInputTank, y + this.yInputTank, this.uInputTank, this.vInputTank, 14, 47);
 
-		// Some output fluid stored in the tank
+		// Some output fluid stored in the tank -> draw the output fluid
 		if (this.containerFluidProcessor.fluidAmountOutput > 0 && this.fluidOutput != null)
 		{
 			this.fluidOutput.amount = this.containerFluidProcessor.fluidAmountOutput;
@@ -148,6 +164,12 @@ public abstract class GuiFluidProcessor extends GuiFuelCraftInventory {
 			int energyAmount = this.containerFluidProcessor.energyStored;
 			int energyCapacity = TileEntityFluidProcessor.capacityEnergy;
 			list.add(FuelcraftStringUtils.formatNumberWithKSeparators(energyAmount) + " / " + FuelcraftStringUtils.formatNumberWithKSeparators(energyCapacity) + " RF");
+			this.drawHoveringText(list, mouseX, mouseY, this.fontRendererObj);
+		}
+		// Hovering over the temperature meter
+		else if (mouseX >= x + this.xTemperatureMeter && mouseY >= y + this.yTemperatureMeter && mouseX < x + this.xTemperatureMeter + 5 && mouseY < y + this.yTemperatureMeter + 28)
+		{
+			list.add(this.containerFluidProcessor.temperature + " \u00b0" + "C");
 			this.drawHoveringText(list, mouseX, mouseY, this.fontRendererObj);
 		}
 		// Hovering over the input tank

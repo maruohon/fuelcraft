@@ -44,6 +44,7 @@ public abstract class TileEntityFluidProcessor extends TileEntityFuelCraftSidedI
 	protected int counter;
 	protected int fuelBurnTime;
 	protected int fuelBurnTimeFresh;
+	protected float temperature = 20F;
 
 	public TileEntityFluidProcessor(String name, Fluid inputFluid, Fluid outputFluid) {
 		super(name);
@@ -61,6 +62,7 @@ public abstract class TileEntityFluidProcessor extends TileEntityFuelCraftSidedI
 		this.energyStorage.setStoredEnergy(nbt.getInteger("StoredEnergy"));
 		this.fuelBurnTime = nbt.getInteger("BurnTime");
 		this.fuelBurnTimeFresh = nbt.getInteger("BurnTimeTotal");
+		this.temperature = nbt.getFloat("Temperature");
 
 		if (nbt.hasKey("FluidInput", Constants.NBT.TAG_COMPOUND) == true) {
 			this.tankInput.setFluid(FluidStack.loadFluidStackFromNBT(nbt.getCompoundTag("FluidInput")));
@@ -78,6 +80,7 @@ public abstract class TileEntityFluidProcessor extends TileEntityFuelCraftSidedI
 		nbt.setInteger("StoredEnergy", this.energyStorage.getEnergyStored());
 		nbt.setInteger("BurnTime", this.fuelBurnTime);
 		nbt.setInteger("BurnTimeTotal", this.fuelBurnTimeFresh);
+		nbt.setFloat("Temperature", this.temperature);
 
 		if (this.tankInput.getFluid() != null) {
 			nbt.setTag("FluidInput", this.tankInput.getFluid().writeToNBT(new NBTTagCompound()));
@@ -105,6 +108,10 @@ public abstract class TileEntityFluidProcessor extends TileEntityFuelCraftSidedI
 		}
 
 		this.burnFuelItem();
+	}
+
+	public float getTemperature() {
+		return this.temperature;
 	}
 
 	public int getFuelBurnTime() {

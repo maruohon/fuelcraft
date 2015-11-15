@@ -30,7 +30,6 @@ public class TileEntityOilProducer extends TileEntityFluidProcessor
 	public static float coolingSpeed = heatingSpeed / 4F;
 	public static int outputFluidProductionRate = 3; // mB per tick; 3 * 20 = 60 mB per second
 
-	protected float temperature = 20F;
 	protected int blazepowderAmount;
 
 	public TileEntityOilProducer() {
@@ -42,7 +41,6 @@ public class TileEntityOilProducer extends TileEntityFluidProcessor
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 
-		this.temperature = nbt.getFloat("Temperature");
 		this.blazepowderAmount = nbt.getInteger("BlazePowderAmount");
 	}
 
@@ -50,7 +48,6 @@ public class TileEntityOilProducer extends TileEntityFluidProcessor
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 
-		nbt.setFloat("Temperature", this.temperature);
 		nbt.setInteger("BlazePowderAmount", this.blazepowderAmount);
 	}
 
@@ -66,10 +63,6 @@ public class TileEntityOilProducer extends TileEntityFluidProcessor
 						Configs.oilProducerTapoilPerOilBucket,
 						Configs.oilProducerBlazepowderValue,
 						outputFluidProductionRate);
-	}
-
-	public float getTemperature() {
-		return this.temperature;
 	}
 
 	/**

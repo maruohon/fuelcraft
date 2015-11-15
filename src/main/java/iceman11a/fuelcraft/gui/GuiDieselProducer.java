@@ -2,6 +2,7 @@ package iceman11a.fuelcraft.gui;
 
 import iceman11a.fuelcraft.inventory.ContainerFluidProcessor;
 import iceman11a.fuelcraft.reference.ReferenceNames;
+import iceman11a.fuelcraft.tileentity.TileEntityDieselProducer;
 import iceman11a.fuelcraft.tileentity.TileEntityFluidProcessor;
 
 import java.util.List;
@@ -14,21 +15,9 @@ public class GuiDieselProducer extends GuiFluidProcessor
 {
 	public GuiDieselProducer(ContainerFluidProcessor container, TileEntityFluidProcessor te) {
 		super(container, te, FluidRegistry.getFluid(ReferenceNames.NAME_FLUID_OIL), FluidRegistry.getFluid(ReferenceNames.NAME_FLUID_DIESEL));
-	}
-
-	@Override
-	protected void drawGuiContainerBackgroundLayer(float gameTicks, int mouseX, int mouseY) {
-		super.drawGuiContainerBackgroundLayer(gameTicks, mouseX, mouseY);
-
-		int x = (this.width - this.xSize) / 2;
-		int y = (this.height - this.ySize) / 2;
-
-		// Draw the burn time indicator
-		if (this.containerFluidProcessor.burnTime > 0 && this.containerFluidProcessor.burnTimeFresh != 0) {
-			int height = 16;
-			int renderHeight = this.containerFluidProcessor.burnTime * height / this.containerFluidProcessor.burnTimeFresh;
-			this.drawTexturedModalRect(x + this.xFuelBurnIndicator, y + this.yFuelBurnIndicator + height - renderHeight, this.uFuelBurnIndicator, this.vFuelBurnIndicator + height - renderHeight, 2, renderHeight);
-		}
+		this.maxTemperature = TileEntityDieselProducer.MAX_TEMPERATURE;
+		this.requiredTemperature = TileEntityDieselProducer.REQUIRED_TEMPERATURE;
+		this.xTemperatureMeter = 105;
 	}
 
 	@Override

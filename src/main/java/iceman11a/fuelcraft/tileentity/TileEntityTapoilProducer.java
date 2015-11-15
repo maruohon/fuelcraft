@@ -32,7 +32,6 @@ public class TileEntityTapoilProducer extends TileEntityFluidProcessor
 	public static float coolingSpeed = heatingSpeed / 4F;
 	public static int outputFluidProductionRate = 3; // mB per tick; 3 * 20 = 60 mB per second
 
-	protected float temperature = 20F;
 	protected int saplingAmount;
 	protected int coalAmount;
 
@@ -45,7 +44,6 @@ public class TileEntityTapoilProducer extends TileEntityFluidProcessor
 	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 
-		this.temperature = nbt.getFloat("Temperature");
 		this.saplingAmount = nbt.getInteger("SaplingAmount");
 		this.coalAmount = nbt.getInteger("CoalAmount");
 	}
@@ -54,7 +52,6 @@ public class TileEntityTapoilProducer extends TileEntityFluidProcessor
 	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 
-		nbt.setFloat("Temperature", this.temperature);
 		nbt.setInteger("SaplingAmount", this.saplingAmount);
 		nbt.setInteger("CoalAmount", this.coalAmount);
 	}
@@ -72,10 +69,6 @@ public class TileEntityTapoilProducer extends TileEntityFluidProcessor
 						Configs.tapoilProducerSaplingValue,
 						Configs.tapoilProducerCoalValue,
 						outputFluidProductionRate);
-	}
-
-	public float getTemperature() {
-		return this.temperature;
 	}
 
 	/**

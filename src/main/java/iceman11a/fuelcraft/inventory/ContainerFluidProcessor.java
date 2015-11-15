@@ -15,6 +15,7 @@ public class ContainerFluidProcessor extends ContainerTileEntityInventory {
 	public int energyStored;
 	public int burnTime;
 	public int burnTimeFresh;
+	public int temperature;
 
 	public ContainerFluidProcessor(InventoryPlayer inventoryPlayer, TileEntityFluidProcessor te) {
 		super(inventoryPlayer, te);
@@ -25,8 +26,8 @@ public class ContainerFluidProcessor extends ContainerTileEntityInventory {
 	@Override
 	protected void addCustomInventorySlots() {
 		this.addSlotToContainer(new SlotGeneric(this.inventory, 0,   8, 55));
-		this.addSlotToContainer(new SlotGeneric(this.inventory, 1,  74, 24));
-		this.addSlotToContainer(new SlotGeneric(this.inventory, 2,  74, 55));
+		this.addSlotToContainer(new SlotGeneric(this.inventory, 1,  34, 24));
+		this.addSlotToContainer(new SlotGeneric(this.inventory, 2,  34, 55));
 		this.addSlotToContainer(new SlotGeneric(this.inventory, 3, 152, 24));
 		this.addSlotToContainer(new SlotGeneric(this.inventory, 4, 152, 55));
 	}
@@ -65,6 +66,11 @@ public class ContainerFluidProcessor extends ContainerTileEntityInventory {
 				this.burnTimeFresh = this.tileEntityFluidProcessor.getFuelBurnTimeFresh();
 				icrafting.sendProgressBarUpdate(this, 4, this.tileEntityFluidProcessor.getFuelBurnTimeFresh() / 10);
 			}
+
+			if (this.temperature != this.tileEntityFluidProcessor.getTemperature()) {
+				this.temperature = (int)this.tileEntityFluidProcessor.getTemperature();
+				icrafting.sendProgressBarUpdate(this, 5, this.temperature);
+			}
 		}
 	}
 
@@ -86,6 +92,9 @@ public class ContainerFluidProcessor extends ContainerTileEntityInventory {
 				break;
 			case 4:
 				this.burnTimeFresh = val * 10;
+				break;
+			case 5:
+				this.temperature = val;
 				break;
 			default:
 		}
