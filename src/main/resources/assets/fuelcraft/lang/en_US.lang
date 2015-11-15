@@ -53,6 +53,7 @@ fuelcraft.container.tokencontroller=Token Controller
 fuelcraft.gui.label.blazepowder=Blaze Powder
 fuelcraft.gui.label.coalorcharcoal=Coal or Charcoal
 fuelcraft.gui.label.fuel=Fuel
+fuelcraft.gui.label.fuel.insertinfo=(can only be inserted from the bottom)
 fuelcraft.gui.label.empty=Empty
 fuelcraft.gui.label.dieselbucket.in.empty=Empty (Diesel) Bucket in
 fuelcraft.gui.label.dieselbucket.out.filled=Diesel Bucket out

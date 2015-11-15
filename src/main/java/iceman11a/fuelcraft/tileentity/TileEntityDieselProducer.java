@@ -13,6 +13,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class TileEntityDieselProducer extends TileEntityFluidProcessor
 {
+	public static final int[] SLOTS_NOT_FUEL = new int[] {1, 2, 3, 4};
+
 	public static int outputFluidProductionRate = 3; // mB per tick; 3 * 20 = 60 mB per second
 
 	public TileEntityDieselProducer() {
@@ -62,6 +64,15 @@ public class TileEntityDieselProducer extends TileEntityFluidProcessor
 		}
 
 		return false;
+	}
+
+	@Override
+	public int[] getAccessibleSlotsFromSide(int side) {
+		if (side == 0) {
+			return SLOTS_FUEL;
+		}
+
+		return SLOTS_NOT_FUEL;
 	}
 
 	@SideOnly(Side.CLIENT)

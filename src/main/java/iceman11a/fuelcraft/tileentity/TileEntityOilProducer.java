@@ -19,6 +19,8 @@ public class TileEntityOilProducer extends TileEntityFluidProcessor
 {
 	public static final int SLOT_BLAZEPOWDER = 5;
 
+	public static final int[] SLOTS_NOT_FUEL = new int[] {1, 2, 3, 4, 5};
+
 	public static final int MAX_TEMPERATURE = 650;
 	public static final int REQUIRED_TEMPERATURE = 600;
 
@@ -139,6 +141,15 @@ public class TileEntityOilProducer extends TileEntityFluidProcessor
 		}
 
 		return false;
+	}
+
+	@Override
+	public int[] getAccessibleSlotsFromSide(int side) {
+		if (side == 0) {
+			return SLOTS_FUEL;
+		}
+
+		return SLOTS_NOT_FUEL;
 	}
 
 	@Override

@@ -18,13 +18,15 @@ import cofh.api.energy.IEnergyReceiver;
 import cpw.mods.fml.common.Optional;
 
 @Optional.Interface(iface = "cofh.api.energy.IEnergyReceiver", modid = "CoFHCore") // TODO Which mod should provide the API? Also see the methods on the bottom
-public abstract class TileEntityFluidProcessor extends TileEntityFuelCraftInventory implements IFluidHandler, IEnergyReceiver {
+public abstract class TileEntityFluidProcessor extends TileEntityFuelCraftSidedInventory implements IFluidHandler, IEnergyReceiver {
 
 	public static final int SLOT_FUEL                      = 0;
 	public static final int SLOT_INPUT_FLUID_BUCKET_IN     = 1;
 	public static final int SLOT_INPUT_FLUID_BUCKET_OUT    = 2;
 	public static final int SLOT_OUTPUT_FLUID_BUCKET_IN    = 3;
 	public static final int SLOT_OUTPUT_FLUID_BUCKET_OUT   = 4;
+
+	public static final int[] SLOTS_FUEL = new int[] {0};
 
 	public static int capacityFluidInput    =  16000;
 	public static int capacityFluidOutput   =  16000;
@@ -271,6 +273,11 @@ public abstract class TileEntityFluidProcessor extends TileEntityFuelCraftInvent
 		}
 
 		return false;
+	}
+
+	@Override
+	public boolean canExtractItem(int slotNum, ItemStack itemStack, int side) {
+		return slotNum == SLOT_INPUT_FLUID_BUCKET_OUT || slotNum == SLOT_OUTPUT_FLUID_BUCKET_OUT;
 	}
 
 	public int getInputFluidAmount() {

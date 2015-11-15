@@ -78,6 +78,7 @@ public class GuiTapoilProducer extends GuiFluidProcessor
 		if (slot == this.inventorySlots.getSlot(TileEntityFluidProcessor.SLOT_FUEL))
 		{
 			list.add(I18n.format("fuelcraft.gui.label.fuel", new Object[0]));
+			list.add(I18n.format("fuelcraft.gui.label.fuel.insertinfo", new Object[0]));
 		}
 		// Hovering over an empty Water Bucket input slot
 		else if (slot == this.inventorySlots.getSlot(TileEntityFluidProcessor.SLOT_INPUT_FLUID_BUCKET_IN))

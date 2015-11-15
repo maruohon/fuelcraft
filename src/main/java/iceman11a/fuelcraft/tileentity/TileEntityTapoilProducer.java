@@ -21,6 +21,8 @@ public class TileEntityTapoilProducer extends TileEntityFluidProcessor
 	public static final int SLOT_SAPLING = 5;
 	public static final int SLOT_COAL = 6;
 
+	public static final int[] SLOTS_NOT_FUEL = new int[] {1, 2, 3, 4, 5, 6};
+
 	public static final int MAX_TEMPERATURE = 200;
 	public static final int REQUIRED_TEMPERATURE = 175;
 
@@ -163,6 +165,15 @@ public class TileEntityTapoilProducer extends TileEntityFluidProcessor
 		}
 
 		return false;
+	}
+
+	@Override
+	public int[] getAccessibleSlotsFromSide(int side) {
+		if (side == 0) {
+			return SLOTS_FUEL;
+		}
+
+		return SLOTS_NOT_FUEL;
 	}
 
 	@Override
