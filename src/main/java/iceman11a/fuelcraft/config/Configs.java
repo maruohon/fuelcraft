@@ -15,12 +15,12 @@ public class Configs {
 
 	public static Property propTapoilProducerEnergyPerTapoilBucket;
 	public static Property propTapoilProducerWaterPerTapoilBucket;
-	public static Property propTapoilProducerTapoilPerSapling;
-	public static Property propTapoilProducerTapoilPerCoal;
+	public static Property propTapoilProducerSaplingValue;
+	public static Property propTapoilProducerCoalValue;
 
 	public static Property propOilProducerEnergyPerOilBucket;
 	public static Property propOilProducerTapoilPerOilBucket;
-	public static Property propOilProducerOilPerBlazepowder;
+	public static Property propOilProducerBlazepowderValue;
 
 	public static Property propDieselProducerEnergyPerDieselBucket;
 	public static Property propDieselProducerOilPerDieselBucket;
@@ -32,12 +32,12 @@ public class Configs {
 
 	public static int tapoilProducerEnergyPerTapoilBucket;
 	public static int tapoilProducerWaterPerTapoilBucket;
-	public static int tapoilProducerTapoilPerSapling;
-	public static int tapoilProducerTapoilPerCoal;
+	public static int tapoilProducerSaplingValue;
+	public static int tapoilProducerCoalValue;
 
 	public static int oilProducerEnergyPerOilBucket;
 	public static int oilProducerTapoilPerOilBucket;
-	public static int oilProducerOilPerBlazepowder;
+	public static int oilProducerBlazepowderValue;
 
 	public static int dieselProducerEnergyPerDieselBucket;
 	public static int dieselProducerOilPerDieselBucket;
@@ -73,13 +73,13 @@ public class Configs {
 		propTapoilProducerWaterPerTapoilBucket.comment = "The amount of Water required to make one bucket of Tapoil, in millibuckets. Default: 1000 (= 1 bucket)";
 		tapoilProducerWaterPerTapoilBucket = propTapoilProducerWaterPerTapoilBucket.getInt();
 
-		propTapoilProducerTapoilPerSapling = conf.get(category, "tapoilProducerTapoilPerSapling", 250).setRequiresMcRestart(false);
-		propTapoilProducerTapoilPerSapling.comment = "The amount of Tapoil in mB that you get per one Sapling. Default: 250 (= 4 Saplings per 1 Bucket of Tapoil)";
-		tapoilProducerTapoilPerSapling = propTapoilProducerTapoilPerSapling.getInt();
+		propTapoilProducerSaplingValue = conf.get(category, "tapoilProducerSaplingValue", 250).setRequiresMcRestart(false);
+		propTapoilProducerSaplingValue.comment = "The amount of \"sapling mass\" in mB that you get per one sapling. One bucket of tapoil requires 1000 mB of \"sapling mass\". Default: 250 (= 4 saplings per 1 Bucket of tapoil)";
+		tapoilProducerSaplingValue = propTapoilProducerSaplingValue.getInt();
 
-		propTapoilProducerTapoilPerCoal = conf.get(category, "tapoilProducerTapoilPerCoal", 500).setRequiresMcRestart(false);
-		propTapoilProducerTapoilPerCoal.comment = "The amount of Tapoil in mB that you get per one Coal. Default: 500 (= 2 Coal per 1 Bucket of Tapoil)";
-		tapoilProducerTapoilPerCoal = propTapoilProducerTapoilPerCoal.getInt();
+		propTapoilProducerCoalValue = conf.get(category, "tapoilProducerCoalValue", 500).setRequiresMcRestart(false);
+		propTapoilProducerCoalValue.comment = "The amount of \"coal mass\" in mB that you get per one coal. One bucket of tapoil requires 1000 mB of \"coal mass\". Default: 500 (= 2 coal per 1 bucket of tapoil)";
+		tapoilProducerCoalValue = propTapoilProducerCoalValue.getInt();
 
 		// Oil Producer
 		propOilProducerEnergyPerOilBucket = conf.get(category, "oilProducerEnergyPerOilBucket", 100000).setRequiresMcRestart(false);
@@ -90,9 +90,9 @@ public class Configs {
 		propOilProducerTapoilPerOilBucket.comment = "The amount of Tapoil required to make one bucket of Oil, in millibuckets. Default: 2000 (= 2 buckets)";
 		oilProducerTapoilPerOilBucket = propOilProducerTapoilPerOilBucket.getInt();
 
-		propOilProducerOilPerBlazepowder = conf.get(category, "oilProducerOilPerBlazepowder", 500).setRequiresMcRestart(false);
-		propOilProducerOilPerBlazepowder.comment = "The amount of Oil in mB that you get per one Blaze Poweder. Default: 500 (= 2 Blaze Powder per 1 Bucket of Oil)";
-		oilProducerOilPerBlazepowder = propOilProducerOilPerBlazepowder.getInt();
+		propOilProducerBlazepowderValue = conf.get(category, "oilProducerBlazepowderValue", 500).setRequiresMcRestart(false);
+		propOilProducerBlazepowderValue.comment = "The amount of \"blaze powder mass\" in mB that you get per one blaze powder. One bucket of oil requires 1000 mB of \"blaze powder mass\". Default: 500 (= 2 blaze powder per 1 bucket of oil)";
+		oilProducerBlazepowderValue = propOilProducerBlazepowderValue.getInt();
 
 		// Diesel Producer
 		propDieselProducerEnergyPerDieselBucket = conf.get(category, "dieselProducerEnergyPerDieselBucket", 100000).setRequiresMcRestart(false);

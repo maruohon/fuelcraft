@@ -7,6 +7,7 @@ import iceman11a.fuelcraft.reference.ReferenceNames;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -26,6 +27,41 @@ public class TileEntityDieselProducer extends TileEntityFluidProcessor
 		if (this.worldObj.isRemote == false) {
 			this.processFluids(Configs.dieselProducerEnergyPerDieselBucket, Configs.dieselProducerOilPerDieselBucket, outputFluidProductionRate);
 		}
+	}
+
+	/**
+	 * Converts input fluid into output fluid, if there is enough energy available,
+	 * enough space in the output tank, and input fluid in the input tank.
+	 */
+	public boolean processFluids(int energyPerBucket, int inputFluidPerOutput, int productionRate) {
+
+		if (this.fluidOutput == null) {
+			return false;
+		}
+
+		int energyRequired = energyPerBucket * productionRate / 1000;
+		int inputFluidRequired = inputFluidPerOutput * productionRate / 1000;
+		int producedAmount = productionRate;
+
+		// Handle the remaining bits in the tank that are below the regular production rate
+		if (this.energyStorage.getEnergyStored() < energyRequired || this.tankInput.getFluidAmount() < inputFluidRequired) {
+			producedAmount = 1;
+			energyRequired = energyPerBucket / 1000;
+			inputFluidRequired = inputFluidPerOutput / 1000;
+		}
+
+		if (this.energyStorage.getEnergyStored() >= energyRequired && this.tankInput.getFluidAmount() >= inputFluidRequired) {
+			FluidStack fluidStack = new FluidStack(this.fluidOutput, producedAmount);
+			// Enough room to store the produced fluid amount
+			if (this.tankOutput.fill(fluidStack, false) == producedAmount) {
+				this.energyStorage.extractEnergy(energyRequired, false);
+				this.tankInput.drain(inputFluidRequired, true);
+				this.tankOutput.fill(fluidStack, true);
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	@SideOnly(Side.CLIENT)

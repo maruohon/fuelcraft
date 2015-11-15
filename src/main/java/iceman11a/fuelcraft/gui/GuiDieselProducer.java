@@ -18,17 +18,17 @@ public class GuiDieselProducer extends GuiFluidProcessor
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float gameTicks, int mouseX, int mouseY) {
-	    super.drawGuiContainerBackgroundLayer(gameTicks, mouseX, mouseY);
+		super.drawGuiContainerBackgroundLayer(gameTicks, mouseX, mouseY);
 
-	    int x = (this.width - this.xSize) / 2;
-	    int y = (this.height - this.ySize) / 2;
+		int x = (this.width - this.xSize) / 2;
+		int y = (this.height - this.ySize) / 2;
 
-	    // Draw the burn time indicator
-        if (this.containerFluidProcessor.burnTime > 0 && this.containerFluidProcessor.burnTimeFresh != 0) {
-            int height = 16;
-            int renderHeight = this.containerFluidProcessor.burnTime * height / this.containerFluidProcessor.burnTimeFresh;
-            this.drawTexturedModalRect(x + this.xFuelBurnIndicator, y + this.yFuelBurnIndicator + height - renderHeight, this.uFuelBurnIndicator, this.vFuelBurnIndicator + height - renderHeight, 2, renderHeight);
-        }
+		// Draw the burn time indicator
+		if (this.containerFluidProcessor.burnTime > 0 && this.containerFluidProcessor.burnTimeFresh != 0) {
+			int height = 16;
+			int renderHeight = this.containerFluidProcessor.burnTime * height / this.containerFluidProcessor.burnTimeFresh;
+			this.drawTexturedModalRect(x + this.xFuelBurnIndicator, y + this.yFuelBurnIndicator + height - renderHeight, this.uFuelBurnIndicator, this.vFuelBurnIndicator + height - renderHeight, 2, renderHeight);
+		}
 	}
 
 	@Override

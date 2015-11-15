@@ -92,7 +92,7 @@ public abstract class TileEntityFluidProcessor extends TileEntityFuelCraftInvent
 			return;
 		}
 
-		if (++counter >= 10) {
+		if (++counter >= 5) {
 			counter = 0;
 
 			//if (this.tankInput.getFluidAmount() == 16000) this.tankInput.drain(1000, true); // FIXME debug
@@ -136,41 +136,6 @@ public abstract class TileEntityFluidProcessor extends TileEntityFuelCraftInvent
 				this.energyStorage.receiveEnergy(energyPerFuelTick, false);
 			}
 		}
-	}
-
-	/**
-	 * Converts input fluid into output fluid, if there is enough energy available,
-	 * enough space in the output tank, and input fluid in the input tank.
-	 */
-	public boolean processFluids(int energyPerBucket, int inputFluidPerOutput, int productionRate) {
-
-		if (this.fluidOutput == null) {
-			return false;
-		}
-
-		int energyRequired = energyPerBucket * productionRate / 1000;
-		int inputFluidRequired = inputFluidPerOutput * productionRate / 1000;
-		int producedAmount = productionRate;
-
-		// Handle the remaining bits in the tank that are below the regular production rate
-		if (this.energyStorage.getEnergyStored() < energyRequired || this.tankInput.getFluidAmount() < inputFluidRequired) {
-			producedAmount = 1;
-			energyRequired = energyPerBucket / 1000;
-			inputFluidRequired = inputFluidPerOutput / 1000;
-		}
-
-		if (this.energyStorage.getEnergyStored() >= energyRequired && this.tankInput.getFluidAmount() >= inputFluidRequired) {
-			FluidStack fluidStack = new FluidStack(this.fluidOutput, producedAmount);
-			// Enough room to store the produced fluid amount
-			if (this.tankOutput.fill(fluidStack, false) == producedAmount) {
-				this.energyStorage.extractEnergy(energyRequired, false);
-				this.tankInput.drain(inputFluidRequired, true);
-				this.tankOutput.fill(fluidStack, true);
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	/**

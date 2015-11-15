@@ -88,14 +88,14 @@ public abstract class GuiFluidProcessor extends GuiFuelCraftInventory {
 			this.drawTexturedModalRect(x + this.xFluidOutputSlot, y + this.yFluidOutputSlot, this.uFluidOutputSlotBackground, this.vFluidOutputSlotBackground, 16, 16);
 		}
 
-	    // Draw the burn time indicator
-        if (this.containerFluidProcessor.burnTime > 0 && this.containerFluidProcessor.burnTimeFresh != 0) {
-            int height = 16;
-            int renderHeight = this.containerFluidProcessor.burnTime * height / this.containerFluidProcessor.burnTimeFresh;
-            this.drawTexturedModalRect(x + this.xFuelBurnIndicator, y + this.yFuelBurnIndicator + height - renderHeight, this.uFuelBurnIndicator, this.vFuelBurnIndicator + height - renderHeight, 2, renderHeight);
-        }
+		// Draw the burn time indicator
+		if (this.containerFluidProcessor.burnTime > 0 && this.containerFluidProcessor.burnTimeFresh != 0) {
+			int height = 16;
+			int renderHeight = this.containerFluidProcessor.burnTime * height / this.containerFluidProcessor.burnTimeFresh;
+			this.drawTexturedModalRect(x + this.xFuelBurnIndicator, y + this.yFuelBurnIndicator + height - renderHeight, this.uFuelBurnIndicator, this.vFuelBurnIndicator + height - renderHeight, 2, renderHeight);
+		}
 
-        // Some energy stored
+		// Some energy stored
 		if (this.containerFluidProcessor.energyStored > 0)
 		{
 			int height = 36;
