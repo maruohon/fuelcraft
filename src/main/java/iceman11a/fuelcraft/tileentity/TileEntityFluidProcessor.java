@@ -18,13 +18,15 @@ import cofh.api.energy.IEnergyReceiver;
 import cpw.mods.fml.common.Optional;
 
 @Optional.Interface(iface = "cofh.api.energy.IEnergyReceiver", modid = "CoFHCore") // TODO Which mod should provide the API? Also see the methods on the bottom
-public abstract class TileEntityFluidProcessor extends TileEntityFuelCraftInventory implements IFluidHandler, IEnergyReceiver {
+public abstract class TileEntityFluidProcessor extends TileEntityFuelCraftSidedInventory implements IFluidHandler, IEnergyReceiver {
 
 	public static final int SLOT_FUEL                      = 0;
 	public static final int SLOT_INPUT_FLUID_BUCKET_IN     = 1;
 	public static final int SLOT_INPUT_FLUID_BUCKET_OUT    = 2;
 	public static final int SLOT_OUTPUT_FLUID_BUCKET_IN    = 3;
 	public static final int SLOT_OUTPUT_FLUID_BUCKET_OUT   = 4;
+
+	public static final int[] SLOTS_FUEL = new int[] {0};
 
 	public static int capacityFluidInput    =  16000;
 	public static int capacityFluidOutput   =  16000;
@@ -42,10 +44,10 @@ public abstract class TileEntityFluidProcessor extends TileEntityFuelCraftInvent
 	protected int counter;
 	protected int fuelBurnTime;
 	protected int fuelBurnTimeFresh;
+	protected float temperature = 20F;
 
 	public TileEntityFluidProcessor(String name, Fluid inputFluid, Fluid outputFluid) {
 		super(name);
-		this.itemStacks = new ItemStack[5];
 		this.fluidInput = inputFluid;
 		this.fluidOutput = outputFluid;
 		this.tankInput = new FluidTankFuelcraft(this, null, capacityFluidInput);
@@ -60,6 +62,7 @@ public abstract class TileEntityFluidProcessor extends TileEntityFuelCraftInvent
 		this.energyStorage.setStoredEnergy(nbt.getInteger("StoredEnergy"));
 		this.fuelBurnTime = nbt.getInteger("BurnTime");
 		this.fuelBurnTimeFresh = nbt.getInteger("BurnTimeTotal");
+		this.temperature = nbt.getFloat("Temperature");
 
 		if (nbt.hasKey("FluidInput", Constants.NBT.TAG_COMPOUND) == true) {
 			this.tankInput.setFluid(FluidStack.loadFluidStackFromNBT(nbt.getCompoundTag("FluidInput")));
@@ -77,6 +80,7 @@ public abstract class TileEntityFluidProcessor extends TileEntityFuelCraftInvent
 		nbt.setInteger("StoredEnergy", this.energyStorage.getEnergyStored());
 		nbt.setInteger("BurnTime", this.fuelBurnTime);
 		nbt.setInteger("BurnTimeTotal", this.fuelBurnTimeFresh);
+		nbt.setFloat("Temperature", this.temperature);
 
 		if (this.tankInput.getFluid() != null) {
 			nbt.setTag("FluidInput", this.tankInput.getFluid().writeToNBT(new NBTTagCompound()));
@@ -93,7 +97,7 @@ public abstract class TileEntityFluidProcessor extends TileEntityFuelCraftInvent
 			return;
 		}
 
-		if (++counter >= 10) {
+		if (++counter >= 5) {
 			counter = 0;
 
 			//if (this.tankInput.getFluidAmount() == 16000) this.tankInput.drain(1000, true); // FIXME debug
@@ -104,6 +108,10 @@ public abstract class TileEntityFluidProcessor extends TileEntityFuelCraftInvent
 		}
 
 		this.burnFuelItem();
+	}
+
+	public float getTemperature() {
+		return this.temperature;
 	}
 
 	public int getFuelBurnTime() {
@@ -137,41 +145,6 @@ public abstract class TileEntityFluidProcessor extends TileEntityFuelCraftInvent
 				this.energyStorage.receiveEnergy(energyPerFuelTick, false);
 			}
 		}
-	}
-
-	/**
-	 * Converts input fluid into output fluid, if there is enough energy available,
-	 * enough space in the output tank, and input fluid in the input tank.
-	 */
-	public boolean processFluids(int energyPerBucket, int inputFluidPerOutput, int productionRate) {
-
-		if (this.fluidOutput == null) {
-			return false;
-		}
-
-		int energyRequired = energyPerBucket * productionRate / 1000;
-		int inputFluidRequired = inputFluidPerOutput * productionRate / 1000;
-		int producedAmount = productionRate;
-
-		// Handle the remaining bits in the tank that are below the regular production rate
-		if (this.energyStorage.getEnergyStored() < energyRequired || this.tankInput.getFluidAmount() < inputFluidRequired) {
-			producedAmount = 1;
-			energyRequired = energyPerBucket / 1000;
-			inputFluidRequired = inputFluidPerOutput / 1000;
-		}
-
-		if (this.energyStorage.getEnergyStored() >= energyRequired && this.tankInput.getFluidAmount() >= inputFluidRequired) {
-			FluidStack fluidStack = new FluidStack(this.fluidOutput, producedAmount);
-			// Enough room to store the produced fluid amount
-			if (this.tankOutput.fill(fluidStack, false) == producedAmount) {
-				this.energyStorage.extractEnergy(energyRequired, false);
-				this.tankInput.drain(inputFluidRequired, true);
-				this.tankOutput.fill(fluidStack, true);
-				return true;
-			}
-		}
-
-		return false;
 	}
 
 	/**
@@ -307,6 +280,11 @@ public abstract class TileEntityFluidProcessor extends TileEntityFuelCraftInvent
 		}
 
 		return false;
+	}
+
+	@Override
+	public boolean canExtractItem(int slotNum, ItemStack itemStack, int side) {
+		return slotNum == SLOT_INPUT_FLUID_BUCKET_OUT || slotNum == SLOT_OUTPUT_FLUID_BUCKET_OUT;
 	}
 
 	public int getInputFluidAmount() {
