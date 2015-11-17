@@ -1,7 +1,6 @@
 package iceman11a.fuelcraft.gui;
 
 import iceman11a.fuelcraft.inventory.ContainerFluidProcessor;
-import iceman11a.fuelcraft.reference.ReferenceReflection;
 import iceman11a.fuelcraft.tileentity.TileEntityFluidProcessor;
 import iceman11a.fuelcraft.tileentity.TileEntityTapoilProducer;
 import iceman11a.fuelcraft.util.FuelcraftStringUtils;
@@ -14,7 +13,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
-public abstract class GuiFluidProcessor extends GuiFuelCraftInventory {
+public class GuiFluidProcessor extends GuiFuelCraftInventory {
 
 	protected ContainerFluidProcessor containerFluidProcessor;
 
@@ -206,27 +205,7 @@ public abstract class GuiFluidProcessor extends GuiFuelCraftInventory {
 
 			this.drawHoveringText(list, mouseX, mouseY, this.fontRendererObj);
 		}
-		// Hovering over an empty slot
-		else
-		{
-			Slot slot = null;
 
-			try {
-				slot = (Slot)ReferenceReflection.fieldGuiContainer_theSlot.get(this);
-			}
-			catch (IllegalAccessException e) {
-				return;
-			}
-
-			if (slot != null && slot.getHasStack() == false)
-			{
-				this.addSlotHoveringText(slot, list);
-
-				this.drawHoveringText(list, mouseX, mouseY, this.fontRendererObj);
-			}
-		}
+		super.drawTooltips(mouseX, mouseY);
 	}
-
-	protected abstract void addSlotHoveringText(Slot slot, List<String> list);
-
 }

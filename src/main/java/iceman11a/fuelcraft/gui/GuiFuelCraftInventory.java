@@ -1,12 +1,18 @@
 package iceman11a.fuelcraft.gui;
 
 import iceman11a.fuelcraft.inventory.ContainerTileEntityInventory;
+import iceman11a.fuelcraft.reference.ReferenceReflection;
 import iceman11a.fuelcraft.reference.ReferenceTextures;
 import iceman11a.fuelcraft.tileentity.TileEntityFuelCraftInventory;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.inventory.Slot;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
@@ -44,7 +50,25 @@ public class GuiFuelCraftInventory extends GuiContainer {
 	* Used to draw tooltips when hovering the mouse over some slots.
 	*/
 	protected void drawTooltips(int mouseX, int mouseY) {
+		Slot slot = null;
+
+		try {
+			slot = (Slot)ReferenceReflection.fieldGuiContainer_theSlot.get(this);
+		}
+		catch (IllegalAccessException e) {
+			return;
+		}
+
+		if (slot != null && slot.getHasStack() == false)
+		{
+			List<String> list = new ArrayList<String>();
+			this.addSlotHoveringText(slot, list);
+
+			this.drawHoveringText(list, mouseX, mouseY, this.fontRendererObj);
+		}
 	}
+
+	protected void addSlotHoveringText(Slot slot, List<String> list) { }
 
 	protected void bindTexture(ResourceLocation rl) {
 		this.mc.renderEngine.bindTexture(rl);
