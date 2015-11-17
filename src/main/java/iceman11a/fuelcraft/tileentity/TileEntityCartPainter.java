@@ -24,7 +24,7 @@ public class TileEntityCartPainter extends TileEntityFuelCraftInventory {
 	public static final int SLOT_DYE_PRIMARY   = 1;
 	public static final int SLOT_DYE_SECONDARY = 2;
 
-	private boolean previousRedstoneState;
+	private boolean redstoneState;
 
 	public TileEntityCartPainter()
 	{
@@ -32,24 +32,40 @@ public class TileEntityCartPainter extends TileEntityFuelCraftInventory {
 		this.itemStacks = new ItemStack[3];
 	}
 
+	/*@Override
+	public void updateEntity()
+	{
+		if (this.redstoneState == true)
+		{
+			this.triggerAction();
+		}
+	}
+
+	@Override
+	public void onBlockNeighbourChange()
+	{
+		this.redstoneState = this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
+	}*/
+
 	@Override
 	public void onBlockNeighbourChange()
 	{
 		boolean state = this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
 
-		if (this.previousRedstoneState != state)
+		if (this.redstoneState != state)
 		{
 			if (state == true)
 			{
-				this.triggerPainting();
+				this.triggerAction();
 			}
 
-			this.previousRedstoneState = state;
+			this.redstoneState = state;
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	public boolean triggerPainting() {
+	public boolean triggerAction()
+	{
 		EnumColor primaryColor = this.itemStacks[SLOT_DYE_PRIMARY] != null ? EnumColor.fromDye(this.getDyeTag(this.itemStacks[SLOT_DYE_PRIMARY])) : null;
 		EnumColor secondaryColor = this.itemStacks[SLOT_DYE_SECONDARY] != null ? EnumColor.fromDye(this.getDyeTag(this.itemStacks[SLOT_DYE_SECONDARY])) : null;
 
@@ -67,12 +83,14 @@ public class TileEntityCartPainter extends TileEntityFuelCraftInventory {
 		{
 			if (this.itemStacks[SLOT_ENGINE_FILTER] == null || CartUtils.doesCartMatchFilter(this.itemStacks[SLOT_ENGINE_FILTER], loco) == true)
 			{
-				if (primaryColor != null) {
+				if (primaryColor != null)
+				{
 					loco.setPrimaryColor(primaryColor.ordinal());
 					ret = true;
 				}
 
-				if (secondaryColor != null) {
+				if (secondaryColor != null)
+				{
 					loco.setSecondaryColor(secondaryColor.ordinal());
 					ret = true;
 				}

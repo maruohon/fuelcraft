@@ -24,7 +24,7 @@ public class TileEntityCartFilter extends TileEntityFuelCraftInventory
     public static final int SLOT_CART_FILTER = 0;
     public static final int SLOT_FILTER_ITEM = 1;
 
-    protected boolean previousRedstoneState;
+    protected boolean redstoneState;
 
     public TileEntityCartFilter()
     {
@@ -33,19 +33,18 @@ public class TileEntityCartFilter extends TileEntityFuelCraftInventory
     }
 
     @Override
+    public void updateEntity()
+    {
+        if (this.worldObj.isRemote == false && this.redstoneState == true)
+        {
+            this.triggerAction();
+        }
+    }
+
+    @Override
     public void onBlockNeighbourChange()
     {
-        boolean state = this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
-
-        if (this.previousRedstoneState != state)
-        {
-            if (state == true)
-            {
-                this.triggerAction();
-            }
-
-            this.previousRedstoneState = state;
-        }
+        this.redstoneState = this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
     }
 
     @SuppressWarnings("unchecked")
@@ -66,7 +65,7 @@ public class TileEntityCartFilter extends TileEntityFuelCraftInventory
         int z = this.zCoord + dir.offsetZ;
 
         boolean ret = false;
-        double r = 3.0d;
+        double r = 1.0d;
         AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(x, y, z, x + r, y + r, z + r);
         List<EntityCartFiltered> list = this.worldObj.getEntitiesWithinAABB(EntityCartFiltered.class, aabb);
 
