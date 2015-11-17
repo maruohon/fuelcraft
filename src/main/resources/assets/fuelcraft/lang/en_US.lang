@@ -51,6 +51,8 @@ fuelcraft.container.tokencontroller=Token Controller
 #          GUI labels           #
 #################################
 fuelcraft.gui.label.blazepowder=Blaze Powder
+fuelcraft.gui.label.cartfilter.carttypefilter=Cart type filter
+fuelcraft.gui.label.cartfilter.filteritem=Filter item
 fuelcraft.gui.label.coalorcharcoal=Coal or Charcoal
 fuelcraft.gui.label.dieselbucket.in.empty=Empty (Diesel) Bucket in
 fuelcraft.gui.label.dieselbucket.out.filled=Diesel Bucket out
