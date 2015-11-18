@@ -76,6 +76,8 @@ public class TileEntityFuelCraft extends TileEntity {
 		nbt.setByte("Rotation", (byte)this.rotation);
 	}
 
+	public void onBlockNeighbourChange() { }
+
 	public NBTTagCompound getDescriptionPacketTag(NBTTagCompound nbt) {
 		if (nbt == null) {
 			nbt = new NBTTagCompound();

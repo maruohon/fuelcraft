@@ -51,12 +51,17 @@ fuelcraft.container.tokencontroller=Token Controller
 #          GUI labels           #
 #################################
 fuelcraft.gui.label.blazepowder=Blaze Powder
+fuelcraft.gui.label.cartfilter.carttypefilter=Cart type filter
+fuelcraft.gui.label.cartfilter.filteritem=Filter item
 fuelcraft.gui.label.coalorcharcoal=Coal or Charcoal
-fuelcraft.gui.label.fuel=Fuel
-fuelcraft.gui.label.fuel.insertinfo=(can only be inserted from the bottom)
-fuelcraft.gui.label.empty=Empty
 fuelcraft.gui.label.dieselbucket.in.empty=Empty (Diesel) Bucket in
 fuelcraft.gui.label.dieselbucket.out.filled=Diesel Bucket out
+fuelcraft.gui.label.dye.primarycolor=Dye for primary color
+fuelcraft.gui.label.dye.secondarycolor=Dye for secondary color
+fuelcraft.gui.label.empty=Empty
+fuelcraft.gui.label.filter.locomotive=Locomotive type filter
+fuelcraft.gui.label.fuel=Fuel
+fuelcraft.gui.label.fuel.insertinfo=(can only be inserted from the bottom)
 fuelcraft.gui.label.oilbucket.in.empty=Empty (Oil) Bucket in
 fuelcraft.gui.label.oilbucket.in.filled=Oil Bucket in
 fuelcraft.gui.label.oilbucket.out.empty=Empty (Oil) Bucket out

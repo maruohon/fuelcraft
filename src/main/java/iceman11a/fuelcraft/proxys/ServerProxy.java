@@ -1,6 +1,7 @@
 package iceman11a.fuelcraft.proxys;
 
 import iceman11a.fuelcraft.reference.ReferenceNames;
+import iceman11a.fuelcraft.tileentity.TileEntityCartFilter;
 import iceman11a.fuelcraft.tileentity.TileEntityCartPainter;
 import iceman11a.fuelcraft.tileentity.TileEntityDieselProducer;
 import iceman11a.fuelcraft.tileentity.TileEntityOilProducer;
@@ -18,6 +19,7 @@ public class ServerProxy {
 		GameRegistry.registerTileEntity(TileEntityOilProducer.class, ReferenceNames.getPrefixedName(ReferenceNames.NAME_TILE_OIL_PRODUCER));
 		GameRegistry.registerTileEntity(TileEntityTapoilProducer.class, ReferenceNames.getPrefixedName(ReferenceNames.NAME_TILE_TAPOIL_PRODUCER));
 		GameRegistry.registerTileEntity(TileEntityCartPainter.class, ReferenceNames.getPrefixedName(ReferenceNames.NAME_TILE_CART_PAINTER));
+		GameRegistry.registerTileEntity(TileEntityCartFilter.class, ReferenceNames.getPrefixedName(ReferenceNames.NAME_TILE_CART_FILTER));
 		GameRegistry.registerTileEntity(TileEntityTokenController.class, ReferenceNames.getPrefixedName(ReferenceNames.NAME_TILE_TOKEN_CONTROLLER));
 	}
 

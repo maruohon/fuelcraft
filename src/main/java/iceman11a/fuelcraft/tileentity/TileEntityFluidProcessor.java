@@ -15,9 +15,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import cofh.api.energy.IEnergyReceiver;
-import cpw.mods.fml.common.Optional;
 
-@Optional.Interface(iface = "cofh.api.energy.IEnergyReceiver", modid = "CoFHCore") // TODO Which mod should provide the API? Also see the methods on the bottom
 public abstract class TileEntityFluidProcessor extends TileEntityFuelCraftSidedInventory implements IFluidHandler, IEnergyReceiver {
 
 	public static final int SLOT_FUEL                      = 0;
@@ -344,25 +342,21 @@ public abstract class TileEntityFluidProcessor extends TileEntityFuelCraftSidedI
 		return new FluidTankInfo[] { this.tankInput.getInfo(), this.tankOutput.getInfo() };
 	}
 
-	@Optional.Method(modid = "CoFHCore")
 	@Override
 	public boolean canConnectEnergy(ForgeDirection from) {
 		return true;
 	}
 
-	@Optional.Method(modid = "CoFHCore")
 	@Override
 	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate) {
 		return this.energyStorage.receiveEnergy(maxReceive, simulate);
 	}
 
-	@Optional.Method(modid = "CoFHCore")
 	@Override
 	public int getEnergyStored(ForgeDirection from) {
 		return this.energyStorage.getEnergyStored();
 	}
 
-	@Optional.Method(modid = "CoFHCore")
 	@Override
 	public int getMaxEnergyStored(ForgeDirection from) {
 		return this.energyStorage.getMaxEnergyStored();

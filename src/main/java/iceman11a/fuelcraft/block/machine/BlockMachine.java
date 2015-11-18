@@ -5,16 +5,17 @@ import iceman11a.fuelcraft.block.BlockFuelcraftBase;
 import iceman11a.fuelcraft.reference.ReferenceGuiIds;
 import iceman11a.fuelcraft.reference.ReferenceNames;
 import iceman11a.fuelcraft.reference.ReferenceTextures;
+import iceman11a.fuelcraft.tileentity.TileEntityCartFilter;
 import iceman11a.fuelcraft.tileentity.TileEntityCartPainter;
 import iceman11a.fuelcraft.tileentity.TileEntityDieselProducer;
 import iceman11a.fuelcraft.tileentity.TileEntityFuelCraft;
 import iceman11a.fuelcraft.tileentity.TileEntityOilProducer;
 import iceman11a.fuelcraft.tileentity.TileEntityTapoilProducer;
 import iceman11a.fuelcraft.tileentity.TileEntityTokenController;
-import iceman11a.fuelcraft.tileentity.TileEntityCartFilter;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -109,6 +110,18 @@ public class BlockMachine extends BlockFuelcraftBase {
 		}
 
 		return true;
+	}
+
+	@Override
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
+	{
+		super.onNeighborBlockChange(world, x, y, z, block);
+
+		TileEntity te = world.getTileEntity(x, y, z);
+		if (te instanceof TileEntityFuelCraft)
+		{
+			((TileEntityFuelCraft)te).onBlockNeighbourChange();
+		}
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
