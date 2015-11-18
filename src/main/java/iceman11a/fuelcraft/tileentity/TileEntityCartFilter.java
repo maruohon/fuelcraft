@@ -5,6 +5,7 @@ import iceman11a.fuelcraft.gui.GuiFuelCraftInventory;
 import iceman11a.fuelcraft.inventory.ContainerCartFilter;
 import iceman11a.fuelcraft.reference.ReferenceNames;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import mods.railcraft.common.carts.CartUtils;
@@ -24,6 +25,7 @@ public class TileEntityCartFilter extends TileEntityFuelCraftInventory
     public static final int SLOT_CART_FILTER = 0;
     public static final int SLOT_FILTER_ITEM = 1;
 
+    protected List<Integer> entityIds = new ArrayList<Integer>();
     protected boolean redstoneState;
 
     public TileEntityCartFilter()
@@ -33,18 +35,18 @@ public class TileEntityCartFilter extends TileEntityFuelCraftInventory
     }
 
     @Override
+    public void onBlockNeighbourChange()
+    {
+        this.redstoneState = this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
+    }
+
+    @Override
     public void updateEntity()
     {
         if (this.worldObj.isRemote == false && this.redstoneState == true)
         {
             this.triggerAction();
         }
-    }
-
-    @Override
-    public void onBlockNeighbourChange()
-    {
-        this.redstoneState = this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
     }
 
     @SuppressWarnings("unchecked")
@@ -69,17 +71,24 @@ public class TileEntityCartFilter extends TileEntityFuelCraftInventory
         AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(x, y, z, x + r, y + r, z + r);
         List<EntityCartFiltered> list = this.worldObj.getEntitiesWithinAABB(EntityCartFiltered.class, aabb);
 
+        // Clear the list of "already-set-carts" when there are no carts nearby
+        if (list.isEmpty() == true && this.entityIds.isEmpty() == false)
+        {
+            this.entityIds.clear();
+        }
+
         for (EntityCartFiltered cart : list)
         {
-            if (this.itemStacks[SLOT_CART_FILTER] == null || CartUtils.doesCartMatchFilter(this.itemStacks[SLOT_CART_FILTER], cart) == true)
+            if (this.entityIds.contains(cart.getEntityId()) == false &&
+               (this.itemStacks[SLOT_CART_FILTER] == null || CartUtils.doesCartMatchFilter(this.itemStacks[SLOT_CART_FILTER], cart) == true))
             {
                 CartFilterRecipe.FilterType filterType = CartFilterRecipe.FilterType.fromCartType(cart.getCartType());
 
                 if (this.itemStacks[SLOT_FILTER_ITEM] == null ||
                    (filterType != null && filterType.isAllowedFilterItem(this.itemStacks[SLOT_FILTER_ITEM])))
                 {
-                    //System.out.println("setting filter");
                     cart.setFilter(this.itemStacks[SLOT_FILTER_ITEM]);
+                    this.entityIds.add(cart.getEntityId());
                     ret = true;
                 }
             }

@@ -30,17 +30,12 @@ public class GuiCartFilter extends GuiFuelCraftInventory
             this.drawTexturedModalRect(x + slot.xDisplayPosition, y + slot.yDisplayPosition, 177, 1, 16, 16);
         }
 
+        // Empty filter item slot
         slot = this.inventorySlots.getSlot(TileEntityCartFilter.SLOT_FILTER_ITEM);
         if (slot.getStack() == null)
         {
             this.drawTexturedModalRect(x + slot.xDisplayPosition, y + slot.yDisplayPosition, 177, 19, 16, 16);
         }
-
-        /*slot = this.inventorySlots.getSlot(TileEntityCartFilter.SLOT_DYE_SECONDARY);
-        if (slot.getStack() == null)
-        {
-            this.drawTexturedModalRect(x + slot.xDisplayPosition, y + slot.yDisplayPosition, 177, 19, 16, 16);
-        }*/
     }
 
     @Override

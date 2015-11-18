@@ -5,6 +5,7 @@ import iceman11a.fuelcraft.gui.GuiFuelCraftInventory;
 import iceman11a.fuelcraft.inventory.ContainerCartPainter;
 import iceman11a.fuelcraft.reference.ReferenceNames;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import mods.railcraft.common.carts.CartUtils;
@@ -24,6 +25,7 @@ public class TileEntityCartPainter extends TileEntityFuelCraftInventory {
 	public static final int SLOT_DYE_PRIMARY   = 1;
 	public static final int SLOT_DYE_SECONDARY = 2;
 
+	protected List<Integer> entityIds = new ArrayList<Integer>();
 	private boolean redstoneState;
 
 	public TileEntityCartPainter()
@@ -32,34 +34,18 @@ public class TileEntityCartPainter extends TileEntityFuelCraftInventory {
 		this.itemStacks = new ItemStack[3];
 	}
 
-	/*@Override
-	public void updateEntity()
-	{
-		if (this.redstoneState == true)
-		{
-			this.triggerAction();
-		}
-	}
-
 	@Override
 	public void onBlockNeighbourChange()
 	{
 		this.redstoneState = this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
-	}*/
+	}
 
 	@Override
-	public void onBlockNeighbourChange()
+	public void updateEntity()
 	{
-		boolean state = this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
-
-		if (this.redstoneState != state)
+		if (this.worldObj.isRemote == false && this.redstoneState == true)
 		{
-			if (state == true)
-			{
-				this.triggerAction();
-			}
-
-			this.redstoneState = state;
+			this.triggerAction();
 		}
 	}
 
@@ -79,9 +65,16 @@ public class TileEntityCartPainter extends TileEntityFuelCraftInventory {
 		AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(x, y, z, x + r, y + r, z + r);
 		List<EntityLocomotive> list = this.worldObj.getEntitiesWithinAABB(EntityLocomotive.class, aabb);
 
+		// Clear the list of "already-painted-carts" when there are no carts nearby
+		if (list.isEmpty() == true && this.entityIds.isEmpty() == false)
+		{
+			this.entityIds.clear();
+		}
+
 		for (EntityLocomotive loco : list)
 		{
-			if (this.itemStacks[SLOT_ENGINE_FILTER] == null || CartUtils.doesCartMatchFilter(this.itemStacks[SLOT_ENGINE_FILTER], loco) == true)
+			if (this.entityIds.contains(loco.getEntityId()) == false &&
+			   (this.itemStacks[SLOT_ENGINE_FILTER] == null || CartUtils.doesCartMatchFilter(this.itemStacks[SLOT_ENGINE_FILTER], loco) == true))
 			{
 				if (primaryColor != null)
 				{
@@ -94,6 +87,8 @@ public class TileEntityCartPainter extends TileEntityFuelCraftInventory {
 					loco.setSecondaryColor(secondaryColor.ordinal());
 					ret = true;
 				}
+
+				this.entityIds.add(loco.getEntityId());
 			}
 		}
 
