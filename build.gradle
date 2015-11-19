@@ -17,13 +17,34 @@ buildscript {
 
 apply plugin: 'forge'
 
-version = "1.0"
-group= "com.yourname.modid" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "modid"
+ext.configFile = file "build.properties"
+
+configFile.withReader {
+    def prop = new Properties()
+    prop.load(it)
+    project.ext.config = new ConfigSlurper().parse prop
+}
+
+group = "iceman11a." + config.mod_id // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = config.mod_id
 
 minecraft {
-    version = "1.7.10-10.13.4.1517-1.7.10"
-    runDir = "eclipse"
+    version = config.minecraft_version + "-" + config.forge_version
+    assetDir = "eclipse/assets"
+
+    ext.mod_version = "${config.mod_version}"
+
+    if (mod_version.endsWith('-dev')) {
+        mod_version = mod_version + "-" + new Date().format('yyyy-MM-dd_HH-mm-ss')
+    }
+
+    replaceIn "reference/Reference.java"
+    //replace "@MOD_VERSION@", "${config.mod_version}-${System.getenv("BUILD_NUMBER") ?: 0}"
+    replace "@MOD_VERSION@", mod_version
+
+    if (project.hasProperty("mod_signature")) {
+        replace "@FINGERPRINT@", project.mod_signature
+    }
 }
 
 dependencies {
@@ -40,10 +61,21 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
+    compile files('libs/buildcraft-1.7.10-7.1.13-dev.jar')
+    compile files('libs/forestry_1.7.10-4.1.1.46-api.jar')
+    compile files('libs/industrialcraft-2-2.2.793-experimental-api.jar')
+    compile files('libs/Railcraft-API-master.zip')
+    compile files('libs/Railcraft-1.7.10-9.8.0.0-dev.jar')
+    compile files('libs/Thaumcraft-1.7.10-4.2.3.5-api.zip')
 }
+
+version = "${config.minecraft_version}-${project.minecraft.mod_version}"
 
 processResources
 {
+    // Exclude the GIMP image files
+    exclude '**/*.xcf'
+
     // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
@@ -53,7 +85,7 @@ processResources
         include 'mcmod.info'
                 
         // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand 'mod_version': project.minecraft.mod_version, 'minecraft_version': project.config.minecraft_version
     }
         
     // copy everything else, thats not the mcmod.info

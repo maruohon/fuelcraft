@@ -1,16 +1,16 @@
 [
 {
   "modid": "fuelcraft",
-  "name": "Fuel Craft",
-  "description": "TODO",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
+  "name": "Fuelcraft",
+  "description": "An addon to Railcraft",
+  "version": "${mod_version}",
+  "mcversion": "${minecraft_version}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
+  "authorList": ["iceman11a", "masa"],
+  "credits": "",
   "logoFile": "",
   "screenshots": [],
-  "dependencies": []
+  "dependencies": ["Railcraft"]
 }
 ]
