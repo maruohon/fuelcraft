@@ -30,6 +30,7 @@ public class BlockModEffectLeaves extends BlockModLeaves
 		this.setBlockTextureName(textureName);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void randomDisplayTick(World world, int posX, int posY, int posZ, Random rng) {
 		for (int l = 0; l < 4; ++l){
