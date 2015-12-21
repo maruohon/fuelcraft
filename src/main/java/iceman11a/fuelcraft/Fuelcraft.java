@@ -1,22 +1,5 @@
 package iceman11a.fuelcraft;
 
-import iceman11a.fuelcraft.block.FuelcraftBlocks;
-import iceman11a.fuelcraft.block.fluid.FuelcraftFluids;
-import iceman11a.fuelcraft.config.Configs;
-import iceman11a.fuelcraft.events.EventHelper;
-import iceman11a.fuelcraft.gui.GuiHandler;
-import iceman11a.fuelcraft.handler.FuelHandler;
-import iceman11a.fuelcraft.item.FuelcraftItems;
-import iceman11a.fuelcraft.proxys.ServerProxy;
-import iceman11a.fuelcraft.reference.Reference;
-import iceman11a.fuelcraft.util.Recipies;
-import iceman11a.fuelcraft.world.Dimension;
-import iceman11a.fuelcraft.world.WorldTypesTutorial;
-import iceman11a.fuelcraft.world.biomes.ModBiomes;
-import iceman11a.fuelcraft.worldgen.OreGeneration;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
-
 import org.apache.logging.log4j.Logger;
 
 import cpw.mods.fml.common.Mod;
@@ -28,6 +11,22 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import iceman11a.fuelcraft.block.FuelcraftBlocks;
+import iceman11a.fuelcraft.block.fluid.FuelcraftFluids;
+import iceman11a.fuelcraft.config.Configs;
+import iceman11a.fuelcraft.events.EventHelper;
+import iceman11a.fuelcraft.gui.GuiHandler;
+import iceman11a.fuelcraft.handler.FuelHandler;
+import iceman11a.fuelcraft.item.FuelcraftItems;
+import iceman11a.fuelcraft.proxys.CommonProxy;
+import iceman11a.fuelcraft.reference.Reference;
+import iceman11a.fuelcraft.util.Recipies;
+import iceman11a.fuelcraft.world.Dimension;
+import iceman11a.fuelcraft.world.WorldTypesTutorial;
+import iceman11a.fuelcraft.world.biomes.ModBiomes;
+import iceman11a.fuelcraft.worldgen.OreGeneration;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION)
@@ -39,7 +38,7 @@ public class Fuelcraft {
 	public static Logger logger;
 
 	@SidedProxy(clientSide="iceman11a.fuelcraft.proxys.ClientProxy", serverSide="iceman11a.fuelcraft.proxys.ServerProxy")
-	private static ServerProxy proxy;	
+	public static CommonProxy proxy;
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
@@ -67,7 +66,7 @@ public class Fuelcraft {
 		WorldTypesTutorial.addCustomWorldTypes();
 		EventHelper.registerEvents();
 
-		proxy.registerRenderers(); // This is blank, Nothing in it
+		proxy.registerRenderers();
 
 		GameRegistry.registerWorldGenerator(eventWorldGen,  0);
 	}

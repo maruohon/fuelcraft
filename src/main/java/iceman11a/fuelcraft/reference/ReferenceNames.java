@@ -23,6 +23,7 @@ public class ReferenceNames {
 	public static final String NAME_TILE_OIL_PRODUCER				= "oilproducer";
 	public static final String NAME_TILE_TAPOIL_PRODUCER			= "tapoilproducer";
 	public static final String NAME_TILE_TOKEN_CONTROLLER			= "tokencontroller";
+	public static final String NAME_TILE_CROSSING_GATE				= "crossinggate";
 
 	// Items
 	public static final String NAME_ITEM_DIESEL_BUCKET				= "dieselbucket";

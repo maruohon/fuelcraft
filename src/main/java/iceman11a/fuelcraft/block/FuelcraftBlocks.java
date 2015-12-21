@@ -1,11 +1,11 @@
 package iceman11a.fuelcraft.block;
 
+import cpw.mods.fml.common.registry.GameRegistry;
 import iceman11a.fuelcraft.block.machine.BlockMachine;
 import iceman11a.fuelcraft.block.ore.BlockFuelcraftOre;
 import iceman11a.fuelcraft.reference.ReferenceNames;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 public class FuelcraftBlocks {
 
@@ -21,6 +21,7 @@ public class FuelcraftBlocks {
 
 	public static final Block blockOre = new BlockFuelcraftOre(ReferenceNames.NAME_TILE_ORES, 1.5f, Material.rock);
 	public static final Block blockMachines = new BlockMachine(ReferenceNames.NAME_TILE_MACHINE, 1.0f, Material.iron);
+	public static final Block blockCrossingGate = new BlockCrossingGate(ReferenceNames.NAME_TILE_CROSSING_GATE, 1.0f, Material.iron);
 	public static final Block blockTokenTrack = new BlockTokenTrack(ReferenceNames.NAME_BLOCK_TOKEN_TRACK, 1.0f, Material.rock);
 	
 	/**
@@ -46,5 +47,7 @@ public class FuelcraftBlocks {
 
 		// Machines
 		GameRegistry.registerBlock(blockMachines, ItemBlockFuelcraftBase.class, ReferenceNames.NAME_TILE_MACHINE);
+
+		GameRegistry.registerBlock(blockCrossingGate, ItemBlockFuelcraftBase.class, ReferenceNames.NAME_TILE_CROSSING_GATE);
 	}
 }

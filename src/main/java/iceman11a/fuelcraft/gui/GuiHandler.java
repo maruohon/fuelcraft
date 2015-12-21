@@ -1,11 +1,11 @@
 package iceman11a.fuelcraft.gui;
 
+import cpw.mods.fml.common.network.IGuiHandler;
 import iceman11a.fuelcraft.reference.ReferenceGuiIds;
 import iceman11a.fuelcraft.tileentity.TileEntityFuelCraftInventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import cpw.mods.fml.common.network.IGuiHandler;
 
 
 public class GuiHandler implements IGuiHandler {
@@ -20,7 +20,7 @@ public class GuiHandler implements IGuiHandler {
 			case ReferenceGuiIds.GUI_ID_TILE_ENTITY_GENERIC:
 				TileEntity te = world.getTileEntity(x, y, z);
 				if (te != null && te instanceof TileEntityFuelCraftInventory) {
-					return ((TileEntityFuelCraftInventory)te). getContainer(player.inventory);
+					return ((TileEntityFuelCraftInventory)te).getContainer(player.inventory);
 				}
 				break;
 

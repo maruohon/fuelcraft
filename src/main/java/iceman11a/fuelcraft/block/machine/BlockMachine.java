@@ -1,5 +1,10 @@
 package iceman11a.fuelcraft.block.machine;
 
+import java.util.List;
+
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import iceman11a.fuelcraft.Fuelcraft;
 import iceman11a.fuelcraft.block.BlockFuelcraftBase;
 import iceman11a.fuelcraft.reference.ReferenceGuiIds;
@@ -12,9 +17,6 @@ import iceman11a.fuelcraft.tileentity.TileEntityFuelCraft;
 import iceman11a.fuelcraft.tileentity.TileEntityOilProducer;
 import iceman11a.fuelcraft.tileentity.TileEntityTapoilProducer;
 import iceman11a.fuelcraft.tileentity.TileEntityTokenController;
-
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -31,9 +33,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import cpw.mods.fml.common.eventhandler.Event.Result;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockMachine extends BlockFuelcraftBase {
 
@@ -133,7 +132,7 @@ public class BlockMachine extends BlockFuelcraftBase {
 		list.add(new ItemStack(this, 1, 2)); // Token Controller
 		list.add(new ItemStack(this, 1, 3)); // Tapoil Producer
 		list.add(new ItemStack(this, 1, 4)); // Oil Producer
-		list.add(new ItemStack(this, 1, 5)); // Oil Producer
+		list.add(new ItemStack(this, 1, 5)); // Cart Filter
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -245,13 +244,12 @@ public class BlockMachine extends BlockFuelcraftBase {
 		this.icons[28] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_OIL_PRODUCER) + ".right");
 		this.icons[29] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_OIL_PRODUCER) + ".left");
 		
-		// cart filter
+		// Cart Filter
 		this.icons[30] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_CART_FILTER) + ".bottom");
 		this.icons[31] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_CART_FILTER) + ".top");
 		this.icons[32] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_CART_FILTER) + ".front");
 		this.icons[33] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_CART_FILTER) + ".back");
 		this.icons[34] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_CART_FILTER) + ".right");
 		this.icons[35] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_CART_FILTER) + ".left");
-
 	}
 }

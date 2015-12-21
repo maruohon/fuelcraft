@@ -121,5 +121,3 @@ public class TileEntityFuelCraft extends TileEntity {
 		return this.getClass().getSimpleName() + "(x=" + xCoord + ",y=" + yCoord + ",z=" + zCoord + ")@" + System.identityHashCode(this);
 	}
 }
-
-
