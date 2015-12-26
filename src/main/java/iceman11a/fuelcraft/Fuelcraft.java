@@ -18,6 +18,7 @@ import iceman11a.fuelcraft.events.EventHelper;
 import iceman11a.fuelcraft.gui.GuiHandler;
 import iceman11a.fuelcraft.handler.FuelHandler;
 import iceman11a.fuelcraft.item.FuelcraftItems;
+import iceman11a.fuelcraft.network.PacketHandler;
 import iceman11a.fuelcraft.proxys.CommonProxy;
 import iceman11a.fuelcraft.reference.Reference;
 import iceman11a.fuelcraft.util.Recipies;
@@ -51,6 +52,7 @@ public class Fuelcraft {
 		// The fluid container needs the bucket item to be registered, and that one needs the fluid block to be registered
 		// So the registration order here needs to be fluids -> items -> fluid containers
 		FuelcraftFluids.registerFluidContainers();
+		PacketHandler.init();
 
 		proxy.registerTileEntities();
 		proxy.setupReflection();

@@ -3,22 +3,26 @@ package iceman11a.fuelcraft.proxys;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import iceman11a.fuelcraft.client.renderer.tileentity.TileEntityRendererCrossingGate;
-import iceman11a.fuelcraft.gui.GuiCrossingGates;
+import iceman11a.fuelcraft.gui.GuiCrossingGate;
 import iceman11a.fuelcraft.reference.ReferenceGuiIds;
 import iceman11a.fuelcraft.reference.ReferenceReflection;
 import iceman11a.fuelcraft.tileentity.TileEntityCrossingGate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.tileentity.TileEntity;
 
 public class ClientProxy extends CommonProxy {
 
 	@Override
-	public void openGui(int guiId)
+	public void openGui(int guiId, TileEntity te)
 	{
 		switch (guiId)
 		{
 			case ReferenceGuiIds.GUI_ID_CROSSING_GATES:
-				Minecraft.getMinecraft().displayGuiScreen(new GuiCrossingGates());
+				if (te instanceof TileEntityCrossingGate)
+				{
+					Minecraft.getMinecraft().displayGuiScreen(new GuiCrossingGate((TileEntityCrossingGate)te));
+				}
 				break;
 		}
 	}

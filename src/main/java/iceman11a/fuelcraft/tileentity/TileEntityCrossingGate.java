@@ -19,9 +19,12 @@ public class TileEntityCrossingGate extends TileEntityFuelCraft {
     public static final int STATE_OPEN       = -1;
     public static final int STATE_CLOSED     =  1;
 
-    protected AxisAlignedBB area;
+    protected AxisAlignedBB areaRelative;
+    protected AxisAlignedBB areaAbsolute;
     protected boolean cartsPassing;
 
+    @SideOnly(Side.CLIENT)
+    protected AxisAlignedBB areaEdit;
     @SideOnly(Side.CLIENT)
     public boolean renderArea;
     @SideOnly(Side.CLIENT)
@@ -39,22 +42,17 @@ public class TileEntityCrossingGate extends TileEntityFuelCraft {
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
 
-        this.setArea(nbt.getInteger("BBMinX"), nbt.getInteger("BBMinY"), nbt.getInteger("BBMinZ"), nbt.getInteger("BBMaxX"), nbt.getInteger("BBMaxY"), nbt.getInteger("BBMaxZ"));
+        if (nbt.hasKey("RelBB", Constants.NBT.TAG_BYTE_ARRAY) == true)
+        {
+            this.setArea(nbt.getByteArray("RelBB"));
+        }
     }
 
     @Override
     public void writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
 
-        if (this.area != null)
-        {
-            nbt.setInteger("BBMinX", (int)this.area.minX);
-            nbt.setInteger("BBMinY", (int)this.area.minY);
-            nbt.setInteger("BBMinZ", (int)this.area.minZ);
-            nbt.setInteger("BBMaxX", (int)this.area.maxX);
-            nbt.setInteger("BBMaxY", (int)this.area.maxY);
-            nbt.setInteger("BBMaxZ", (int)this.area.maxZ);
-        }
+        nbt.setByteArray("RelBB", this.getAreaAsArray(this.getRelativeArea()));
     }
 
     @Override
@@ -68,11 +66,7 @@ public class TileEntityCrossingGate extends TileEntityFuelCraft {
         nbt = super.getDescriptionPacketTag(nbt);
 
         nbt.setBoolean("carts", this.cartsPassing);
-
-        if (this.area != null)
-        {
-            nbt.setIntArray("bb", new int[] { (int)this.area.minX, (int)this.area.minY, (int)this.area.minZ, (int)this.area.maxX, (int)this.area.maxY, (int)this.area.maxZ });
-        }
+        nbt.setByteArray("bb", this.getAreaAsArray(this.getRelativeArea()));
 
         return nbt;
     }
@@ -102,9 +96,9 @@ public class TileEntityCrossingGate extends TileEntityFuelCraft {
             this.cartsPassing = carts;
         }
 
-        if (nbt.hasKey("bb", Constants.NBT.TAG_INT_ARRAY))
+        if (nbt.hasKey("bb", Constants.NBT.TAG_BYTE_ARRAY))
         {
-            int[] bb = nbt.getIntArray("bb");
+            byte[] bb = nbt.getByteArray("bb");
             if (bb.length == 6)
             {
                 this.setArea(bb[0], bb[1], bb[2], bb[3], bb[4], bb[5]);
@@ -119,44 +113,137 @@ public class TileEntityCrossingGate extends TileEntityFuelCraft {
         this.initArea();
     }
 
+    public byte[] getAreaAsArray(AxisAlignedBB bb)
+    {
+        return new byte[] {
+                (byte)bb.minX,
+                (byte)bb.minY,
+                (byte)bb.minZ,
+                (byte)bb.maxX,
+                (byte)bb.maxY,
+                (byte)bb.maxZ
+            };
+    }
+
     public void initArea()
     {
+        this.setArea(this.getDefaultArea());
+    }
+
+    /**
+     * Returns the default area in <b>relative coordinates</b>.
+     */
+    public AxisAlignedBB getDefaultArea()
+    {
         ForgeDirection dir = ForgeDirection.getOrientation(this.getRotation()).getOpposite();
-        AxisAlignedBB bb = AxisAlignedBB.getBoundingBox(this.xCoord, this.yCoord, this.zCoord, this.xCoord + 1, this.yCoord + 1, this.zCoord + 1);
-        this.area = bb.expand(2.0d, 2.0d, 2.0d).offset(dir.offsetX * 3.0d, dir.offsetY * 3.0d, dir.offsetZ * 3.0d);
+        ForgeDirection dirP = dir.getRotation(ForgeDirection.UP);
+        AxisAlignedBB aabb = AxisAlignedBB.getBoundingBox(0.0, 0.0, 0.0, 1.0, 1.0, 1.0);
+        aabb = aabb.expand(Math.abs(dirP.offsetX) * 6.0d + Math.abs(dir.offsetX) * 2.0d, 0.0d, Math.abs(dirP.offsetZ) * 6.0d + Math.abs(dir.offsetZ) * 2.0d);
+        aabb = aabb.offset(dir.offsetX * 3.0d, 0.0d, dir.offsetZ * 3.0d);
+        return aabb;
     }
 
-    public void setArea(int minX, int minY, int minZ, int maxX, int maxY, int maxZ)
+    /**
+     * Sets the cart scanning area from the <b>relative coordinate</b> bounding box <b>area</b>.
+     * @param area
+     */
+    public void setArea(AxisAlignedBB area)
     {
-        int r = 32;
-        minX = MathHelper.clamp_int(minX, this.xCoord - r, this.xCoord + r);
-        minY = MathHelper.clamp_int(minY, this.yCoord - r, this.yCoord + r);
-        minZ = MathHelper.clamp_int(minZ, this.zCoord - r, this.zCoord + r);
-        maxX = MathHelper.clamp_int(maxX, this.xCoord - r, this.xCoord + r);
-        maxY = MathHelper.clamp_int(maxY, this.yCoord - r, this.yCoord + r);
-        maxZ = MathHelper.clamp_int(maxZ, this.zCoord - r, this.zCoord + r);
-
-        this.area = AxisAlignedBB.getBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
+        this.setArea(area.minX, area.minY, area.minZ, area.maxX, area.maxY, area.maxZ);
     }
 
-    public AxisAlignedBB getArea()
+    /**
+     * Sets the cart scanning area from the given <b>relative coordinates</b>.
+     */
+    public void setArea(byte[] area)
     {
-        if (this.area == null)
+        if (area != null && area.length == 6)
+        {
+            this.setArea(area[0], area[1], area[2], area[3], area[4], area[5]);
+        }
+    }
+
+    /**
+     * Sets the cart scanning area from the given <b>relative coordinates</b>.
+     */
+    public void setArea(double minX, double minY, double minZ, double maxX, double maxY, double maxZ)
+    {
+        double r = 32.0d;
+        minX = MathHelper.clamp_double(minX, -r, r);
+        minY = MathHelper.clamp_double(minY, -r, r);
+        minZ = MathHelper.clamp_double(minZ, -r, r);
+        maxX = MathHelper.clamp_double(maxX, -r, r);
+        maxY = MathHelper.clamp_double(maxY, -r, r);
+        maxZ = MathHelper.clamp_double(maxZ, -r, r);
+
+        this.areaRelative = AxisAlignedBB.getBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
+        this.areaAbsolute = this.getAbsoluteArea(this.areaRelative);
+    }
+
+    public AxisAlignedBB getAbsoluteArea(AxisAlignedBB bb)
+    {
+        return AxisAlignedBB.getBoundingBox(
+                    bb.minX + this.xCoord,
+                    bb.minY + this.yCoord,
+                    bb.minZ + this.zCoord,
+                    bb.maxX + this.xCoord,
+                    bb.maxY + this.yCoord,
+                    bb.maxZ + this.zCoord);
+    }
+
+    /**
+     * @return the current <b>relative coordinate area</b> for scanning for carts
+     */
+    public AxisAlignedBB getRelativeArea()
+    {
+        if (this.areaRelative == null)
         {
             this.initArea();
         }
 
-        return this.area;
+        return this.areaRelative;
+    }
+
+    /**
+     * @return the current <b>absolute/real coordinate area</b> for scanning for carts
+     */
+    public AxisAlignedBB getAbsoluteArea()
+    {
+        if (this.areaAbsolute == null)
+        {
+            this.initArea();
+        }
+
+        return this.areaAbsolute;
     }
 
     protected void checkForCarts()
     {
-        boolean carts = this.worldObj.getEntitiesWithinAABB(EntityMinecart.class, this.getArea()).isEmpty() == false;
+        boolean carts = this.worldObj.getEntitiesWithinAABB(EntityMinecart.class, this.getAbsoluteArea()).isEmpty() == false;
         if (carts != this.cartsPassing)
         {
             this.getWorldObj().markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
         }
         this.cartsPassing = carts;
+    }
+
+    /**
+     * Sets the secondary, "being-edited" area from the <b>relative coordinate</b> bounding box <b>area</b>.
+     * @param area
+     */
+    @SideOnly(Side.CLIENT)
+    public void setEditArea(AxisAlignedBB area)
+    {
+        this.areaEdit = area;
+    }
+
+    /**
+     * @return the <b>relative coordinate</b> area being edited
+     */
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getEditArea()
+    {
+        return this.areaEdit;
     }
 
     @SideOnly(Side.CLIENT)

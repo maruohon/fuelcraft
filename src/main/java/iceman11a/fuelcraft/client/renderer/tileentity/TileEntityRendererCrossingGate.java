@@ -19,6 +19,18 @@ public class TileEntityRendererCrossingGate extends TileEntitySpecialRenderer
 {
     private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/model/crossing_gate.png");
     private ModelCrossingGate model = new ModelCrossingGate();
+    private float r = 0.0f;
+    private float g = 0.4f;
+    private float b = 0.8f;
+    private float a = 0.9f;
+
+    private void setColors(float r, float g, float b, float a)
+    {
+        this.r = r;
+        this.g = g;
+        this.b = b;
+        this.a = a;
+    }
 
     /*public void renderBeamVertical(double x, double y, double z, double yMin, double yMax, double radius, double rot, double flowSpeed, boolean powered)
     {
@@ -119,7 +131,7 @@ public class TileEntityRendererCrossingGate extends TileEntitySpecialRenderer
         //GL11.glShadeModel(GL11.GL_FLAT);
 
         GL11.glPushMatrix();
-        GL11.glColor4f(0.0f, 0.4f, 0.8f, 0.6f);
+        //GL11.glColor4f(0.0f, 0.4f, 0.8f, 0.6f);
 
         EntityPlayer player = Minecraft.getMinecraft().thePlayer;
         float playerOffsetX = -(float) (player.lastTickPosX + (player.posX - player.lastTickPosX) * pTicks);
@@ -130,11 +142,11 @@ public class TileEntityRendererCrossingGate extends TileEntitySpecialRenderer
         GL11.glTranslatef(playerOffsetX, playerOffsetY, playerOffsetZ);
 
         GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_LINE);
-        GL11.glColor4f(0.0f, 0.4f, 0.8f, 0.9f);
+        GL11.glColor4f(this.r, this.g, this.b, 1.0f);
 
         RenderUtils.renderAABB(aabb);
 
-        GL11.glColor4f(0.0f, 0.4f, 0.8f, 0.4f);
+        GL11.glColor4f(this.r, this.g, this.b, this.a);
         GL11.glPolygonMode(GL11.GL_FRONT_AND_BACK, GL11.GL_FILL);
         GL11.glEnable(GL11.GL_BLEND);
 
@@ -266,12 +278,20 @@ public class TileEntityRendererCrossingGate extends TileEntitySpecialRenderer
         this.renderGate(x + 0.5d, y + 1.0d, z + 0.5d, te.getRotation(), te.angle, pTicks);
         this.updateAngle(te);
 
-        if (true)
+        if (te.renderArea == true)
         {
-            AxisAlignedBB bb = te.getArea();
+            AxisAlignedBB bb = te.getAbsoluteArea();
             if (bb != null)
             {
-                //this.renderArea(x, y, z, bb.minX, bb.minY, bb.minZ, bb.maxX, bb.maxY, bb.maxZ);
+                this.setColors(0.0f, 0.4f, 0.8f, 0.4f);
+                this.renderArea(x, y, z, bb, pTicks);
+            }
+
+            bb = te.getEditArea();
+            if (bb != null)
+            {
+                bb = te.getAbsoluteArea(bb);
+                this.setColors(0.8f, 0.0f, 0.4f, 0.4f);
                 this.renderArea(x, y, z, bb, pTicks);
             }
         }

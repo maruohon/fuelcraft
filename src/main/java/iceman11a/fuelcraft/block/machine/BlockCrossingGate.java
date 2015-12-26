@@ -1,4 +1,4 @@
-package iceman11a.fuelcraft.block;
+package iceman11a.fuelcraft.block.machine;
 
 import java.util.List;
 
@@ -6,6 +6,7 @@ import cpw.mods.fml.common.eventhandler.Event.Result;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import iceman11a.fuelcraft.Fuelcraft;
+import iceman11a.fuelcraft.block.BlockFuelcraftBase;
 import iceman11a.fuelcraft.reference.ReferenceGuiIds;
 import iceman11a.fuelcraft.reference.ReferenceNames;
 import iceman11a.fuelcraft.reference.ReferenceTextures;
@@ -82,7 +83,8 @@ public class BlockCrossingGate extends BlockFuelcraftBase
 
         if (world.isRemote == true)
         {
-            Fuelcraft.proxy.openGui(ReferenceGuiIds.GUI_ID_CROSSING_GATES);
+            TileEntity te = world.getTileEntity(x, y, z);
+            Fuelcraft.proxy.openGui(ReferenceGuiIds.GUI_ID_CROSSING_GATES, te);
         }
 
         return true;

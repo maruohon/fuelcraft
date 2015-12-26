@@ -9,10 +9,11 @@ import iceman11a.fuelcraft.tileentity.TileEntityDieselProducer;
 import iceman11a.fuelcraft.tileentity.TileEntityOilProducer;
 import iceman11a.fuelcraft.tileentity.TileEntityTapoilProducer;
 import iceman11a.fuelcraft.tileentity.TileEntityTokenController;
+import net.minecraft.tileentity.TileEntity;
 
 public class CommonProxy {
 
-	public void openGui(int guiId) { }
+	public void openGui(int guiId, TileEntity te) { }
 	public void registerKeyBindings() { }
 	public void registerRenderers() { }
 

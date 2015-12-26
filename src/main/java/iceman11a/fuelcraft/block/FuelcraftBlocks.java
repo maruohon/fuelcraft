@@ -1,6 +1,7 @@
 package iceman11a.fuelcraft.block;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import iceman11a.fuelcraft.block.machine.BlockCrossingGate;
 import iceman11a.fuelcraft.block.machine.BlockMachine;
 import iceman11a.fuelcraft.block.ore.BlockFuelcraftOre;
 import iceman11a.fuelcraft.reference.ReferenceNames;
