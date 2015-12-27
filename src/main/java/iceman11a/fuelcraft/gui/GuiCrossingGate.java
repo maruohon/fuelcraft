@@ -30,11 +30,6 @@ public class GuiCrossingGate extends GuiScreen
     {
         this.te = te;
         this.guiTexture = ReferenceTextures.getGuiTexture("gui.crossinggate");
-
-        if (this.te.getEditArea() == null)
-        {
-            this.te.setEditArea(this.te.getRelativeArea().copy());
-        }
     }
 
     @Override
@@ -79,6 +74,11 @@ public class GuiCrossingGate extends GuiScreen
         int posX = x + 16;
         int posY = y + 10;
         AxisAlignedBB bb = this.te.getEditArea();
+        if (bb == null)
+        {
+            bb = this.te.getRelativeArea();
+        }
+
         this.fontRendererObj.drawString(String.format("min X: %4d", (int)bb.minX), posX, posY +   0, 0xff404040);
         this.fontRendererObj.drawString(String.format("min Y: %4d", (int)bb.minY), posX, posY +  14, 0xff404040);
         this.fontRendererObj.drawString(String.format("min Z: %4d", (int)bb.minZ), posX, posY +  28, 0xff404040);
@@ -168,18 +168,25 @@ public class GuiCrossingGate extends GuiScreen
         // AABB area edge edit buttons
         if (button.id >= 0 && button.id <= 5)
         {
+            if (this.te.getEditArea() == null)
+            {
+                this.te.setEditArea(this.te.getRelativeArea().copy());
+            }
+
             this.moveAABBEdge(this.te.getEditArea(), button.id, change);
         }
         // Reset the edit area
         else if (button.id == 6)
         {
-            this.te.setEditArea(this.te.getRelativeArea().copy());
+            this.te.setEditArea(null);
         }
         // Save the edit area
         else if (button.id == 7)
         {
             PacketHandler.INSTANCE.sendToServer(new MessageCrossingGateSetArea(this.te.getWorldObj().provider.dimensionId,
                     this.te.xCoord, this.te.yCoord, this.te.zCoord, this.te.getAreaAsArray(this.te.getEditArea())));
+
+            this.te.setEditArea(null);
         }
         // Toggle AABB rendering
         else if (button.id == 8)

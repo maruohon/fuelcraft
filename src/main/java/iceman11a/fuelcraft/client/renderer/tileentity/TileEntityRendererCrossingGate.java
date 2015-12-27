@@ -280,19 +280,21 @@ public class TileEntityRendererCrossingGate extends TileEntitySpecialRenderer
 
         if (te.renderArea == true)
         {
-            AxisAlignedBB bb = te.getAbsoluteArea();
-            if (bb != null)
-            {
-                this.setColors(0.0f, 0.4f, 0.8f, 0.4f);
-                this.renderArea(x, y, z, bb, pTicks);
-            }
-
-            bb = te.getEditArea();
+            AxisAlignedBB bb = te.getEditArea();
             if (bb != null)
             {
                 bb = te.getAbsoluteArea(bb);
                 this.setColors(0.8f, 0.0f, 0.4f, 0.4f);
                 this.renderArea(x, y, z, bb, pTicks);
+            }
+            else
+            {
+                bb = te.getAbsoluteArea();
+                if (bb != null)
+                {
+                    this.setColors(0.0f, 0.4f, 0.8f, 0.4f);
+                    this.renderArea(x, y, z, bb, pTicks);
+                }
             }
         }
     }
