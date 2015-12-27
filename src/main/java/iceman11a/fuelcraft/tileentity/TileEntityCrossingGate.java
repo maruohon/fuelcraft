@@ -34,12 +34,14 @@ public class TileEntityCrossingGate extends TileEntityFuelCraft {
     @SideOnly(Side.CLIENT)
     public float angle;
 
-    public TileEntityCrossingGate() {
+    public TileEntityCrossingGate()
+    {
         super(ReferenceNames.NAME_TILE_CROSSING_GATE);
     }
 
     @Override
-    public void readFromNBT(NBTTagCompound nbt) {
+    public void readFromNBT(NBTTagCompound nbt)
+    {
         super.readFromNBT(nbt);
 
         if (nbt.hasKey("RelBB", Constants.NBT.TAG_BYTE_ARRAY) == true)
@@ -49,20 +51,23 @@ public class TileEntityCrossingGate extends TileEntityFuelCraft {
     }
 
     @Override
-    public void writeToNBT(NBTTagCompound nbt) {
+    public void writeToNBT(NBTTagCompound nbt)
+    {
         super.writeToNBT(nbt);
 
         nbt.setByteArray("RelBB", this.getAreaAsArray(this.getRelativeArea()));
     }
 
     @Override
-    public void onBlockNeighbourChange() {
+    public void onBlockNeighbourChange()
+    {
         //this.redstoneState = this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
         this.checkForCarts();
     }
 
     @Override
-    public NBTTagCompound getDescriptionPacketTag(NBTTagCompound nbt) {
+    public NBTTagCompound getDescriptionPacketTag(NBTTagCompound nbt)
+    {
         nbt = super.getDescriptionPacketTag(nbt);
 
         nbt.setBoolean("carts", this.cartsPassing);
@@ -72,7 +77,8 @@ public class TileEntityCrossingGate extends TileEntityFuelCraft {
     }
 
     @Override
-    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet) {
+    public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity packet)
+    {
         super.onDataPacket(net, packet);
 
         NBTTagCompound nbt = packet.func_148857_g();
@@ -107,7 +113,8 @@ public class TileEntityCrossingGate extends TileEntityFuelCraft {
     }
 
     @Override
-    public void setRotation(int rot) {
+    public void setRotation(int rot)
+    {
         super.setRotation(rot);
 
         this.initArea();

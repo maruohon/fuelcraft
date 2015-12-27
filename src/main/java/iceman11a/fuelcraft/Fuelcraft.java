@@ -31,62 +31,69 @@ import net.minecraft.item.Item;
 
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION)
-public class Fuelcraft {
-	public static OreGeneration eventWorldGen = new OreGeneration();
+public class Fuelcraft
+{
+    public static OreGeneration eventWorldGen = new OreGeneration();
 
-	@Instance(Reference.MOD_ID)
-	public static Fuelcraft instance;
-	public static Logger logger;
+    @Instance(Reference.MOD_ID)
+    public static Fuelcraft instance;
+    public static Logger logger;
 
-	@SidedProxy(clientSide="iceman11a.fuelcraft.proxys.ClientProxy", serverSide="iceman11a.fuelcraft.proxys.ServerProxy")
-	public static CommonProxy proxy;
+    @SidedProxy(clientSide="iceman11a.fuelcraft.proxys.ClientProxy", serverSide="iceman11a.fuelcraft.proxys.ServerProxy")
+    public static CommonProxy proxy;
 
-	@EventHandler
-	public void preInit(FMLPreInitializationEvent event) {
-		logger = event.getModLog();
-		Configs.loadConfigs(event.getSuggestedConfigurationFile());
+    @EventHandler
+    public void preInit(FMLPreInitializationEvent event)
+    {
+        logger = event.getModLog();
+        Configs.loadConfigs(event.getSuggestedConfigurationFile());
 
-		FuelcraftBlocks.registerBlocks();
-		FuelcraftFluids.registerFluids();
-		FuelcraftItems.registerItems();
-		// The fluid container needs the bucket item to be registered, and that one needs the fluid block to be registered
-		// So the registration order here needs to be fluids -> items -> fluid containers
-		FuelcraftFluids.registerFluidContainers();
-		PacketHandler.init();
+        FuelcraftBlocks.registerBlocks();
+        FuelcraftFluids.registerFluids();
+        FuelcraftItems.registerItems();
+        // The fluid container needs the bucket item to be registered, and that one needs the fluid block to be registered
+        // So the registration order here needs to be fluids -> items -> fluid containers
+        FuelcraftFluids.registerFluidContainers();
+        PacketHandler.init();
 
-		proxy.registerTileEntities();
-		proxy.setupReflection();
+        proxy.registerTileEntities();
+        proxy.setupReflection();
 
-		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
-	}
+        NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
+    }
 
-	@EventHandler
-	public void init(FMLInitializationEvent event) {
-		ModBiomes.registerWithBiomeDictionary();
-		Dimension.registerWorldProvider();
-		Dimension.registerDimensions();
-		WorldTypesTutorial.addCustomWorldTypes();
-		EventHelper.registerEvents();
+    @EventHandler
+    public void init(FMLInitializationEvent event)
+    {
+        ModBiomes.registerWithBiomeDictionary();
+        Dimension.registerWorldProvider();
+        Dimension.registerDimensions();
+        WorldTypesTutorial.addCustomWorldTypes();
+        EventHelper.registerEvents();
 
-		proxy.registerRenderers();
+        proxy.registerRenderers();
 
-		GameRegistry.registerWorldGenerator(eventWorldGen,  0);
-	}
-	
-	@EventHandler
-	public void postInit(FMLPostInitializationEvent event) {
-		GameRegistry.registerFuelHandler(new FuelHandler());
-	}
+        GameRegistry.registerWorldGenerator(eventWorldGen, 0);
+    }
+    
+    @EventHandler
+    public void postInit(FMLPostInitializationEvent event)
+    {
+        GameRegistry.registerFuelHandler(new FuelHandler());
+    }
 
-	@EventHandler
-	public static void postLoad(FMLPostInitializationEvent evt) {
-		Recipies.registerRecipies();
-	}
+    @EventHandler
+    public static void postLoad(FMLPostInitializationEvent evt)
+    {
+        Recipies.registerRecipies();
+    }
 
-	public static CreativeTabs tabFuelcraft = new CreativeTabs("tabFuelcraft") {
-		@Override
-		public Item getTabIconItem(){
-			return FuelcraftItems.resource;
-		}
-	};
+    public static CreativeTabs tabFuelcraft = new CreativeTabs("tabFuelcraft")
+    {
+        @Override
+        public Item getTabIconItem()
+        {
+            return FuelcraftItems.resource;
+        }
+    };
 }

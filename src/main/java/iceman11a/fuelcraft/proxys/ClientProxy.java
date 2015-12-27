@@ -11,34 +11,35 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.tileentity.TileEntity;
 
-public class ClientProxy extends CommonProxy {
+public class ClientProxy extends CommonProxy
+{
 
-	@Override
-	public void openGui(int guiId, TileEntity te)
-	{
-		switch (guiId)
-		{
-			case ReferenceGuiIds.GUI_ID_CROSSING_GATES:
-				if (te instanceof TileEntityCrossingGate)
-				{
-					Minecraft.getMinecraft().displayGuiScreen(new GuiCrossingGate((TileEntityCrossingGate)te));
-				}
-				break;
-		}
-	}
+    @Override
+    public void openGui(int guiId, TileEntity te)
+    {
+        switch (guiId)
+        {
+            case ReferenceGuiIds.GUI_ID_CROSSING_GATES:
+                if (te instanceof TileEntityCrossingGate)
+                {
+                    Minecraft.getMinecraft().displayGuiScreen(new GuiCrossingGate((TileEntityCrossingGate)te));
+                }
+                break;
+        }
+    }
 
-	@Override
-	public void registerKeyBindings() { }
+    @Override
+    public void registerKeyBindings() { }
 
-	@Override
-	public void registerRenderers()
-	{
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCrossingGate.class, new TileEntityRendererCrossingGate());
-	}
+    @Override
+    public void registerRenderers()
+    {
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityCrossingGate.class, new TileEntityRendererCrossingGate());
+    }
 
-	@Override
-	public void setupReflection()
-	{
-		ReferenceReflection.fieldGuiContainer_theSlot = ReflectionHelper.findField(GuiContainer.class, "u", "field_147006_u", "theSlot");
-	}
+    @Override
+    public void setupReflection()
+    {
+        ReferenceReflection.fieldGuiContainer_theSlot = ReflectionHelper.findField(GuiContainer.class, "u", "field_147006_u", "theSlot");
+    }
 }

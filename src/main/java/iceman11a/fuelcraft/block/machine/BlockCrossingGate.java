@@ -121,11 +121,6 @@ public class BlockCrossingGate extends BlockFuelcraftBase
         return false;
     }
 
-    @Override
-    public int getRenderType() {
-        return super.getRenderType();
-    }
-
     @SideOnly(Side.CLIENT)
     @Override
     public IIcon getIcon(int side, int meta)

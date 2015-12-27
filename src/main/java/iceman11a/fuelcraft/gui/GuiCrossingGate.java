@@ -18,7 +18,7 @@ import net.minecraft.util.StatCollector;
 
 public class GuiCrossingGate extends GuiScreen
 {
-	protected TileEntityCrossingGate te;
+    protected TileEntityCrossingGate te;
     protected ResourceLocation guiTexture;
     protected int xSize = 176;
     protected int ySize = 96;
