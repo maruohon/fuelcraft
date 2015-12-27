@@ -8,14 +8,15 @@ import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.Ev
 import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.ICE;
 import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAKE;
 import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAVA;
-import iceman11a.fuelcraft.Fuelcraft;
-import iceman11a.fuelcraft.block.FuelcraftBlocks;
-import iceman11a.fuelcraft.reference.Reference;
-import iceman11a.fuelcraft.world.biomes.ModBiomes;
 
 import java.util.List;
 import java.util.Random;
 
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import iceman11a.fuelcraft.Fuelcraft;
+import iceman11a.fuelcraft.block.FuelcraftBlocks;
+import iceman11a.fuelcraft.reference.Reference;
+import iceman11a.fuelcraft.world.biomes.ModBiomes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.EnumCreatureType;
@@ -42,7 +43,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.ChunkProviderEvent;
 import net.minecraftforge.event.terraingen.PopulateChunkEvent;
 import net.minecraftforge.event.terraingen.TerrainGen;
-import cpw.mods.fml.common.eventhandler.Event.Result;
 
 public class ChunkProviderForest implements IChunkProvider
 {
@@ -174,11 +174,11 @@ public class ChunkProviderForest implements IChunkProvider
                             double d15 = d10 - d16;
                             for (int k3 = 0; k3 < 4; ++k3) {
                                 if ((d15 += d16) > 0.0D) {
-                                    blocks[j3 += short1] = FuelcraftBlocks.lightStone;//these can be set to custom blocks
+                                    blocks[j3 += short1] = FuelcraftBlocks.lightStone;
                                 } else if (k2 * 8 + l2 < b0) {
-                                    blocks[j3 += short1] = Blocks.water;//these can be set to custom blocks
+                                    blocks[j3 += short1] = Blocks.water;
                                 } else {
-                                    blocks[j3 += short1] = null;//this is the air block i think.
+                                    blocks[j3 += short1] = Blocks.air;
                                 }
                             }
                             d10 += d12;

@@ -1,10 +1,11 @@
 package iceman11a.fuelcraft.block;
 
-import iceman11a.fuelcraft.Fuelcraft;
-import iceman11a.fuelcraft.reference.ReferenceTextures;
-
 import java.util.Random;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import iceman11a.fuelcraft.Fuelcraft;
+import iceman11a.fuelcraft.reference.ReferenceTextures;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -14,8 +15,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockBasic extends Block
 {
@@ -130,6 +129,6 @@ public class BlockBasic extends Block
      */
     public boolean canPlaceBlockAt(World world, int x, int y, int z)
     {
-        return world.doesBlockHaveSolidTopSurface(world, x, y - 1, z);
+        return World.doesBlockHaveSolidTopSurface(world, x, y - 1, z);
     }
 }

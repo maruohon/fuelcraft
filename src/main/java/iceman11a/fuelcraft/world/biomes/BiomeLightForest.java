@@ -1,12 +1,10 @@
 package iceman11a.fuelcraft.world.biomes;
 
-import iceman11a.fuelcraft.block.FuelcraftBlocks;
-import iceman11a.fuelcraft.world.biomes.decorators.BiomeDecoratorMod;
-
 import java.util.Random;
 
+import iceman11a.fuelcraft.block.FuelcraftBlocks;
+import iceman11a.fuelcraft.world.biomes.decorators.BiomeDecoratorMod;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenTallGrass;
 import net.minecraft.world.gen.feature.WorldGenerator;
 

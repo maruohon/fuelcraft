@@ -2,6 +2,8 @@ package iceman11a.fuelcraft.world.renderers;
 
 import java.util.Random;
 
+import org.lwjgl.opengl.GL11;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.OpenGlHelper;
@@ -11,8 +13,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.client.IRenderHandler;
-
-import org.lwjgl.opengl.GL11;
 
 public class WeatherRenderer extends IRenderHandler
 {
@@ -101,9 +101,7 @@ public class WeatherRenderer extends IRenderHandler
                 b0 = 10;
             }
 
-            boolean flag = false;
             byte b1 = -1;
-            float f5 = (float)312545411L + par1;
 
             if (mc.gameSettings.fancyGraphics)
             {
@@ -111,7 +109,6 @@ public class WeatherRenderer extends IRenderHandler
             }
 
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            flag = false;
 
             for (int l = i3 - b0; l <= i3 + b0; ++l)
             {

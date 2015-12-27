@@ -1,13 +1,10 @@
 package iceman11a.fuelcraft.block;
 
-import static net.minecraftforge.common.EnumPlantType.Crop;
-import static net.minecraftforge.common.EnumPlantType.Nether;
 import static net.minecraftforge.common.EnumPlantType.Plains;
-import static net.minecraftforge.common.EnumPlantType.Water;
-import iceman11a.fuelcraft.Fuelcraft;
 
 import java.util.Random;
 
+import iceman11a.fuelcraft.Fuelcraft;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;

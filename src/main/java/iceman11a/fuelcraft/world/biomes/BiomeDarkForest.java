@@ -2,10 +2,6 @@ package iceman11a.fuelcraft.world.biomes;
 
 import iceman11a.fuelcraft.block.FuelcraftBlocks;
 
-import java.util.Random;
-
-import net.minecraft.world.World;
-
 public class BiomeDarkForest extends ModBiomes
 {
     public BiomeDarkForest(int biomeId)
