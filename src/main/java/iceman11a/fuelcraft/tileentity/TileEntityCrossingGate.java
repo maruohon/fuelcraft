@@ -100,6 +100,8 @@ public class TileEntityCrossingGate extends TileEntityFuelCraft {
             }
 
             this.cartsPassing = carts;
+            System.out.println("carts: " + this.cartsPassing);
+            System.out.println("movingTo: " + this.movingTo);
         }
 
         if (nbt.hasKey("bb", Constants.NBT.TAG_BYTE_ARRAY))
@@ -227,7 +229,7 @@ public class TileEntityCrossingGate extends TileEntityFuelCraft {
     protected void checkForCarts()
     {
         boolean carts = this.worldObj.getEntitiesWithinAABB(EntityMinecart.class, this.getAbsoluteArea()).isEmpty() == false;
-        if (carts != this.cartsPassing)
+        //if (carts != this.cartsPassing)
         {
             this.getWorldObj().markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
         }

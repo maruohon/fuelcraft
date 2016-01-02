@@ -231,24 +231,25 @@ public class TileEntityRendererCrossingGate extends TileEntitySpecialRenderer
 
         switch (facing) {
             case 2:
-                rotation = 180.0f;
+                rotation = (float)Math.PI;
                 break;
             case 3:
                 rotation = 0.0f;
                 break;
             case 4:
-                rotation = 90.0f;
+                rotation = (float)(Math.PI / 2.0d);
                 break;
             case 5:
-                rotation = -90.0f;
+                rotation = -(float)(Math.PI / 2.0d);
                 break;
         }
 
         //GL11.glRotatef(rotation, 0.0f, 1.0f, 0.0f);
 
-        this.model.base.rotateAngleY = rotation;
+        //this.model = new ModelCrossingGate();
+        //this.model.base.rotateAngleY = rotation;
         this.model.gate.rotateAngleY = rotation;
-        this.model.gate.rotateAngleX = angle;
+        this.model.gate.rotateAngleX = (float)(angle * Math.PI / 180.0f);
 
         this.model.renderAll();
 
@@ -263,10 +264,19 @@ public class TileEntityRendererCrossingGate extends TileEntitySpecialRenderer
         if (te.movingTo != TileEntityCrossingGate.STATE_NOT_MOVING)
         {
             // 3 seconds (= 3000 ms) to move from one end position to other end position
-            float newAngle = te.angle + (te.movingTo * ((System.currentTimeMillis() - te.timeStart) * 90 / 3000));
-            te.angle = MathHelper.clamp_float(newAngle, 0.0f, 90.0f);
+            if (te.movingTo == TileEntityCrossingGate.STATE_OPEN)
+            {
+                te.angle = 90.0f - ((System.currentTimeMillis() - te.timeStart) * 90 / 3000);
+            }
+            else if (te.movingTo == TileEntityCrossingGate.STATE_CLOSED)
+            {
+                te.angle = ((System.currentTimeMillis() - te.timeStart) * 90 / 3000);
+            }
 
-            if (te.angle == 0.0f || te.angle == 90.0f)
+            te.angle = MathHelper.clamp_float(te.angle, 0.0f, 90.0f);
+            System.out.printf("angle: %7.3f\n", te.angle);
+
+            if ((System.currentTimeMillis() - te.timeStart) > 100 && (te.angle == 0.0f || te.angle == 90.0f))
             {
                 te.movingTo = TileEntityCrossingGate.STATE_NOT_MOVING;
             }

@@ -13,10 +13,11 @@ public class ModelCrossingGate extends ModelBase
 
     public ModelCrossingGate()
     {
-        this.gate = (new ModelRenderer(this, 0, 0)).setTextureSize(128, 32);
-        this.gate.addBox(0.0f, 0.0f, 0.0f, 4, 80, 2, 0.0f);
+        this.gate = (new ModelRenderer(this, 0, 0)).setTextureSize(64, 128);
+        this.gate.addBox(0.0f, 0.0f, 0.0f, 8, 96, 4, 0.0f);
+        this.gate.setRotationPoint(-4.0f, 0.0f, -2.0f);
 
-        this.base = (new ModelRenderer(this, 0, 0)).setTextureSize(128, 32);
+        this.base = (new ModelRenderer(this, 0, 0)).setTextureSize(64, 128);
         this.base.addBox(0.0f, 0.0f, 0.0f, 16, 16, 16, 0.0f);
     }
 
