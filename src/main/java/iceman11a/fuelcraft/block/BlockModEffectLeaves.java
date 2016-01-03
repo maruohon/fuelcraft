@@ -1,11 +1,7 @@
 package iceman11a.fuelcraft.block;
 
-import iceman11a.fuelcraft.particle.EntityTreeFX;
-import iceman11a.fuelcraft.reference.ReferenceTextures;
-
 import java.util.List;
 import java.util.Random;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -18,6 +14,8 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import iceman11a.fuelcraft.client.particle.EntityTreeFX;
+import iceman11a.fuelcraft.reference.ReferenceTextures;
 
 public class BlockModEffectLeaves extends BlockModLeaves
 {
