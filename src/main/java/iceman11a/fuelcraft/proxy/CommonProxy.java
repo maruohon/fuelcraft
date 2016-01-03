@@ -1,4 +1,4 @@
-package iceman11a.fuelcraft.proxys;
+package iceman11a.fuelcraft.proxy;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import iceman11a.fuelcraft.reference.ReferenceNames;

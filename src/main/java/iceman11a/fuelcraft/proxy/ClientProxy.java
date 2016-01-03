@@ -1,4 +1,4 @@
-package iceman11a.fuelcraft.proxys;
+package iceman11a.fuelcraft.proxy;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.relauncher.ReflectionHelper;

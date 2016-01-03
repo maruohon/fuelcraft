@@ -19,7 +19,7 @@ import iceman11a.fuelcraft.gui.GuiHandler;
 import iceman11a.fuelcraft.handler.FuelHandler;
 import iceman11a.fuelcraft.item.FuelcraftItems;
 import iceman11a.fuelcraft.network.PacketHandler;
-import iceman11a.fuelcraft.proxys.CommonProxy;
+import iceman11a.fuelcraft.proxy.CommonProxy;
 import iceman11a.fuelcraft.reference.Reference;
 import iceman11a.fuelcraft.util.Recipies;
 import iceman11a.fuelcraft.world.Dimension;
@@ -39,7 +39,7 @@ public class Fuelcraft
     public static Fuelcraft instance;
     public static Logger logger;
 
-    @SidedProxy(clientSide="iceman11a.fuelcraft.proxys.ClientProxy", serverSide="iceman11a.fuelcraft.proxys.ServerProxy")
+    @SidedProxy(clientSide="iceman11a.fuelcraft.proxy.ClientProxy", serverSide="iceman11a.fuelcraft.proxy.CommonProxy")
     public static CommonProxy proxy;
 
     @EventHandler
