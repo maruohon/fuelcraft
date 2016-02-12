@@ -247,6 +247,7 @@ public class TileEntityRendererCrossingGate extends TileEntitySpecialRenderer
 
         GL11.glRotatef(rotation, 0.0f, 1.0f, 0.0f);
 
+        model = new ModelCrossingGate(); // FIXME remove after debugging the models
         this.model.gate.rotateAngleZ = (float)(angle * Math.PI / 180.0f);
         this.model.renderAll();
 

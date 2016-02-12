@@ -2,16 +2,6 @@ package iceman11a.fuelcraft.block.machine;
 
 import java.util.List;
 
-import cpw.mods.fml.common.eventhandler.Event.Result;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import iceman11a.fuelcraft.Fuelcraft;
-import iceman11a.fuelcraft.block.BlockFuelcraftBase;
-import iceman11a.fuelcraft.reference.ReferenceGuiIds;
-import iceman11a.fuelcraft.reference.ReferenceNames;
-import iceman11a.fuelcraft.reference.ReferenceTextures;
-import iceman11a.fuelcraft.tileentity.TileEntityCrossingGate;
-import iceman11a.fuelcraft.tileentity.TileEntityFuelCraft;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -21,12 +11,21 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+import iceman11a.fuelcraft.Fuelcraft;
+import iceman11a.fuelcraft.block.BlockFuelcraftBase;
+import iceman11a.fuelcraft.reference.ReferenceGuiIds;
+import iceman11a.fuelcraft.tileentity.TileEntityCrossingGate;
+import iceman11a.fuelcraft.tileentity.TileEntityFuelCraft;
 
 public class BlockCrossingGate extends BlockFuelcraftBase
 {
@@ -121,54 +120,14 @@ public class BlockCrossingGate extends BlockFuelcraftBase
         return false;
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
-    public IIcon getIcon(int side, int meta)
+    public int getRenderType()
     {
-        // These are for the rendering in ItemBlock form in inventories etc.
-
-        int index = 0;
-        int offset = meta * 6;
-
-        if (side == 0 || side == 1)
-        {
-            index = offset + 1; // top
-        }
-        else if (side == 3)
-        {
-            index = offset + 2; // front
-        }
-        else
-        {
-            index = offset + 4; // side (left)
-        }
-
-        return index < this.icons.length ? this.icons[index] : this.blockIcon;
+        return -1;
     }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public IIcon getIcon(IBlockAccess blockAccess, int x, int y, int z, int side)
-    {
-        int meta = blockAccess.getBlockMetadata(x, y, z);
-        int index = meta * 6 + side;
-
-        return index < this.icons.length ? this.icons[index] : this.blockIcon;
-    }
-
-    @SideOnly(Side.CLIENT)
     @Override
     public void registerBlockIcons(IIconRegister iconRegister)
     {
-        this.icons = new IIcon[6];
-        this.blockIcon = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_CROSSING_GATE) + ".top"); // Fallback
-
-        // Crossing Gates
-        this.icons[0] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_CROSSING_GATE) + ".bottom");
-        this.icons[1] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_CROSSING_GATE) + ".top");
-        this.icons[2] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_CROSSING_GATE) + ".front");
-        this.icons[3] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_CROSSING_GATE) + ".back");
-        this.icons[4] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_CROSSING_GATE) + ".right");
-        this.icons[5] = iconRegister.registerIcon(ReferenceTextures.getTileName(ReferenceNames.NAME_TILE_CROSSING_GATE) + ".left");
     }
 }

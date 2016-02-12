@@ -19,6 +19,8 @@ tile.fuelcraft.ore.1.name=Cor Coal Ore
 tile.fuelcraft.ore.2.name=Red Cor Ore
 tile.fuelcraft.ore.3.name=Black Diamond Ore
 
+tile.fuelcraft.crossinggate.0.name=Crossing Gate
+
 tile.fuelcraft.machine.0.name=Diesel Producer
 tile.fuelcraft.machine.1.name=Cart Painter
 tile.fuelcraft.machine.2.name=Token Controller
