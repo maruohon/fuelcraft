@@ -1,8 +1,5 @@
 package iceman11a.fuelcraft.tileentity;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import iceman11a.fuelcraft.reference.ReferenceNames;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -10,14 +7,20 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
+
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+import iceman11a.fuelcraft.reference.ReferenceNames;
+
 public class TileEntityCrossingGate extends TileEntityFuelCraft {
 
-    public static final int STATE_NOT_MOVING =  0;
-    public static final int STATE_OPEN       = -1;
-    public static final int STATE_CLOSED     =  1;
+    public static final int STATE_NOT_MOVING = 0;
+    public static final int STATE_OPEN       = 1;
+    public static final int STATE_CLOSED     = 2;
 
     protected AxisAlignedBB areaRelative;
     protected AxisAlignedBB areaAbsolute;
@@ -30,9 +33,13 @@ public class TileEntityCrossingGate extends TileEntityFuelCraft {
     @SideOnly(Side.CLIENT)
     public int movingTo;
     @SideOnly(Side.CLIENT)
+    public int movingToLast;
+    @SideOnly(Side.CLIENT)
     public long timeStart;
     @SideOnly(Side.CLIENT)
-    public float angle;
+    public float startAngle;
+    @SideOnly(Side.CLIENT)
+    public float currentAngle;
 
     public TileEntityCrossingGate()
     {
@@ -62,7 +69,10 @@ public class TileEntityCrossingGate extends TileEntityFuelCraft {
     public void onBlockNeighbourChange()
     {
         //this.redstoneState = this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
-        this.checkForCarts();
+        //this.checkForCarts();
+        // FIXME debugging
+        this.cartsPassing = this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
+        this.getWorldObj().markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
     }
 
     @Override
@@ -100,8 +110,8 @@ public class TileEntityCrossingGate extends TileEntityFuelCraft {
             }
 
             this.cartsPassing = carts;
-            System.out.println("carts: " + this.cartsPassing);
-            System.out.println("movingTo: " + this.movingTo);
+            //System.out.println("carts: " + this.cartsPassing);
+            //System.out.println("movingTo: " + this.movingTo);
         }
 
         if (nbt.hasKey("bb", Constants.NBT.TAG_BYTE_ARRAY))

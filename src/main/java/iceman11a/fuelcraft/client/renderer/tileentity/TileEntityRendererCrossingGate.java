@@ -3,10 +3,6 @@ package iceman11a.fuelcraft.client.renderer.tileentity;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import iceman11a.fuelcraft.client.model.ModelCrossingGate;
-import iceman11a.fuelcraft.client.renderer.RenderUtils;
-import iceman11a.fuelcraft.reference.Reference;
-import iceman11a.fuelcraft.tileentity.TileEntityCrossingGate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,6 +10,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+
+import iceman11a.fuelcraft.client.model.ModelCrossingGate;
+import iceman11a.fuelcraft.client.renderer.RenderUtils;
+import iceman11a.fuelcraft.reference.Reference;
+import iceman11a.fuelcraft.tileentity.TileEntityCrossingGate;
 
 public class TileEntityRendererCrossingGate extends TileEntitySpecialRenderer
 {
@@ -230,27 +231,23 @@ public class TileEntityRendererCrossingGate extends TileEntitySpecialRenderer
         float rotation = 0.0f;
 
         switch (facing) {
-            case 2:
-                rotation = (float)Math.PI;
+            case 2: // North
+                rotation = 180.0f;
                 break;
-            case 3:
+            case 3: // South
                 rotation = 0.0f;
                 break;
-            case 4:
-                rotation = (float)(Math.PI / 2.0d);
+            case 4: // West
+                rotation = -90.0f;
                 break;
-            case 5:
-                rotation = -(float)(Math.PI / 2.0d);
+            case 5: // East
+                rotation = 90.0f;
                 break;
         }
 
-        //GL11.glRotatef(rotation, 0.0f, 1.0f, 0.0f);
+        GL11.glRotatef(rotation, 0.0f, 1.0f, 0.0f);
 
-        //this.model = new ModelCrossingGate();
-        //this.model.base.rotateAngleY = rotation;
-        this.model.gate.rotateAngleY = rotation;
-        this.model.gate.rotateAngleX = (float)(angle * Math.PI / 180.0f);
-
+        this.model.gate.rotateAngleZ = (float)(angle * Math.PI / 180.0f);
         this.model.renderAll();
 
         GL11.glEnable(GL11.GL_BLEND);
@@ -261,31 +258,41 @@ public class TileEntityRendererCrossingGate extends TileEntitySpecialRenderer
 
     public void updateAngle(TileEntityCrossingGate te)
     {
+        float moveTimeMs = 2000;
+
+        if (te.movingToLast != te.movingTo)
+        {
+            te.startAngle = te.currentAngle;
+            te.movingToLast = te.movingTo;
+        }
+
         if (te.movingTo != TileEntityCrossingGate.STATE_NOT_MOVING)
         {
-            // 3 seconds (= 3000 ms) to move from one end position to other end position
+            float angleDiff = ((System.currentTimeMillis() - te.timeStart) * 90 / moveTimeMs);
+
+            // moveTimeMs to move from one end position to other end position
             if (te.movingTo == TileEntityCrossingGate.STATE_OPEN)
             {
-                te.angle = 90.0f - ((System.currentTimeMillis() - te.timeStart) * 90 / 3000);
+                te.currentAngle = te.startAngle - angleDiff;
             }
             else if (te.movingTo == TileEntityCrossingGate.STATE_CLOSED)
             {
-                te.angle = ((System.currentTimeMillis() - te.timeStart) * 90 / 3000);
+                te.currentAngle = te.startAngle + angleDiff;
             }
 
-            te.angle = MathHelper.clamp_float(te.angle, 0.0f, 90.0f);
-            System.out.printf("angle: %7.3f\n", te.angle);
+            te.currentAngle = MathHelper.clamp_float(te.currentAngle, 0.0f, 90.0f);
 
-            if ((System.currentTimeMillis() - te.timeStart) > 100 && (te.angle == 0.0f || te.angle == 90.0f))
+            if ((System.currentTimeMillis() - te.timeStart) > 100 && (te.currentAngle == 0.0f || te.currentAngle == 90.0f))
             {
                 te.movingTo = TileEntityCrossingGate.STATE_NOT_MOVING;
+                te.movingToLast = te.movingTo;
             }
         }
     }
 
     public void renderTileEntityAt(TileEntityCrossingGate te, double x, double y, double z, float pTicks)
     {
-        this.renderGate(x + 0.5d, y + 1.0d, z + 0.5d, te.getRotation(), te.angle, pTicks);
+        this.renderGate(x + 0.5d, y + 1.0d, z + 0.5d, te.getRotation(), te.currentAngle, pTicks);
         this.updateAngle(te);
 
         if (te.renderArea == true)
