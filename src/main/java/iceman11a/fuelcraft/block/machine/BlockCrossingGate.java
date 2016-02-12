@@ -12,6 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import net.minecraftforge.common.MinecraftForge;
@@ -53,6 +54,24 @@ public class BlockCrossingGate extends BlockFuelcraftBase
 
         return null;
     }
+
+    @Override
+    public void setBlockBoundsBasedOnState(IBlockAccess blockAccess, int x, int y, int z)
+    {
+        this.setBlockBounds(0.25f, 0.0f, 0.25f, 0.75f, 1.0f, 0.75f);
+    }
+
+    /*@Override
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
+    {
+        return super.getCollisionBoundingBoxFromPool(world, x, y, z);
+    }
+
+    @Override
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
+    {
+        return super.getSelectedBoundingBoxFromPool(world, x, y, z);
+    }*/
 
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase livingBase, ItemStack stack)
