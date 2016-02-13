@@ -1,18 +1,21 @@
 package iceman11a.fuelcraft.tileentity;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import iceman11a.fuelcraft.Fuelcraft;
-import iceman11a.fuelcraft.gui.GuiFuelCraftInventory;
-import iceman11a.fuelcraft.inventory.ContainerTileEntityInventory;
-import iceman11a.fuelcraft.reference.Reference;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+
 import net.minecraftforge.common.util.Constants;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+import iceman11a.fuelcraft.Fuelcraft;
+import iceman11a.fuelcraft.gui.GuiFuelCraftInventory;
+import iceman11a.fuelcraft.inventory.ContainerTileEntityInventory;
+import iceman11a.fuelcraft.reference.Reference;
 
 public class TileEntityFuelCraftInventory extends TileEntityFuelCraft implements IInventory
 {
@@ -198,8 +201,6 @@ public class TileEntityFuelCraftInventory extends TileEntityFuelCraft implements
     {
         return true;
     }
-
-    public void performGuiAction(int action, int element) { }
 
     public ContainerTileEntityInventory getContainer(InventoryPlayer inventory)
     {

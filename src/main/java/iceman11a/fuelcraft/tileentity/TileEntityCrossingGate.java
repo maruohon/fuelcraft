@@ -1,10 +1,10 @@
 package iceman11a.fuelcraft.tileentity;
 
 import net.minecraft.entity.item.EntityMinecart;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 
@@ -16,15 +16,18 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import iceman11a.fuelcraft.reference.ReferenceNames;
 
-public class TileEntityCrossingGate extends TileEntityFuelCraft {
-
+public class TileEntityCrossingGate extends TileEntityFuelCraft
+{
+    public AxisAlignedBB renderBB;
     public static final int STATE_NOT_MOVING = 0;
     public static final int STATE_OPEN       = 1;
     public static final int STATE_CLOSED     = 2;
 
     protected AxisAlignedBB areaRelative;
     protected AxisAlignedBB areaAbsolute;
-    protected boolean cartsPassing;
+    public boolean isCartsMode;
+    protected boolean statusLast;
+    //protected boolean redstoneState;
 
     @SideOnly(Side.CLIENT)
     protected AxisAlignedBB areaEdit;
@@ -51,6 +54,9 @@ public class TileEntityCrossingGate extends TileEntityFuelCraft {
     {
         super.readFromNBT(nbt);
 
+        this.isCartsMode = nbt.getByte("Mode") == 1;
+        //this.redstoneState = nbt.getByte("Redstone") == 1;
+
         if (nbt.hasKey("RelBB", Constants.NBT.TAG_BYTE_ARRAY) == true)
         {
             this.setArea(nbt.getByteArray("RelBB"));
@@ -62,17 +68,44 @@ public class TileEntityCrossingGate extends TileEntityFuelCraft {
     {
         super.writeToNBT(nbt);
 
+        nbt.setByte("Mode", (byte)(this.isCartsMode == true ? 1 : 0));
+        //nbt.setByte("Redstone", (byte)(this.redstoneState == true ? 1 : 0));
         nbt.setByteArray("RelBB", this.getAreaAsArray(this.getRelativeArea()));
     }
 
     @Override
     public void onBlockNeighbourChange()
     {
-        //this.redstoneState = this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
-        //this.checkForCarts();
-        // FIXME debugging
-        this.cartsPassing = this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
-        this.getWorldObj().markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+        if (this.isCartsMode == true)
+        {
+            this.checkForCarts();
+        }
+        else
+        {
+            this.checkRedstone();
+        }
+    }
+
+    protected void checkForCarts()
+    {
+        boolean carts = this.worldObj.getEntitiesWithinAABB(EntityMinecart.class, this.getAbsoluteArea()).isEmpty() == false;
+
+        if (carts != this.statusLast)
+        {
+            this.statusLast = carts;
+            this.getWorldObj().markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+        }
+    }
+
+    protected void checkRedstone()
+    {
+        boolean state = this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
+
+        if (state != this.statusLast)
+        {
+            this.statusLast = state;
+            this.getWorldObj().markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+        }
     }
 
     @Override
@@ -80,7 +113,8 @@ public class TileEntityCrossingGate extends TileEntityFuelCraft {
     {
         nbt = super.getDescriptionPacketTag(nbt);
 
-        nbt.setBoolean("carts", this.cartsPassing);
+        nbt.setBoolean("status", this.statusLast);
+        nbt.setBoolean("mode", this.isCartsMode);
         nbt.setByteArray("bb", this.getAreaAsArray(this.getRelativeArea()));
 
         return nbt;
@@ -92,26 +126,23 @@ public class TileEntityCrossingGate extends TileEntityFuelCraft {
         super.onDataPacket(net, packet);
 
         NBTTagCompound nbt = packet.func_148857_g();
-        if (nbt.hasKey("carts", Constants.NBT.TAG_BYTE))
-        {
-            boolean carts = nbt.getBoolean("carts");
-            if (carts != this.cartsPassing)
-            {
-                if (carts == true)
-                {
-                    this.movingTo = STATE_CLOSED;
-                }
-                else
-                {
-                    this.movingTo = STATE_OPEN;
-                }
 
-                this.timeStart = System.currentTimeMillis();
+        this.isCartsMode = nbt.getBoolean("mode");
+        boolean status = nbt.getBoolean("status");
+
+        if (status != this.statusLast)
+        {
+            if (status == true)
+            {
+                this.movingTo = STATE_CLOSED;
+            }
+            else
+            {
+                this.movingTo = STATE_OPEN;
             }
 
-            this.cartsPassing = carts;
-            //System.out.println("carts: " + this.cartsPassing);
-            //System.out.println("movingTo: " + this.movingTo);
+            this.timeStart = System.currentTimeMillis();
+            this.statusLast = status;
         }
 
         if (nbt.hasKey("bb", Constants.NBT.TAG_BYTE_ARRAY))
@@ -236,21 +267,10 @@ public class TileEntityCrossingGate extends TileEntityFuelCraft {
         return this.areaAbsolute;
     }
 
-    protected void checkForCarts()
-    {
-        boolean carts = this.worldObj.getEntitiesWithinAABB(EntityMinecart.class, this.getAbsoluteArea()).isEmpty() == false;
-        //if (carts != this.cartsPassing)
-        {
-            this.getWorldObj().markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
-        }
-        this.cartsPassing = carts;
-    }
-
     /**
      * Sets the secondary, "being-edited" area from the <b>relative coordinate</b> bounding box <b>area</b>.
      * @param area
      */
-    @SideOnly(Side.CLIENT)
     public void setEditArea(AxisAlignedBB area)
     {
         this.areaEdit = area;
@@ -259,16 +279,31 @@ public class TileEntityCrossingGate extends TileEntityFuelCraft {
     /**
      * @return the <b>relative coordinate</b> area being edited
      */
-    @SideOnly(Side.CLIENT)
     public AxisAlignedBB getEditArea()
     {
         return this.areaEdit;
+    }
+
+    @Override
+    public void performGuiAction(EntityPlayer player, int action, int element)
+    {
+        if (action == 0 && element == 0)
+        {
+            this.isCartsMode = ! this.isCartsMode;
+            this.getWorldObj().markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+        }
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public AxisAlignedBB getRenderBoundingBox()
     {
-        return TileEntity.INFINITE_EXTENT_AABB;
+        if (this.renderBB == null)
+        {
+            double r = 32d;
+            this.renderBB = AxisAlignedBB.getBoundingBox(this.xCoord - r, this.yCoord - r, this.zCoord - r, this.xCoord + r, this.yCoord + r, this.zCoord + r);
+        }
+
+        return this.renderBB;
     }
 }

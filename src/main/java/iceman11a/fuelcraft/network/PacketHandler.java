@@ -12,5 +12,6 @@ public class PacketHandler
     public static void init()
     {
         INSTANCE.registerMessage(MessageCrossingGateSetArea.class, MessageCrossingGateSetArea.class, 0, Side.SERVER);
+        INSTANCE.registerMessage(MessageGuiAction.class, MessageGuiAction.class, 1, Side.SERVER);
     }
 }

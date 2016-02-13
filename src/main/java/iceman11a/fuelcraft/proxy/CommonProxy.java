@@ -1,6 +1,12 @@
 package iceman11a.fuelcraft.proxy;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+
+import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import cpw.mods.fml.common.registry.GameRegistry;
+
+import iceman11a.fuelcraft.Fuelcraft;
 import iceman11a.fuelcraft.reference.ReferenceNames;
 import iceman11a.fuelcraft.tileentity.TileEntityCartFilter;
 import iceman11a.fuelcraft.tileentity.TileEntityCartPainter;
@@ -9,10 +15,21 @@ import iceman11a.fuelcraft.tileentity.TileEntityDieselProducer;
 import iceman11a.fuelcraft.tileentity.TileEntityOilProducer;
 import iceman11a.fuelcraft.tileentity.TileEntityTapoilProducer;
 import iceman11a.fuelcraft.tileentity.TileEntityTokenController;
-import net.minecraft.tileentity.TileEntity;
 
 public class CommonProxy
 {
+    public EntityPlayer getPlayerFromMessageContext(MessageContext ctx)
+    {
+        switch (ctx.side)
+        {
+            case SERVER:
+                return ctx.getServerHandler().playerEntity;
+
+            default:
+                Fuelcraft.logger.warn("Invalid side in getPlayerFromMessageContext(): " + ctx.side);
+                return null;
+        }
+    }
 
     public void openGui(int guiId, TileEntity te) { }
     public void registerKeyBindings() { }

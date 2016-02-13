@@ -9,6 +9,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+
 import net.minecraftforge.common.util.Constants;
 
 
@@ -134,6 +135,8 @@ public class TileEntityFuelCraft extends TileEntity
 
         this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
     }
+
+    public void performGuiAction(EntityPlayer player, int action, int element) { }
 
     @Override
     public String toString()
